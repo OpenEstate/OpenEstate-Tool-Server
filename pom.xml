@@ -31,6 +31,8 @@
     <project.baseName>OpenEstate-ImmoServer</project.baseName>
     <project.javadocDir>${project.basedir}/javadoc</project.javadocDir>
     <project.releaseDir>${project.basedir}/release</project.releaseDir>
+    <yajsw.version>stable-12.08</yajsw.version>
+    <yajsw.download>https://netix.dl.sourceforge.net/project/yajsw/yajsw/yajsw-${yajsw.version}/yajsw-${yajsw.version}.zip</yajsw.download>
   </properties>
 
   <dependencies>
@@ -190,6 +192,32 @@
               <target>
                 <mkdir dir="${project.build.directory}/runtime"/>
                 <mkdir dir="${project.build.directory}/runtime/bin"/>
+
+                <!-- download yajsw -->
+                <get src="${yajsw.download}" dest="${project.basedir}/share/yajsw"
+                     skipexisting="true" verbose="false" />
+
+                <!-- extract yajsw -->
+                <delete dir="${project.basedir}/share/yajsw/pkg" />
+                <unzip src="${project.basedir}/share/yajsw/yajsw-${yajsw.version}.zip"
+                       dest="${project.basedir}/share/yajsw/pkg" />
+
+                <!-- copy yajsw into runtime -->
+                <copy todir="${project.build.directory}/runtime/var/wrapper"
+                      file="${project.basedir}/share/yajsw/pkg/yajsw-${yajsw.version}/wrapper.jar" />
+                <copy todir="${project.build.directory}/runtime/var/wrapper"
+                      file="${project.basedir}/share/yajsw/pkg/yajsw-${yajsw.version}/wrapperApp.jar" />
+                <copy tofile="${project.build.directory}/runtime/doc/licenses/yajsw.license.txt"
+                      file="${project.basedir}/share/yajsw/pkg/yajsw-${yajsw.version}/LICENSE.txt" />
+                <copy tofile="${project.build.directory}/runtime/doc/sources/yajsw-${yajsw.version}.zip"
+                      file="${project.basedir}/share/yajsw/pkg/yajsw-${yajsw.version}/src/src.zip" />
+                <copy todir="${project.build.directory}/runtime/var/wrapper/lib">
+                  <fileset dir="${project.basedir}/share/yajsw/pkg/yajsw-${yajsw.version}/lib" />
+                </copy>
+                <copy todir="${project.build.directory}/runtime/doc/wrapper">
+                  <fileset dir="${project.basedir}/share/yajsw/pkg/yajsw-${yajsw.version}/doc" />
+                </copy>
+
               </target>
             </configuration>
           </execution>

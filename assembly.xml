@@ -50,6 +50,18 @@
       <fileMode>0644</fileMode>
       <filtered>false</filtered>
     </fileSet>
+    <fileSet>
+      <directory>${project.basedir}/share/icons</directory>
+      <outputDirectory>var/icons</outputDirectory>
+      <directoryMode>0755</directoryMode>
+      <fileMode>0644</fileMode>
+      <filtered>false</filtered>
+      <includes>
+        <include>*.icns</include>
+        <include>*.ico</include>
+        <include>*.png</include>
+      </includes>
+    </fileSet>
 
     <!--
     <fileSet>
