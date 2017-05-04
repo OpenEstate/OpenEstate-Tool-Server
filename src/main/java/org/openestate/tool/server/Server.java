@@ -15,10 +15,9 @@
  */
 package org.openestate.tool.server;
 
-import org.hsqldb.lib.FileUtil;
+import java.io.InputStream;
 import org.hsqldb.server.ServerConfiguration;
 import org.hsqldb.server.ServerConstants;
-import org.hsqldb.server.ServerProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,19 +45,22 @@ public class Server extends org.hsqldb.Server
   public static void main( String[] args )
   {
     //org.hsqldb.Server.main( args );
-    server = new Server();
 
-    String propsPath = "server";
-    String propsExtension = ".properties";
-
-    propsPath = FileUtil.getFileUtil().canonicalOrAbsolutePath( propsPath );
-
-    ServerProperties props = ServerConfiguration.getPropertiesFromFile(
-      ServerConstants.SC_PROTOCOL_HSQL, propsPath, propsExtension);
-
-    if (props==null)
+    final ServerProperties props;
+    try
     {
-      server.printError( "Can't find server configuration!" );
+      InputStream propsStream = Server.class.getResourceAsStream( "/server.properties" );
+      if (propsStream==null)
+      {
+        LOGGER.error( "Can't find server configuration!" );
+        return;
+      }
+      props = ServerProperties.create( ServerConstants.SC_PROTOCOL_HSQL, propsStream );
+    }
+    catch (Exception ex)
+    {
+      LOGGER.error( "Can't load server configuration!" );
+      LOGGER.error( "> " + ex.getLocalizedMessage(), ex );
       return;
     }
 
@@ -71,39 +73,40 @@ public class Server extends org.hsqldb.Server
     ServerConfiguration.translateDefaultNoSystemExitProperty( props );
     ServerConfiguration.translateAddressProperty( props );
 
+    server = new Server();
     try
     {
-      server.setProperties(props);
+      server.setProperties( props );
     }
     catch (Exception e)
     {
-      server.printError( "Failed to set properties" );
+      server.printError( "Failed to set properties!" );
       server.printStackTrace( e );
       return;
     }
 
-    // now messages go to the channel specified in properties
-    server.print( "Startup sequence initiated from main() method" );
-    server.print( "Loaded properties from [" + propsPath + propsExtension + "]" );
     server.start();
   }
 
   @Override
   protected void print( String msg )
   {
-    super.print( msg );
+    //super.print( msg );
+    LOGGER.info( "[" + this.getServerId() + "]: " + msg );
   }
 
   @Override
   protected void printError( String msg )
   {
-    super.printError( msg );
+    //super.printError( msg );
+    LOGGER.error( msg );
   }
 
   @Override
   protected void printStackTrace( Throwable t )
   {
-    super.printStackTrace( t );
+    //super.printStackTrace( t );
+    LOGGER.error( t.getLocalizedMessage(), t );
   }
 
   @Override
