@@ -6,7 +6,7 @@
 @echo off
 
 pushd %~dp0
-call WrapperSettings.bat
+call env.bat
 %wrapper_bat% -c %conf_file%
 popd
 pause
