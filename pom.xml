@@ -304,7 +304,8 @@
                 -->
               </jre>
               <!--<manifest></manifest>-->
-              <headerType>console</headerType>
+              <headerType>gui</headerType>
+              <!--<headerType>console</headerType>-->
               <priority>normal</priority>
               <customProcName>false</customProcName>
               <stayAlive>false</stayAlive>

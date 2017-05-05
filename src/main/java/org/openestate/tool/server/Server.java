@@ -15,7 +15,18 @@
  */
 package org.openestate.tool.server;
 
+import java.awt.AWTException;
+import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.InputStream;
+import javax.imageio.ImageIO;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.hsqldb.server.ServerConfiguration;
 import org.hsqldb.server.ServerConstants;
 import org.slf4j.Logger;
@@ -40,6 +51,65 @@ public class Server extends org.hsqldb.Server
   public static Server get()
   {
     return server;
+  }
+
+  private static void initSystemTray()
+  {
+    final String trayEnabled = StringUtils.trimToNull( StringUtils.lowerCase( System.getProperty( "openestate.server.trayIcon", "false" ) ) );
+    if (!"1".equals( trayEnabled ) && !"true".equals( trayEnabled ))
+      return;
+
+    if (SystemUtils.isJavaAwtHeadless())
+      return;
+
+    if (!SystemUtils.IS_OS_WINDOWS)
+      return;
+
+    //Check the SystemTray is supported
+    if (!SystemTray.isSupported())
+    {
+      LOGGER.warn( "The system does not support system tray." );
+      return;
+    }
+
+    final Image trayIconImage;
+    try
+    {
+      trayIconImage = ImageIO.read( Server.class.getResourceAsStream( "/org/openestate/tool/server/resources/ImmoServer.png" ) );
+    }
+    catch (Exception ex)
+    {
+      LOGGER.error( "Can't load icon for system tray!" );
+      LOGGER.error( "> " + ex.getLocalizedMessage(), ex );
+      return;
+    }
+
+    final PopupMenu popup = new PopupMenu();
+    final MenuItem stopItem = new MenuItem( "Shutdown server." );
+    stopItem.addActionListener( new ActionListener()
+    {
+      @Override
+      public void actionPerformed( ActionEvent e )
+      {
+        stopItem.setEnabled( false );
+        server.stop();
+      }
+    } );
+    popup.add( stopItem );
+
+    final TrayIcon trayIcon = new TrayIcon( trayIconImage, "OpenEstate-ImmoServer", popup );
+    trayIcon.setImageAutoSize( true );
+
+    final SystemTray tray = SystemTray.getSystemTray();
+    try
+    {
+      tray.add( trayIcon );
+    }
+    catch (AWTException ex)
+    {
+      LOGGER.error( "Can't add icon to system tray!" );
+      LOGGER.error( "> " + ex.getLocalizedMessage(), ex );
+    }
   }
 
   public static void main( String[] args )
@@ -85,6 +155,7 @@ public class Server extends org.hsqldb.Server
       return;
     }
 
+    initSystemTray();
     server.start();
   }
 
