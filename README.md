@@ -46,4 +46,3 @@ Further informations
 -   [Releases of *OpenEstate-Tool-Server*](https://github.com/OpenEstate/OpenEstate-Tool-Server/releases)
 -   [Changelog of *OpenEstate-Tool-Server*](https://github.com/OpenEstate/OpenEstate-Tool-Server/blob/develop/CHANGELOG.md)
 -   [Javadocs of *OpenEstate-Tool-Server*](http://manual.openestate.org/OpenEstate-Tool-Server/)
--   [Validator for common XML formats](http://validator.openestate.org/)
