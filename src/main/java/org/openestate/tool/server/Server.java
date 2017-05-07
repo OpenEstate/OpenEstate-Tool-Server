@@ -23,12 +23,15 @@ import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.hsqldb.server.ServerConfiguration;
 import org.hsqldb.server.ServerConstants;
+import org.openestate.tool.server.utils.MigrationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -127,6 +130,7 @@ public class Server extends org.hsqldb.Server
       initSystemTray();
     }
 
+    // load server configuration
     final ServerProperties props;
     try
     {
@@ -154,6 +158,7 @@ public class Server extends org.hsqldb.Server
     ServerConfiguration.translateDefaultNoSystemExitProperty( props );
     ServerConfiguration.translateAddressProperty( props );
 
+    // create the database server
     server = new Server();
     try
     {
@@ -165,6 +170,29 @@ public class Server extends org.hsqldb.Server
       server.printStackTrace( e );
       return;
     }
+
+    // init databases before the server is started
+    for (int i=0;;i++)
+    {
+      String path = server.getDatabasePath( i, true );
+      if (path==null) break;
+      if (!path.startsWith( "file:" )) continue;
+
+      File dbDir = new File( FilenameUtils.separatorsToSystem( StringUtils.substringAfter( path, "file:" ) ) ).getParentFile();
+      String dbName = StringUtils.substringAfterLast( path, "/" );
+      LOGGER.debug( "init database at " + dbDir.getAbsolutePath() );
+      try
+      {
+        MigrationUtils.migrateFromOldDatabase( dbDir, dbName );
+      }
+      catch (Exception ex)
+      {
+        LOGGER.warn( "Can't migrate database at '" + dbDir.getAbsolutePath() + "'!" );
+        LOGGER.warn( "> " + ex.getLocalizedMessage(), ex );
+      }
+    }
+
+    // start the database server
     server.start();
   }
 
