@@ -55,14 +55,12 @@ public class Server extends org.hsqldb.Server
 
   private static void initSystemTray()
   {
-    final String trayEnabled = StringUtils.trimToNull( StringUtils.lowerCase( System.getProperty( "openestate.server.trayIcon", "false" ) ) );
+    final String trayEnabled = StringUtils.trimToNull( StringUtils.lowerCase(
+      System.getProperty( "openestate.server.trayIcon", "false" ) ) );
     if (!"1".equals( trayEnabled ) && !"true".equals( trayEnabled ))
       return;
 
     if (SystemUtils.isJavaAwtHeadless())
-      return;
-
-    if (!SystemUtils.IS_OS_WINDOWS)
       return;
 
     //Check the SystemTray is supported
