@@ -41,11 +41,12 @@ import org.slf4j.LoggerFactory;
 public class Server extends org.hsqldb.Server
 {
   private final static Logger LOGGER = LoggerFactory.getLogger( Server.class );
+  private final static String TITLE = "OpenEstate-ImmoServer";
   private final static String SYSTEM_TRAY_PROPERTY = "openestate.server.systemTray";
   private static Server server = null;
   private static TrayIcon systemTrayIcon = null;
 
-  public Server()
+  protected Server()
   {
     super();
   }
@@ -82,7 +83,7 @@ public class Server extends org.hsqldb.Server
     }
 
     final PopupMenu popup = new PopupMenu();
-    final MenuItem stopItem = new MenuItem( "Shutdown OpenEstate-ImmoServer." );
+    final MenuItem stopItem = new MenuItem( "Shutdown " + TITLE + "." );
     stopItem.addActionListener( new ActionListener()
     {
       @Override
@@ -94,7 +95,7 @@ public class Server extends org.hsqldb.Server
     } );
     popup.add( stopItem );
 
-    systemTrayIcon = new TrayIcon( trayIconImage, "OpenEstate-ImmoServer", popup );
+    systemTrayIcon = new TrayIcon( trayIconImage, TITLE, popup );
     systemTrayIcon.setImageAutoSize( true );
 
     final SystemTray tray = SystemTray.getSystemTray();
@@ -205,30 +206,22 @@ public class Server extends org.hsqldb.Server
       {
         case ServerConstants.SERVER_STATE_ONLINE:
           systemTrayIcon.displayMessage(
-           "OpenEstate-ImmoServer",
-           "OpenEstate-ImmoServer is available for incoming connections.",
-           TrayIcon.MessageType.INFO );
+           TITLE, TITLE + " is available for incoming connections.", TrayIcon.MessageType.INFO );
           break;
 
         case ServerConstants.SERVER_STATE_CLOSING:
           systemTrayIcon.displayMessage(
-           "OpenEstate-ImmoServer",
-           "OpenEstate-ImmoServer is shutting down.",
-           TrayIcon.MessageType.INFO );
+           TITLE, TITLE + " is shutting down.", TrayIcon.MessageType.INFO );
           break;
 
         case ServerConstants.SERVER_STATE_OPENING:
           systemTrayIcon.displayMessage(
-           "OpenEstate-ImmoServer",
-           "OpenEstate-ImmoServer is starting up.",
-           TrayIcon.MessageType.INFO );
+           TITLE, TITLE + " is starting up.", TrayIcon.MessageType.INFO );
           break;
 
         case ServerConstants.SERVER_STATE_SHUTDOWN:
           systemTrayIcon.displayMessage(
-           "OpenEstate-ImmoServer",
-           "OpenEstate-ImmoServer has been closed and is not available anymore.",
-           TrayIcon.MessageType.INFO );
+           TITLE, TITLE + " has been closed and is not available anymore.", TrayIcon.MessageType.INFO );
           break;
 
         default:
