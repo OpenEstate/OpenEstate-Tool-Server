@@ -276,7 +276,7 @@
 
           <!-- Start.exe -->
           <execution>
-            <id>launch4j-ImmoTool</id>
+            <id>launch4j-Start</id>
             <phase>${release.preparePhase}</phase>
             <goals>
               <goal>launch4j</goal>
@@ -303,9 +303,7 @@
                 </opts>
                 -->
               </jre>
-              <!--<manifest></manifest>-->
               <headerType>gui</headerType>
-              <!--<headerType>console</headerType>-->
               <priority>normal</priority>
               <customProcName>false</customProcName>
               <stayAlive>false</stayAlive>
@@ -321,6 +319,112 @@
                 <internalName>ImmoServer</internalName>
                 <originalFilename>Start.exe</originalFilename>
                 <fileDescription>OpenEstate-ImmoServer</fileDescription>
+                <fileVersion>${project.launch4jVersion}</fileVersion>
+                <txtFileVersion>${project.buildVersion}</txtFileVersion>
+                <productVersion>${project.launch4jVersion}</productVersion>
+                <txtProductVersion>${project.buildVersion}</txtProductVersion>
+              </versionInfo>
+            </configuration>
+          </execution>
+
+          <!-- ManagerConsole.exe -->
+          <execution>
+            <id>launch4j-ManagerBackup</id>
+            <phase>${release.preparePhase}</phase>
+            <goals>
+              <goal>launch4j</goal>
+            </goals>
+            <configuration>
+              <outfile>${project.build.directory}/runtime/bin/ManagerConsole.exe</outfile>
+              <icon>${project.basedir}/share/icons/ImmoServer-Console.ico</icon>
+              <dontWrapJar>true</dontWrapJar>
+              <jar>.</jar>
+              <chdir>..</chdir>
+              <cmdLine></cmdLine>
+              <classPath>
+                <mainClass>org.hsqldb.cmdline.SqlTool</mainClass>
+                <addDependencies>false</addDependencies>
+                <preCp>etc\;lib\*.jar</preCp>
+              </classPath>
+              <jre>
+                <minVersion>1.7.0</minVersion>
+                <!--
+                <opts>
+                  <opt>-Dapp.basedir=.</opt>
+                  <opt>-Dapp.launcher=ImmoTool.exe</opt>
+                  <opt>-Djpf.boot.config=etc/boot.gui.properties</opt>
+                </opts>
+                -->
+              </jre>
+              <headerType>console</headerType>
+              <priority>normal</priority>
+              <customProcName>false</customProcName>
+              <stayAlive>false</stayAlive>
+              <singleInstance>
+                <mutexName>OpenEstate-ImmoServer-Console</mutexName>
+                <windowTitle>OpenEstate-ImmoServer-Console</windowTitle>
+              </singleInstance>
+              <downloadUrl>https://www.java.com/de/download/manual.jsp</downloadUrl>
+              <supportUrl>http://openestate.org</supportUrl>
+              <versionInfo>
+                <copyright>OpenEstate.org</copyright>
+                <productName>OpenEstate-ImmoServer-Console</productName>
+                <internalName>ImmoServer-Console</internalName>
+                <originalFilename>ManagerConsole.exe</originalFilename>
+                <fileDescription>OpenEstate-ImmoServer-Console</fileDescription>
+                <fileVersion>${project.launch4jVersion}</fileVersion>
+                <txtFileVersion>${project.buildVersion}</txtFileVersion>
+                <productVersion>${project.launch4jVersion}</productVersion>
+                <txtProductVersion>${project.buildVersion}</txtProductVersion>
+              </versionInfo>
+            </configuration>
+          </execution>
+
+          <!-- ManagerTool.exe -->
+          <execution>
+            <id>launch4j-ManagerTool</id>
+            <phase>${release.preparePhase}</phase>
+            <goals>
+              <goal>launch4j</goal>
+            </goals>
+            <configuration>
+              <outfile>${project.build.directory}/runtime/bin/ManagerTool.exe</outfile>
+              <icon>${project.basedir}/share/icons/ImmoServer-GUI.ico</icon>
+              <dontWrapJar>true</dontWrapJar>
+              <jar>.</jar>
+              <chdir>..</chdir>
+              <cmdLine></cmdLine>
+              <classPath>
+                <mainClass>org.hsqldb.util.DatabaseManagerSwing</mainClass>
+                <addDependencies>false</addDependencies>
+                <preCp>etc\;lib\*.jar</preCp>
+              </classPath>
+              <jre>
+                <minVersion>1.7.0</minVersion>
+                <!--
+                <opts>
+                  <opt>-Dapp.basedir=.</opt>
+                  <opt>-Dapp.launcher=ImmoTool.exe</opt>
+                  <opt>-Djpf.boot.config=etc/boot.gui.properties</opt>
+                </opts>
+                -->
+              </jre>
+              <headerType>gui</headerType>
+              <priority>normal</priority>
+              <customProcName>false</customProcName>
+              <stayAlive>false</stayAlive>
+              <singleInstance>
+                <mutexName>OpenEstate-ImmoServer-Manager</mutexName>
+                <windowTitle>OpenEstate-ImmoServer-Manager</windowTitle>
+              </singleInstance>
+              <downloadUrl>https://www.java.com/de/download/manual.jsp</downloadUrl>
+              <supportUrl>http://openestate.org</supportUrl>
+              <versionInfo>
+                <copyright>OpenEstate.org</copyright>
+                <productName>OpenEstate-ImmoServer-Manager</productName>
+                <internalName>ImmoServer-Manager</internalName>
+                <originalFilename>ManagerTool.exe</originalFilename>
+                <fileDescription>OpenEstate-ImmoServer-Manager</fileDescription>
                 <fileVersion>${project.launch4jVersion}</fileVersion>
                 <txtFileVersion>${project.buildVersion}</txtFileVersion>
                 <productVersion>${project.launch4jVersion}</productVersion>
