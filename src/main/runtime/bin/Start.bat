@@ -13,7 +13,7 @@ set "JAVA_HEAP_MINIMUM=32m"
 set "JAVA_HEAP_MAXIMUM=512m"
 
 :: Additional options for the Java Runtime Environment
-set "JAVA_OPTS=-Dfile.encoding=UTF-8 -Dopenestate.server.trayIcon=true"
+set "JAVA_OPTS=-Dfile.encoding=UTF-8 -Dopenestate.server.systemTray=true"
 
 
 ::

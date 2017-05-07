@@ -41,6 +41,7 @@ import org.slf4j.LoggerFactory;
 public class Server extends org.hsqldb.Server
 {
   private final static Logger LOGGER = LoggerFactory.getLogger( Server.class );
+  private final static String SYSTEM_TRAY_PROPERTY = "openestate.server.systemTray";
   private static Server server = null;
   private static TrayIcon systemTrayIcon = null;
 
@@ -57,18 +58,14 @@ public class Server extends org.hsqldb.Server
   private static void initSystemTray()
   {
     //LOGGER.debug( "init system tray" );
-
-    final String trayEnabled = StringUtils.trimToNull( StringUtils.lowerCase(
-      System.getProperty( "openestate.server.trayIcon", "false" ) ) );
-    if (!"1".equals( trayEnabled ) && !"true".equals( trayEnabled ))
+    if (!isSystemTrayEnabled())
     {
       //LOGGER.debug( "The system tray is disabled." );
       return;
     }
-
     if (!SystemTray.isSupported())
     {
-      LOGGER.warn( "The system does not support system tray." );
+      LOGGER.warn( "The operating system does not support system tray." );
       return;
     }
 
@@ -110,6 +107,14 @@ public class Server extends org.hsqldb.Server
       LOGGER.error( "Can't add icon to system tray!" );
       LOGGER.error( "> " + ex.getLocalizedMessage(), ex );
     }
+  }
+
+  public static boolean isSystemTrayEnabled()
+  {
+    final String property = StringUtils.trimToNull( StringUtils.lowerCase(
+      System.getProperty( SYSTEM_TRAY_PROPERTY, "false" ) ) );
+
+    return "1".equals( property ) || "true".equals( property );
   }
 
   public static void main( String[] args )

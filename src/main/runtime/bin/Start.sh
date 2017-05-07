@@ -33,7 +33,7 @@ case "$SYSTEM" in
 
   Darwin)
     echo "Initializing macOS environment..."
-    JAVA_OPTS="$JAVA_OPTS -Dopenestate.server.trayIcon=true"
+    JAVA_OPTS="$JAVA_OPTS -Dopenestate.server.systemTray=true"
     JAVA_OPTS="$JAVA_OPTS -Dapple.awt.UIElement=true"
 
     # Look for JRE at the default installation location.
