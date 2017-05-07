@@ -63,36 +63,27 @@
       </includes>
     </fileSet>
 
-    <!--
+    <!-- launcher for macOS -->
     <fileSet>
-      <directory>${project.basedir}/docs</directory>
-      <outputDirectory>docs</outputDirectory>
+      <directory>${basedir}/share/mac-application-bundles/Start.app</directory>
+      <outputDirectory>Start.app</outputDirectory>
       <directoryMode>0755</directoryMode>
       <fileMode>0644</fileMode>
       <filtered>false</filtered>
-      <includes>
-        <include>**/*.md</include>
-      </includes>
       <excludes>
-        <exclude>**/_*.md</exclude>
-        <exclude>**/Home.md</exclude>
+        <exclude>**/MacOS/*</exclude>
       </excludes>
     </fileSet>
     <fileSet>
-      <directory>${project.basedir}/misc/licenses</directory>
-      <outputDirectory>lib/3rdparty</outputDirectory>
+      <directory>${basedir}/share/mac-application-bundles/Start.app</directory>
+      <outputDirectory>Start.app</outputDirectory>
       <directoryMode>0755</directoryMode>
-      <fileMode>0644</fileMode>
+      <fileMode>0755</fileMode>
       <filtered>false</filtered>
+      <includes>
+        <include>**/MacOS/*</include>
+      </includes>
     </fileSet>
-    <fileSet>
-      <directory>${project.basedir}/target/javadoc</directory>
-      <outputDirectory>javadoc</outputDirectory>
-      <directoryMode>0755</directoryMode>
-      <fileMode>0644</fileMode>
-      <filtered>false</filtered>
-    </fileSet>
-    -->
   </fileSets>
 
   <dependencySets>
