@@ -42,6 +42,7 @@ public class Server extends org.hsqldb.Server
 {
   private final static Logger LOGGER = LoggerFactory.getLogger( Server.class );
   private static Server server = null;
+  private static TrayIcon systemTrayIcon = null;
 
   public Server()
   {
@@ -55,15 +56,16 @@ public class Server extends org.hsqldb.Server
 
   private static void initSystemTray()
   {
+    //LOGGER.debug( "init system tray" );
+
     final String trayEnabled = StringUtils.trimToNull( StringUtils.lowerCase(
       System.getProperty( "openestate.server.trayIcon", "false" ) ) );
     if (!"1".equals( trayEnabled ) && !"true".equals( trayEnabled ))
+    {
+      //LOGGER.debug( "The system tray is disabled." );
       return;
+    }
 
-    if (SystemUtils.isJavaAwtHeadless())
-      return;
-
-    //Check the SystemTray is supported
     if (!SystemTray.isSupported())
     {
       LOGGER.warn( "The system does not support system tray." );
@@ -83,7 +85,7 @@ public class Server extends org.hsqldb.Server
     }
 
     final PopupMenu popup = new PopupMenu();
-    final MenuItem stopItem = new MenuItem( "Shutdown server." );
+    final MenuItem stopItem = new MenuItem( "Shutdown OpenEstate-ImmoServer." );
     stopItem.addActionListener( new ActionListener()
     {
       @Override
@@ -95,13 +97,13 @@ public class Server extends org.hsqldb.Server
     } );
     popup.add( stopItem );
 
-    final TrayIcon trayIcon = new TrayIcon( trayIconImage, "OpenEstate-ImmoServer", popup );
-    trayIcon.setImageAutoSize( true );
+    systemTrayIcon = new TrayIcon( trayIconImage, "OpenEstate-ImmoServer", popup );
+    systemTrayIcon.setImageAutoSize( true );
 
     final SystemTray tray = SystemTray.getSystemTray();
     try
     {
-      tray.add( trayIcon );
+      tray.add( systemTrayIcon );
     }
     catch (AWTException ex)
     {
@@ -113,6 +115,11 @@ public class Server extends org.hsqldb.Server
   public static void main( String[] args )
   {
     //org.hsqldb.Server.main( args );
+
+    if (!SystemUtils.isJavaAwtHeadless())
+    {
+      initSystemTray();
+    }
 
     final ServerProperties props;
     try
@@ -152,8 +159,6 @@ public class Server extends org.hsqldb.Server
       server.printStackTrace( e );
       return;
     }
-
-    initSystemTray();
     server.start();
   }
 
@@ -182,5 +187,50 @@ public class Server extends org.hsqldb.Server
   protected void printWithThread( String msg )
   {
     super.printWithThread( msg );
+  }
+
+  @Override
+  protected synchronized void setState( int state )
+  {
+    //LOGGER.debug( "set server state: " + state );
+
+    if (systemTrayIcon!=null && this.getState()!=state)
+    {
+      switch (state)
+      {
+        case ServerConstants.SERVER_STATE_ONLINE:
+          systemTrayIcon.displayMessage(
+           "OpenEstate-ImmoServer",
+           "OpenEstate-ImmoServer is available for incoming connections.",
+           TrayIcon.MessageType.INFO );
+          break;
+
+        case ServerConstants.SERVER_STATE_CLOSING:
+          systemTrayIcon.displayMessage(
+           "OpenEstate-ImmoServer",
+           "OpenEstate-ImmoServer is shutting down.",
+           TrayIcon.MessageType.INFO );
+          break;
+
+        case ServerConstants.SERVER_STATE_OPENING:
+          systemTrayIcon.displayMessage(
+           "OpenEstate-ImmoServer",
+           "OpenEstate-ImmoServer is starting up.",
+           TrayIcon.MessageType.INFO );
+          break;
+
+        case ServerConstants.SERVER_STATE_SHUTDOWN:
+          systemTrayIcon.displayMessage(
+           "OpenEstate-ImmoServer",
+           "OpenEstate-ImmoServer has been closed and is not available anymore.",
+           TrayIcon.MessageType.INFO );
+          break;
+
+        default:
+          break;
+      }
+    }
+
+    super.setState( state );
   }
 }
