@@ -11,15 +11,30 @@ This project
     features.
 -   provides several startup scripts / executables / application bundles for
     *Windows*, *macOS* and *Linux*.
--   bundles [*yajsw*](http://yajsw.sourceforge.net/) in order to execute the
-    application as a *Windows* service.
--   provides scripts to execute the application as a
+-   bundles [*yajsw*](http://yajsw.sourceforge.net/) in order to run the
+    database as a *Windows* service.
+-   provides scripts to run the database as a
     [*systemd*](https://fedoraproject.org/wiki/Features/systemd) service on
     *Linux* systems.
--   provides scripts to execute the application as a
+-   provides scripts to run the database as a
     [*launchd*](https://en.wikipedia.org/wiki/Launchd) agent on *macOS* systems.
 -   provides an application to create a keystore for *SSL* encrypted database
     access.
+
+
+Dependencies
+------------
+
+-   Java 6 or newer
+-   [Bouncy Castle 1.56](https://bouncycastle.org/)
+    (optional for [`SslGenerator.java`](src/main/java/org/openestate/tool/server/utils/SslGenerator.java))
+-   [commons-io 2.5](http://commons.apache.org/proper/commons-io/)
+-   [commons-lang 3.5](http://commons.apache.org/proper/commons-lang/)
+-   [hsqldb 2.3.5](http://hsqldb.org/)
+-   [SLF4J 1.7.25](http://www.slf4j.org/)
+-   [log4j 1.2.17](http://logging.apache.org/log4j/1.2/)
+    (optional; may be replaced by another logging system
+    [via SLF4J](http://www.slf4j.org/manual.html))
 
 
 Changelog
