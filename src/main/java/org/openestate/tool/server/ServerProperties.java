@@ -21,6 +21,8 @@ import java.io.InputStream;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 /**
  * ServerProperties.
@@ -31,6 +33,7 @@ import org.slf4j.LoggerFactory;
 public class ServerProperties extends org.hsqldb.server.ServerProperties
 {
   private final static Logger LOGGER = LoggerFactory.getLogger( ServerProperties.class );
+  private static final I18n I18N = I18nFactory.getI18n( ServerProperties.class );
 
   public ServerProperties( int protocol, File file ) throws IOException
   {

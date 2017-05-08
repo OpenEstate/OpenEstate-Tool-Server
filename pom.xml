@@ -47,23 +47,33 @@
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcprov-jdk15on</artifactId>
       <version>1.56</version>
+      <scope>compile</scope>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcpkix-jdk15on</artifactId>
       <version>1.56</version>
+      <scope>compile</scope>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>2.5</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>3.5</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.gettext-commons</groupId>
+      <artifactId>gettext-commons</artifactId>
+      <version>0.9.8</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.hsqldb</groupId>
@@ -147,6 +157,36 @@
           <failOnError>false</failOnError>
           <excludeFilterFile>${project.basedir}/findbugs-exclude.xml</excludeFilterFile>
         </configuration>
+      </plugin>
+
+      <!-- gettext / http://gettext-commons.googlecode.com/svn/maven2-plugins-site/plugin-info.html -->
+      <plugin>
+        <groupId>com.googlecode.gettext-commons</groupId>
+        <artifactId>gettext-maven-plugin</artifactId>
+        <version>1.2.4</version>
+        <configuration>
+          <targetBundle>org.openestate.tool.server.resources.Messages</targetBundle>
+          <poDirectory>${project.basedir}/src/main/i18n</poDirectory>
+          <outputDirectory>${project.basedir}/src/main/resources</outputDirectory>
+          <outputFormat>class</outputFormat>
+
+          <!-- set path to the gettext utilities, if they are not found automatically -->
+          <!--
+          <msgcatCmd>msgcat</msgcatCmd>
+          <msgfmtCmd>msgfmt</msgfmtCmd>
+          <msgmergeCmd>msgmerge</msgmergeCmd>
+          <xgettextCmd>xgettext</xgettextCmd>
+          -->
+        </configuration>
+        <executions>
+          <execution>
+            <id>i18n-generate-bundle</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>dist</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 
       <!-- source -->

@@ -34,6 +34,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.bouncycastle.asn1.oiw.OIWObjectIdentifiers;
 import org.bouncycastle.asn1.x500.X500Name;
@@ -53,8 +54,11 @@ import org.bouncycastle.operator.bc.BcDigestCalculatorProvider;
 import org.bouncycastle.operator.bc.BcRSAContentSignerBuilder;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemWriter;
+import org.openestate.tool.server.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 /**
  * SslGenerator.
@@ -65,6 +69,7 @@ import org.slf4j.LoggerFactory;
 public class SslGenerator
 {
   private final static Logger LOGGER = LoggerFactory.getLogger( SslGenerator.class );
+  private static final I18n I18N = I18nFactory.getI18n( SslGenerator.class );
   private final static String ALIAS = "OpenEstate-ImmoServer";
   private final static String PROVIDER = "BC";
   private final static String KEY_ALGORITHM = "RSA";
@@ -97,7 +102,7 @@ public class SslGenerator
     final String line = StringUtils.repeat( "-", 75 );
 
     console.writer().println( line );
-    console.writer().println( "Generate RSA keypair and certificate for SSL encryption." );
+    console.writer().println( I18N.tr( "Generate RSA keypair and certificate for SSL encryption." ) );
     console.writer().println( line );
     console.writer().println( StringUtils.EMPTY );
 
@@ -112,7 +117,7 @@ public class SslGenerator
       //System.exit( 1 );
       //return;
 
-      console.writer().print( "Enter the ip-address / hostname of this server: " );
+      console.writer().print( I18N.tr( "Enter the ip-address / hostname of this server:" ) + StringUtils.SPACE );
       console.writer().flush();
       commonName = StringUtils.trimToNull( console.readLine() );
     }
@@ -127,24 +132,25 @@ public class SslGenerator
 
       while (password==null)
       {
-        console.writer().print( "Enter the password to access the keystore: " );
+        console.writer().print( I18N.tr( "Enter the password to access the keystore:" ) + StringUtils.SPACE );
         console.writer().flush();
         password = console.readPassword();
       }
 
-      console.writer().print( "Enter the password to access the keystore again: " );
+      console.writer().print( I18N.tr( "Enter the password to access the keystore again:" ) + StringUtils.SPACE );
       console.writer().flush();
       char[] password2 = console.readPassword();
       if (!StringUtils.equals( String.valueOf( password ), String.valueOf( password2 ) ))
       {
-        LOGGER.error( "The provided passwords do not match!" );
+        console.writer().println( I18N.tr( "Error!" ) );
+        console.writer().println( I18N.tr( "The provided passwords do not match." ) );
         System.exit( 1 );
       }
     }
 
     console.writer().println( StringUtils.EMPTY );
     console.writer().println( line );
-    console.writer().println( "Creating files for SSL encryption..." );
+    console.writer().println( I18N.tr( "Creating files for SSL encryption..." ) );
     console.writer().println( line );
     console.writer().println( StringUtils.EMPTY );
 
@@ -186,7 +192,7 @@ public class SslGenerator
     {
       File f = new File( sslDir, "private.key" );
       FileUtils.deleteQuietly( f );
-      console.writer().println( "Writing private key to " + f.getAbsolutePath() );
+      console.writer().println( I18N.tr( "Writing private key to {0}.", "'" + f.getAbsolutePath() + "'" ) );
       pemWriter = new PemWriter( new FileWriterWithEncoding( f, "UTF-8" ) );
       pemWriter.writeObject( new PemObject( "OpenEstate-ImmoServer / Private Key", priv.getEncoded() ) );
       pemWriter.flush();
@@ -209,7 +215,7 @@ public class SslGenerator
     {
       File f = new File( sslDir, "public.key" );
       FileUtils.deleteQuietly( f );
-      console.writer().println( "Writing public key to " + f.getAbsolutePath() );
+      console.writer().println( I18N.tr( "Writing public key to {0}.", "'" + f.getAbsolutePath() + "'" ) );
       pemWriter = new PemWriter( new FileWriterWithEncoding( f, "UTF-8" ) );
       pemWriter.writeObject( new PemObject( "OpenEstate-ImmoServer / Public Key", pub.getEncoded() ) );
       pemWriter.flush();
@@ -252,7 +258,7 @@ public class SslGenerator
       // export certificate
       File f = new File( sslDir, "private.crt" );
       FileUtils.deleteQuietly( f );
-      console.writer().println( "Writing certificate to " + f.getAbsolutePath() );
+      console.writer().println( I18N.tr( "Writing certificate to {0}.", "'" + f.getAbsolutePath() + "'" ) );
       pemWriter = new PemWriter( new FileWriterWithEncoding( f, "UTF-8" ) );
       pemWriter.writeObject( new PemObject( "OpenEstate-ImmoServer / Certificate", cert.getEncoded() ) );
       pemWriter.flush();
@@ -278,7 +284,7 @@ public class SslGenerator
 
       File f = new File( sslDir, "keystore.jks" );
       FileUtils.deleteQuietly( f );
-      console.writer().println( "Writing keystore to " + f.getAbsolutePath() );
+      console.writer().println( I18N.tr( "Writing keystore to {0}.", "'" + f.getAbsolutePath() + "'" ) );
       output = new FileOutputStream( f );
       store.store( output, password );
       output.flush();
@@ -297,18 +303,22 @@ public class SslGenerator
 
     console.writer().println( StringUtils.EMPTY );
     console.writer().println( line );
-    console.writer().println( "SSL encryption was successfully prepared!" );
+    console.writer().println( I18N.tr( "SSL encryption was successfully prepared!" ) );
     console.writer().println( line );
     console.writer().println( StringUtils.EMPTY );
-    console.writer().println( "Edit the server configuration file at" );
+    console.writer().println( I18N.tr( "Follow these steps in order to enable SSL encryption." ) );
+    console.writer().println( StringUtils.EMPTY );
+    console.writer().println( "(1) " +  I18N.tr( "Open the following configuration file with a text editor:" ) );
     console.writer().println( StringUtils.EMPTY );
     console.writer().println( new File( "etc", "server.properies" ).getAbsolutePath() );
     console.writer().println( StringUtils.EMPTY );
-    console.writer().println( "and set the following values:" );
+    console.writer().println( "(2) " +  I18N.tr( "Change the following values in the configuration file:" ) );
     console.writer().println( StringUtils.EMPTY );
     console.writer().println( "server.tls=true" );
     console.writer().println( "system.javax.net.ssl.keyStore=./etc/ssl/keystore.jks" );
     console.writer().println( "system.javax.net.ssl.keyStorePassword=" + String.valueOf( password ) );
+    console.writer().println( StringUtils.EMPTY );
+    console.writer().println( "(3) " +  I18N.tr( "Restart {0}.", Server.TITLE ) );
     console.writer().println( StringUtils.EMPTY );
     console.writer().println( line );
     console.writer().println( StringUtils.EMPTY );

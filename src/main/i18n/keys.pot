@@ -1,0 +1,112 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-08 18:13+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: org/openestate/tool/server/utils/SslGenerator.java:105
+msgid "Generate RSA keypair and certificate for SSL encryption."
+msgstr ""
+
+#: org/openestate/tool/server/utils/SslGenerator.java:120
+msgid "Enter the ip-address / hostname of this server:"
+msgstr ""
+
+#: org/openestate/tool/server/utils/SslGenerator.java:135
+msgid "Enter the password to access the keystore:"
+msgstr ""
+
+#: org/openestate/tool/server/utils/SslGenerator.java:140
+msgid "Enter the password to access the keystore again:"
+msgstr ""
+
+#: org/openestate/tool/server/utils/SslGenerator.java:145
+msgid "Error!"
+msgstr ""
+
+#: org/openestate/tool/server/utils/SslGenerator.java:146
+msgid "The provided passwords do not match."
+msgstr ""
+
+#: org/openestate/tool/server/utils/SslGenerator.java:153
+msgid "Creating files for SSL encryption..."
+msgstr ""
+
+#: org/openestate/tool/server/utils/SslGenerator.java:195
+#, java-format
+msgid "Writing private key to {0}."
+msgstr ""
+
+#: org/openestate/tool/server/utils/SslGenerator.java:218
+#, java-format
+msgid "Writing public key to {0}."
+msgstr ""
+
+#: org/openestate/tool/server/utils/SslGenerator.java:261
+#, java-format
+msgid "Writing certificate to {0}."
+msgstr ""
+
+#: org/openestate/tool/server/utils/SslGenerator.java:287
+#, java-format
+msgid "Writing keystore to {0}."
+msgstr ""
+
+#: org/openestate/tool/server/utils/SslGenerator.java:306
+msgid "SSL encryption was successfully prepared!"
+msgstr ""
+
+#: org/openestate/tool/server/utils/SslGenerator.java:309
+msgid "Follow these steps in order to enable SSL encryption."
+msgstr ""
+
+#: org/openestate/tool/server/utils/SslGenerator.java:311
+msgid "Open the following configuration file with a text editor:"
+msgstr ""
+
+#: org/openestate/tool/server/utils/SslGenerator.java:315
+msgid "Change the following values in the configuration file:"
+msgstr ""
+
+#: org/openestate/tool/server/utils/SslGenerator.java:321
+#, java-format
+msgid "Restart {0}."
+msgstr ""
+
+#: org/openestate/tool/server/Server.java:93
+#, java-format
+msgid "shutdown {0}"
+msgstr ""
+
+#: org/openestate/tool/server/Server.java:241
+#, java-format
+msgid "{0} is available for incoming connections."
+msgstr ""
+
+#: org/openestate/tool/server/Server.java:246
+#, java-format
+msgid "{0} is shutting down."
+msgstr ""
+
+#: org/openestate/tool/server/Server.java:251
+#, java-format
+msgid "{0} is starting up."
+msgstr ""
+
+#: org/openestate/tool/server/Server.java:256
+#, java-format
+msgid "{0} has been closed and is not available anymore."
+msgstr ""

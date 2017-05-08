@@ -34,6 +34,8 @@ import org.hsqldb.server.ServerConstants;
 import org.openestate.tool.server.utils.MigrationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 /**
  * Implementation of OpenEstate-Server.
@@ -44,7 +46,8 @@ import org.slf4j.LoggerFactory;
 public class Server extends org.hsqldb.Server
 {
   private final static Logger LOGGER = LoggerFactory.getLogger( Server.class );
-  private final static String TITLE = "OpenEstate-ImmoServer";
+  private static final I18n I18N = I18nFactory.getI18n( Server.class );
+  public final static String TITLE = "OpenEstate-ImmoServer";
   private final static String SYSTEM_TRAY_PROPERTY = "openestate.server.systemTray";
   private static Server server = null;
   private static TrayIcon systemTrayIcon = null;
@@ -76,7 +79,8 @@ public class Server extends org.hsqldb.Server
     final Image trayIconImage;
     try
     {
-      trayIconImage = ImageIO.read( Server.class.getResourceAsStream( "/org/openestate/tool/server/resources/ImmoServer.png" ) );
+      trayIconImage = ImageIO.read( Server.class.getResourceAsStream(
+        "/org/openestate/tool/server/resources/ImmoServer.png" ) );
     }
     catch (Exception ex)
     {
@@ -86,7 +90,7 @@ public class Server extends org.hsqldb.Server
     }
 
     final PopupMenu popup = new PopupMenu();
-    final MenuItem stopItem = new MenuItem( "Shutdown " + TITLE + "." );
+    final MenuItem stopItem = new MenuItem( I18N.tr( "shutdown {0}", TITLE ) );
     stopItem.addActionListener( new ActionListener()
     {
       @Override
@@ -180,7 +184,7 @@ public class Server extends org.hsqldb.Server
 
       File dbDir = new File( FilenameUtils.separatorsToSystem( StringUtils.substringAfter( path, "file:" ) ) ).getParentFile();
       String dbName = StringUtils.substringAfterLast( path, "/" );
-      LOGGER.debug( "init database at " + dbDir.getAbsolutePath() );
+      LOGGER.info( "init database at " + dbDir.getAbsolutePath() );
       try
       {
         MigrationUtils.migrateFromOldDatabase( dbDir, dbName );
@@ -234,22 +238,22 @@ public class Server extends org.hsqldb.Server
       {
         case ServerConstants.SERVER_STATE_ONLINE:
           systemTrayIcon.displayMessage(
-           TITLE, TITLE + " is available for incoming connections.", TrayIcon.MessageType.INFO );
+           TITLE, I18N.tr( "{0} is available for incoming connections.", TITLE ), TrayIcon.MessageType.INFO );
           break;
 
         case ServerConstants.SERVER_STATE_CLOSING:
           systemTrayIcon.displayMessage(
-           TITLE, TITLE + " is shutting down.", TrayIcon.MessageType.INFO );
+           TITLE, I18N.tr( "{0} is shutting down.", TITLE ), TrayIcon.MessageType.INFO );
           break;
 
         case ServerConstants.SERVER_STATE_OPENING:
           systemTrayIcon.displayMessage(
-           TITLE, TITLE + " is starting up.", TrayIcon.MessageType.INFO );
+           TITLE, I18N.tr( "{0} is starting up.", TITLE ), TrayIcon.MessageType.INFO );
           break;
 
         case ServerConstants.SERVER_STATE_SHUTDOWN:
           systemTrayIcon.displayMessage(
-           TITLE, TITLE + " has been closed and is not available anymore.", TrayIcon.MessageType.INFO );
+           TITLE, I18N.tr( "{0} has been closed and is not available anymore.", TITLE ), TrayIcon.MessageType.INFO );
           break;
 
         default:

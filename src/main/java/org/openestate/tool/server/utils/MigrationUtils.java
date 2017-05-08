@@ -29,8 +29,11 @@ import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.hsqldb.persist.HsqlDatabaseProperties;
+import org.openestate.tool.server.ServerProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 /**
  * MigrationUtils.
@@ -41,6 +44,7 @@ import org.slf4j.LoggerFactory;
 public final class MigrationUtils
 {
   private final static Logger LOGGER = LoggerFactory.getLogger( MigrationUtils.class );
+  private static final I18n I18N = I18nFactory.getI18n( MigrationUtils.class );
 
   private MigrationUtils()
   {

@@ -27,14 +27,16 @@ Dependencies
 
 -   Java 6 or newer
 -   [Bouncy Castle 1.56](https://bouncycastle.org/)
-    (optional; only required by [`SslGenerator.java`](src/main/java/org/openestate/tool/server/utils/SslGenerator.java))
+    (optional; only required by
+    [`SslGenerator.java`](src/main/java/org/openestate/tool/server/utils/SslGenerator.java))
 -   [commons-io 2.5](http://commons.apache.org/proper/commons-io/)
 -   [commons-lang 3.5](http://commons.apache.org/proper/commons-lang/)
+-   [gettext-commons 0.9.8](https://code.google.com/archive/p/gettext-commons/)
 -   [hsqldb 2.3.5](http://hsqldb.org/)
--   [SLF4J 1.7.25](http://www.slf4j.org/)
 -   [log4j 1.2.17](http://logging.apache.org/log4j/1.2/)
     (optional; may be replaced by another logging system
     [via SLF4J](http://www.slf4j.org/manual.html))
+-   [SLF4J 1.7.25](http://www.slf4j.org/)
 
 
 Changelog
