@@ -44,6 +44,18 @@
       <optional>true</optional>
     </dependency>
     <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcprov-jdk15on</artifactId>
+      <version>1.56</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcpkix-jdk15on</artifactId>
+      <version>1.56</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>2.5</version>
@@ -425,6 +437,59 @@
                 <internalName>ImmoServer-Manager</internalName>
                 <originalFilename>ManagerTool.exe</originalFilename>
                 <fileDescription>OpenEstate-ImmoServer-Manager</fileDescription>
+                <fileVersion>${project.launch4jVersion}</fileVersion>
+                <txtFileVersion>${project.buildVersion}</txtFileVersion>
+                <productVersion>${project.launch4jVersion}</productVersion>
+                <txtProductVersion>${project.buildVersion}</txtProductVersion>
+              </versionInfo>
+            </configuration>
+          </execution>
+
+          <!-- SslInit.exe -->
+          <execution>
+            <id>launch4j-SslInit</id>
+            <phase>${release.preparePhase}</phase>
+            <goals>
+              <goal>launch4j</goal>
+            </goals>
+            <configuration>
+              <outfile>${project.build.directory}/runtime/bin/SslInit.exe</outfile>
+              <icon>${project.basedir}/share/icons/ImmoServer-Console.ico</icon>
+              <dontWrapJar>true</dontWrapJar>
+              <jar>.</jar>
+              <chdir>..</chdir>
+              <cmdLine></cmdLine>
+              <classPath>
+                <mainClass>org.openestate.tool.server.utils.SslGenerator</mainClass>
+                <addDependencies>false</addDependencies>
+                <preCp>etc\;lib\*.jar</preCp>
+              </classPath>
+              <jre>
+                <minVersion>1.7.0</minVersion>
+                <!--
+                <opts>
+                  <opt>-Dapp.basedir=.</opt>
+                  <opt>-Dapp.launcher=ImmoTool.exe</opt>
+                  <opt>-Djpf.boot.config=etc/boot.gui.properties</opt>
+                </opts>
+                -->
+              </jre>
+              <headerType>console</headerType>
+              <priority>normal</priority>
+              <customProcName>false</customProcName>
+              <stayAlive>false</stayAlive>
+              <singleInstance>
+                <mutexName>OpenEstate-ImmoServer-SSL-Init</mutexName>
+                <windowTitle>OpenEstate-ImmoServer-SSL-Init</windowTitle>
+              </singleInstance>
+              <downloadUrl>https://www.java.com/de/download/manual.jsp</downloadUrl>
+              <supportUrl>http://openestate.org</supportUrl>
+              <versionInfo>
+                <copyright>OpenEstate.org</copyright>
+                <productName>OpenEstate-ImmoServer-SSL-Init</productName>
+                <internalName>SSL-Init</internalName>
+                <originalFilename>SslInit.exe</originalFilename>
+                <fileDescription>OpenEstate-ImmoServer-SSL-Init</fileDescription>
                 <fileVersion>${project.launch4jVersion}</fileVersion>
                 <txtFileVersion>${project.buildVersion}</txtFileVersion>
                 <productVersion>${project.launch4jVersion}</productVersion>

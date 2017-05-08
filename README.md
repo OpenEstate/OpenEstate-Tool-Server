@@ -18,6 +18,9 @@ This project
     *Linux* systems.
 -   provides scripts to execute the application as a
     [*launchd*](https://en.wikipedia.org/wiki/Launchd) agent on *macOS* systems.
+-   provides an application to create a keystore for *SSL* encrypted database
+    access.
+
 
 Changelog
 ---------
