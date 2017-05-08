@@ -184,7 +184,7 @@ public class Server extends org.hsqldb.Server
 
       File dbDir = new File( FilenameUtils.separatorsToSystem( StringUtils.substringAfter( path, "file:" ) ) ).getParentFile();
       String dbName = StringUtils.substringAfterLast( path, "/" );
-      LOGGER.info( "init database at " + dbDir.getAbsolutePath() );
+      LOGGER.info( "Initializing database '" + dbDir.getAbsolutePath() + "'." );
       try
       {
         MigrationUtils.migrateFromOldDatabase( dbDir, dbName );
