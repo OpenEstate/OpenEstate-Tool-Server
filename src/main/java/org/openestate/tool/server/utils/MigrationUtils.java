@@ -27,9 +27,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
 import org.hsqldb.persist.HsqlDatabaseProperties;
-import org.openestate.tool.server.ServerProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
@@ -96,7 +94,7 @@ public final class MigrationUtils
               line, m.group( 0 ), "SET " + m.group( 2 ) + " = IDENTITY();" );
           }
           output.write( line );
-          output.write( SystemUtils.LINE_SEPARATOR );
+          output.write( System.lineSeparator() );
         }
         output.flush();
         IOUtils.closeQuietly( output );

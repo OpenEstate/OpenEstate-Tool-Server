@@ -168,10 +168,10 @@ public class Server extends org.hsqldb.Server
     {
       server.setProperties( props );
     }
-    catch (Exception e)
+    catch (Exception ex)
     {
       server.printError( "Failed to set properties!" );
-      server.printStackTrace( e );
+      server.printStackTrace( ex );
       return;
     }
 

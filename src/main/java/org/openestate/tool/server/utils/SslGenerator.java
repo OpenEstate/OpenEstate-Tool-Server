@@ -34,7 +34,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.bouncycastle.asn1.oiw.OIWObjectIdentifiers;
 import org.bouncycastle.asn1.x500.X500Name;
@@ -90,9 +89,9 @@ public class SslGenerator
       return new BcRSAContentSignerBuilder( sigAlgId, digAlgId )
         .build( PrivateKeyFactory.createKey( privateKey.getEncoded() ) );
     }
-    catch (Exception e)
+    catch (Exception ex)
     {
-      throw new RuntimeException( "Could not create content signer.", e );
+      throw new RuntimeException( "Could not create content signer.", ex );
     }
   }
 
