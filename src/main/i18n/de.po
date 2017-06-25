@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-08 18:13+0200\n"
+"POT-Creation-Date: 2017-06-25 04:30+0200\n"
 "PO-Revision-Date: 2017-05-08 18:13+0200\n"
 "Last-Translator: Andreas Rudolph <andy@openindex.de>\n"
 "Language-Team: \n"
@@ -18,71 +18,71 @@ msgstr ""
 "X-Generator: Poedit 1.8.11\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: org/openestate/tool/server/utils/SslGenerator.java:105
+#: org/openestate/tool/server/utils/SslGenerator.java:104
 msgid "Generate RSA keypair and certificate for SSL encryption."
 msgstr "RSA-Schlüsselpaar und Zertifikat zur SSL-Verschlüsselung erzeugen."
 
-#: org/openestate/tool/server/utils/SslGenerator.java:120
+#: org/openestate/tool/server/utils/SslGenerator.java:119
 msgid "Enter the ip-address / hostname of this server:"
 msgstr "Tragen Sie die IP-Adresse / den Hostnamen des Servers ein:"
 
-#: org/openestate/tool/server/utils/SslGenerator.java:135
+#: org/openestate/tool/server/utils/SslGenerator.java:134
 msgid "Enter the password to access the keystore:"
 msgstr "Tragen Sie das Passwort für den Keystore ein:"
 
-#: org/openestate/tool/server/utils/SslGenerator.java:140
+#: org/openestate/tool/server/utils/SslGenerator.java:139
 msgid "Enter the password to access the keystore again:"
 msgstr "Tragen Sie das Passwort für den Keystore erneut ein:"
 
-#: org/openestate/tool/server/utils/SslGenerator.java:145
+#: org/openestate/tool/server/utils/SslGenerator.java:144
 msgid "Error!"
 msgstr "Fehler!"
 
-#: org/openestate/tool/server/utils/SslGenerator.java:146
+#: org/openestate/tool/server/utils/SslGenerator.java:145
 msgid "The provided passwords do not match."
 msgstr "Die angegebenen Passwörter stimmen nicht überein!"
 
-#: org/openestate/tool/server/utils/SslGenerator.java:153
+#: org/openestate/tool/server/utils/SslGenerator.java:152
 msgid "Creating files for SSL encryption..."
 msgstr "Dateien zur SSL-Verschlüsselung werden erzeugt..."
 
-#: org/openestate/tool/server/utils/SslGenerator.java:195
+#: org/openestate/tool/server/utils/SslGenerator.java:194
 #, java-format
 msgid "Writing private key to {0}."
 msgstr "Schreibe privaten Schlüssel nach {0}."
 
-#: org/openestate/tool/server/utils/SslGenerator.java:218
+#: org/openestate/tool/server/utils/SslGenerator.java:217
 #, java-format
 msgid "Writing public key to {0}."
 msgstr "Schreibe öffentlichen Schlüssel nach {0}."
 
-#: org/openestate/tool/server/utils/SslGenerator.java:261
+#: org/openestate/tool/server/utils/SslGenerator.java:260
 #, java-format
 msgid "Writing certificate to {0}."
 msgstr "Schreibe Zertifikat nach {0}."
 
-#: org/openestate/tool/server/utils/SslGenerator.java:287
+#: org/openestate/tool/server/utils/SslGenerator.java:286
 #, java-format
 msgid "Writing keystore to {0}."
 msgstr "Schreibe Keystore nach {0}."
 
-#: org/openestate/tool/server/utils/SslGenerator.java:306
+#: org/openestate/tool/server/utils/SslGenerator.java:305
 msgid "SSL encryption was successfully prepared!"
 msgstr "SSL-Verschlüsselung wurde erfolgreich vorbereitet!"
 
-#: org/openestate/tool/server/utils/SslGenerator.java:309
+#: org/openestate/tool/server/utils/SslGenerator.java:308
 msgid "Follow these steps in order to enable SSL encryption."
 msgstr "Gehen Sie bitte wie folgt vor um SSL-Verschlüsselung zu aktivieren."
 
-#: org/openestate/tool/server/utils/SslGenerator.java:311
+#: org/openestate/tool/server/utils/SslGenerator.java:310
 msgid "Open the following configuration file with a text editor:"
 msgstr "Öffnen Sie die folgende Konfigurationsdatei mit einem Texteditor:"
 
-#: org/openestate/tool/server/utils/SslGenerator.java:315
+#: org/openestate/tool/server/utils/SslGenerator.java:314
 msgid "Change the following values in the configuration file:"
 msgstr "Ändern Sie die folgenden Werte in der Konfigurationsdatei:"
 
-#: org/openestate/tool/server/utils/SslGenerator.java:321
+#: org/openestate/tool/server/utils/SslGenerator.java:320
 #, java-format
 msgid "Restart {0}."
 msgstr "Starten Sie {0} neu."
