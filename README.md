@@ -30,7 +30,7 @@ Dependencies
     (optional; only required by
     [`SslGenerator.java`](src/main/java/org/openestate/tool/server/utils/SslGenerator.java))
 -   [commons-io 2.5](http://commons.apache.org/proper/commons-io/)
--   [commons-lang 3.5](http://commons.apache.org/proper/commons-lang/)
+-   [commons-lang 3.6](http://commons.apache.org/proper/commons-lang/)
 -   [gettext-commons 0.9.8](https://code.google.com/archive/p/gettext-commons/)
 -   [hsqldb 2.3.5](http://hsqldb.org/)
 -   [log4j 1.2.17](http://logging.apache.org/log4j/1.2/)
