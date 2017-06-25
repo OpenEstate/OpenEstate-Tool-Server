@@ -280,7 +280,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1</version>
         <executions>
           <execution>
             <id>copy-dependency-sources</id>
@@ -323,7 +323,7 @@
         -->
         <groupId>com.akathist.maven.plugins.launch4j</groupId>
         <artifactId>launch4j-maven-plugin</artifactId>
-        <version>1.7.16</version>
+        <version>1.7.18</version>
         <executions>
 
           <!-- Start.exe -->
