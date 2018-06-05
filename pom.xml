@@ -10,10 +10,11 @@
   <packaging>jar</packaging>
 
   <name>OpenEstate-Tool-Server</name>
-  <url>http://openestate.org</url>
+  <description>This application provides a server for multi user installations of OpenEstate-ImmoTool.</description>
+  <url>https://openestate.org</url>
   <organization>
     <name>OpenEstate</name>
-    <url>http://openestate.org/</url>
+    <url>https://openestate.org/</url>
   </organization>
   <licenses>
     <license>
@@ -23,6 +24,16 @@
       <comments>A business-friendly OSS license</comments>
     </license>
   </licenses>
+
+  <developers>
+    <developer>
+      <id>andy</id>
+      <name>Andreas Rudolph</name>
+      <email>andy@openindex.de</email>
+      <organization>OpenIndex</organization>
+      <organizationUrl>https://openindex.de/</organizationUrl>
+    </developer>
+  </developers>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -120,7 +131,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.1.0</version>
         <configuration>
           <filesets>
             <fileset>
@@ -139,7 +150,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.6.1</version>
+        <version>3.7.0</version>
         <configuration>
           <source>1.7</source>
           <target>1.7</target>
@@ -152,7 +163,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.4</version>
+        <version>3.0.5</version>
         <configuration>
           <failOnError>false</failOnError>
           <excludeFilterFile>${project.basedir}/findbugs-exclude.xml</excludeFilterFile>
@@ -213,7 +224,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.4</version>
+        <version>3.0.0</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -280,7 +291,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.0.1</version>
+        <version>3.1.1</version>
         <executions>
           <execution>
             <id>copy-dependency-sources</id>
@@ -323,7 +334,7 @@
         -->
         <groupId>com.akathist.maven.plugins.launch4j</groupId>
         <artifactId>launch4j-maven-plugin</artifactId>
-        <version>1.7.18</version>
+        <version>1.7.21</version>
         <executions>
 
           <!-- Start.exe -->
@@ -541,11 +552,31 @@
         </executions>
       </plugin>
 
+      <!-- signing -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.6</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+            <configuration>
+              <keyname>${gpg.keyname}</keyname>
+              <passphraseServerId>${gpg.passphrase}</passphraseServerId>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <!-- assembly -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.1.0</version>
         <executions>
           <execution>
             <id>release</id>
@@ -578,21 +609,37 @@
       <id>development</id>
       <properties>
         <createChecksum>true</createChecksum>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <gpg.skip>true</gpg.skip>
+        <source.skip>true</source.skip>
         <release.installPhase></release.installPhase>
         <release.preparePhase></release.preparePhase>
         <release.skip>true</release.skip>
       </properties>
     </profile>
 
-    <!-- release profile -->
+    <!-- release profile for maven.openestate.org -->
     <profile>
-      <id>release</id>
+      <id>openestate-release</id>
       <properties>
         <createChecksum>true</createChecksum>
+        <maven.javadoc.skip>false</maven.javadoc.skip>
+        <gpg.skip>false</gpg.skip>
+        <source.skip>false</source.skip>
         <release.installPhase>install</release.installPhase>
         <release.preparePhase>prepare-package</release.preparePhase>
         <release.skip>false</release.skip>
       </properties>
+      <distributionManagement>
+        <repository>
+          <id>openestate</id>
+          <url>https://maven.openestate.org/repository/openestate-releases/</url>
+        </repository>
+        <snapshotRepository>
+          <id>openestate</id>
+          <url>https://maven.openestate.org/repository/openestate-snapshots/</url>
+        </snapshotRepository>
+      </distributionManagement>
     </profile>
 
   </profiles>

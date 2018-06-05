@@ -21,4 +21,4 @@ export LANG=en
 set -e
 
 cd $PROJECT_DIR
-$MVN -Popenestate-release clean install
+$MVN -Popenestate-release clean install deploy
