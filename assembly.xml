@@ -112,6 +112,7 @@
       <useProjectArtifact>true</useProjectArtifact>
       <useProjectAttachments>false</useProjectAttachments>
       <useTransitiveDependencies>true</useTransitiveDependencies>
+      <useTransitiveFiltering>true</useTransitiveFiltering>
       <scope>runtime</scope>
       <excludes>
         <exclude>com.google.code.findbugs:*</exclude>
@@ -134,40 +135,6 @@
         <include>${project.groupId}:${project.artifactId}:*:sources</include>
       </includes>
     </dependencySet>
-    <!--
-    <dependencySet>
-      <outputDirectory>doc/javadoc</outputDirectory>
-      <useProjectArtifact>false</useProjectArtifact>
-      <useProjectAttachments>false</useProjectAttachments>
-      <useTransitiveDependencies>true</useTransitiveDependencies>
-      <includes>
-        <include>*:*:javadoc:*</include>
-      </includes>
-      <excludes>
-        <exclude>com.google.code.findbugs:*</exclude>
-        <exclude>net.jcip:*</exclude>
-      </excludes>
-    </dependencySet>
-    -->
-    <!--
-    <dependencySet>
-      <outputDirectory>share/sources</outputDirectory>
-      <useProjectArtifact>true</useProjectArtifact>
-      <useProjectAttachments>true</useProjectAttachments>
-      <includes>
-        <include>${project.groupId}:${project.artifactId}:*:sources</include>
-      </includes>
-    </dependencySet>
-    <dependencySet>
-      <outputDirectory>share/apidocs</outputDirectory>
-      <useProjectArtifact>true</useProjectArtifact>
-      <useProjectAttachments>true</useProjectAttachments>
-      <unpack>true</unpack>
-      <includes>
-        <include>${project.groupId}:${project.artifactId}:*:javadoc</include>
-      </includes>
-    </dependencySet>
-    -->
   </dependencySets>
 
 </assembly>
