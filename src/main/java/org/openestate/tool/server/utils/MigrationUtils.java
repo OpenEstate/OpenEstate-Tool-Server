@@ -24,7 +24,6 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
 import org.hsqldb.persist.HsqlDatabaseProperties;
@@ -59,15 +58,9 @@ public final class MigrationUtils
 
     // load database parameters
     Properties props = new Properties();
-    InputStream input = null;
-    try
+    try (InputStream input = new FileInputStream( dbPropsFile ))
     {
-      input = new FileInputStream( dbPropsFile );
       props.load( input );
-    }
-    finally
-    {
-      IOUtils.closeQuietly( input );
     }
 
     final String dbVersion = StringUtils.trimToEmpty( props.getProperty( "version" ) );
@@ -77,14 +70,13 @@ public final class MigrationUtils
     {
       LOGGER.info( "Migrating database '" + dbDir.getAbsolutePath() + "' from " + dbVersion + " to " + HsqlDatabaseProperties.THIS_VERSION + "." );
 
-      Writer output = null;
       File dbScriptFileNew = new File( dbDir, dbScriptFile.getName() + ".new" );
       File dbScriptFileOld = new File( dbDir, dbScriptFile.getName() + ".old" );
       Pattern pattern = Pattern.compile(
         "SELECT ([\\w]*) INTO ([\\w]*) FROM ([\\w\\.]*) WHERE ([\\w]*)\\s?=\\s?CURRENT VALUE FOR ([\\w\\.]*);" );
-      try
+
+      try (Writer output = new FileWriterWithEncoding( dbScriptFileNew, "UTF-8" ))
       {
-        output = new FileWriterWithEncoding( dbScriptFileNew, "UTF-8" );
         for (String line : FileUtils.readLines( dbScriptFile, "UTF-8" ))
         {
           Matcher m = pattern.matcher( line );
@@ -97,14 +89,10 @@ public final class MigrationUtils
           output.write( System.lineSeparator() );
         }
         output.flush();
-        IOUtils.closeQuietly( output );
-        FileUtils.copyFile( dbScriptFile, dbScriptFileOld );
-        FileUtils.copyFile( dbScriptFileNew, dbScriptFile );
       }
-      finally
-      {
-        IOUtils.closeQuietly( output );
-      }
+
+      FileUtils.copyFile( dbScriptFile, dbScriptFileOld );
+      FileUtils.copyFile( dbScriptFileNew, dbScriptFile );
     }
   }
 }

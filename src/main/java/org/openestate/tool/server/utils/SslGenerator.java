@@ -31,7 +31,6 @@ import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.Date;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -161,9 +160,6 @@ public class SslGenerator
       return;
     }
 
-    OutputStream output = null;
-    PemWriter pemWriter = null;
-
     // create random number generator
     final SecureRandom random = new SecureRandom();
 
@@ -187,12 +183,11 @@ public class SslGenerator
 
     // export private key
     final PrivateKey priv = pair.getPrivate();
-    try
+    final File privFile = new File( sslDir, "private.key" );
+    FileUtils.deleteQuietly( privFile );
+    console.writer().println( I18N.tr( "Writing private key to {0}.", "'" + privFile.getAbsolutePath() + "'" ) );
+    try (PemWriter pemWriter = new PemWriter( new FileWriterWithEncoding( privFile, "UTF-8" ) ))
     {
-      File f = new File( sslDir, "private.key" );
-      FileUtils.deleteQuietly( f );
-      console.writer().println( I18N.tr( "Writing private key to {0}.", "'" + f.getAbsolutePath() + "'" ) );
-      pemWriter = new PemWriter( new FileWriterWithEncoding( f, "UTF-8" ) );
       pemWriter.writeObject( new PemObject( "OpenEstate-ImmoServer / Private Key", priv.getEncoded() ) );
       pemWriter.flush();
     }
@@ -203,19 +198,14 @@ public class SslGenerator
       System.exit( 1 );
       return;
     }
-    finally
-    {
-      IOUtils.closeQuietly( pemWriter );
-    }
 
     // export public key
     final PublicKey pub = pair.getPublic();
-    try
+    final File pubFile = new File( sslDir, "public.key" );
+    FileUtils.deleteQuietly( pubFile );
+    console.writer().println( I18N.tr( "Writing public key to {0}.", "'" + pubFile.getAbsolutePath() + "'" ) );
+    try (PemWriter pemWriter = new PemWriter( new FileWriterWithEncoding( pubFile, "UTF-8" ) ))
     {
-      File f = new File( sslDir, "public.key" );
-      FileUtils.deleteQuietly( f );
-      console.writer().println( I18N.tr( "Writing public key to {0}.", "'" + f.getAbsolutePath() + "'" ) );
-      pemWriter = new PemWriter( new FileWriterWithEncoding( f, "UTF-8" ) );
       pemWriter.writeObject( new PemObject( "OpenEstate-ImmoServer / Public Key", pub.getEncoded() ) );
       pemWriter.flush();
     }
@@ -225,10 +215,6 @@ public class SslGenerator
       LOGGER.error( "> " + ex.getLocalizedMessage(), ex );
       System.exit( 1 );
       return;
-    }
-    finally
-    {
-      IOUtils.closeQuietly( pemWriter );
     }
 
     // generate certificate
@@ -258,9 +244,11 @@ public class SslGenerator
       File f = new File( sslDir, "private.crt" );
       FileUtils.deleteQuietly( f );
       console.writer().println( I18N.tr( "Writing certificate to {0}.", "'" + f.getAbsolutePath() + "'" ) );
-      pemWriter = new PemWriter( new FileWriterWithEncoding( f, "UTF-8" ) );
-      pemWriter.writeObject( new PemObject( "OpenEstate-ImmoServer / Certificate", cert.getEncoded() ) );
-      pemWriter.flush();
+      try (PemWriter pemWriter = new PemWriter( new FileWriterWithEncoding( f, "UTF-8" ) ))
+      {
+        pemWriter.writeObject( new PemObject( "OpenEstate-ImmoServer / Certificate", cert.getEncoded() ) );
+        pemWriter.flush();
+      }
     }
     catch (Exception ex)
     {
@@ -268,10 +256,6 @@ public class SslGenerator
       LOGGER.error( "> " + ex.getLocalizedMessage(), ex );
       System.exit( 1 );
       return;
-    }
-    finally
-    {
-      IOUtils.closeQuietly( pemWriter );
     }
 
     // create keystore
@@ -284,9 +268,12 @@ public class SslGenerator
       File f = new File( sslDir, "keystore.jks" );
       FileUtils.deleteQuietly( f );
       console.writer().println( I18N.tr( "Writing keystore to {0}.", "'" + f.getAbsolutePath() + "'" ) );
-      output = new FileOutputStream( f );
-      store.store( output, password );
-      output.flush();
+
+      try (OutputStream output = new FileOutputStream( f ))
+      {
+        store.store( output, password );
+        output.flush();
+      }
     }
     catch (Exception ex)
     {
@@ -294,10 +281,6 @@ public class SslGenerator
       LOGGER.error( "> " + ex.getLocalizedMessage(), ex );
       System.exit( 1 );
       return;
-    }
-    finally
-    {
-      IOUtils.closeQuietly( output );
     }
 
     console.writer().println( StringUtils.EMPTY );
