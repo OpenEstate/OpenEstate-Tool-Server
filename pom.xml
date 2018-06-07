@@ -150,12 +150,23 @@
         </configuration>
       </plugin>
 
+      <!-- resources -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+
       <!-- compiler -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.7.0</version>
         <configuration>
+          <encoding>${project.build.sourceEncoding}</encoding>
           <source>1.7</source>
           <target>1.7</target>
           <showDeprecation>true</showDeprecation>
@@ -208,14 +219,13 @@
 
   <profiles>
 
-    <!-- development profile -->
-    <profile>
-      <id>development</id>
-    </profile>
-
     <!-- release profile for maven.openestate.org -->
     <profile>
       <id>openestate-release</id>
+
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
 
       <distributionManagement>
         <repository>
@@ -257,6 +267,11 @@
                 <goals>
                   <goal>jar</goal>
                 </goals>
+                <configuration>
+                  <quiet>true</quiet>
+                  <encoding>${project.build.sourceEncoding}</encoding>
+                  <docencoding>${project.build.sourceEncoding}</docencoding>
+                </configuration>
               </execution>
             </executions>
           </plugin>
