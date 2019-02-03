@@ -25,7 +25,7 @@ This project
 Dependencies
 ------------
 
--   Java 7 or newer
+-   Java 8 or newer
 -   [Bouncy Castle 1.59](https://bouncycastle.org/)
     (optional; only required by
     [`SslGenerator.java`](src/main/java/org/openestate/tool/server/utils/SslGenerator.java))
