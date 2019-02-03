@@ -13,7 +13,7 @@
     <files>
         <file>
             <source>${project.basedir}/LICENSE.txt</source>
-            <destName>share/licenses/OpenEstate-Tool-Server.license.txt</destName>
+            <destName>share/licenses/OpenEstate-ImmoServer.license.txt</destName>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
         </file>
