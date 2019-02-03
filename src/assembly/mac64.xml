@@ -13,120 +13,109 @@
     <files>
         <file>
             <source>${project.basedir}/LICENSE.txt</source>
-            <destName>doc/licenses/OpenEstate-Tool-Server.license.txt</destName>
+            <destName>Contents/Resources/share/licenses/OpenEstate-ImmoServer.license.txt</destName>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
         </file>
     </files>
 
     <fileSets>
+        <!-- Main Application Launcher for Mac OS X -->
         <fileSet>
-            <directory>${project.basedir}/src/openjdk/runtime/mac64</directory>
-            <outputDirectory>jre</outputDirectory>
-            <filtered>false</filtered>
-        </fileSet>
-
-        <!--
-        <fileSet>
-            <directory>${project.basedir}/src/main/runtime</directory>
+            <directory>${project.basedir}/src/mac/OpenEstate-ImmoServer.app</directory>
             <outputDirectory></outputDirectory>
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
             <excludes>
-                <exclude>bin/*</exclude>
+                <exclude>**/MacOS/*</exclude>
             </excludes>
         </fileSet>
         <fileSet>
+            <directory>${project.basedir}/src/mac/OpenEstate-ImmoServer.app</directory>
+            <outputDirectory></outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0755</fileMode>
+            <filtered>true</filtered>
+            <includes>
+                <include>**/MacOS/*</include>
+            </includes>
+        </fileSet>
+
+        <!-- Start-Launcher for Mac OS X -->
+        <fileSet>
+            <directory>${project.basedir}/src/mac/Start.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/Start.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <filtered>false</filtered>
+            <excludes>
+                <exclude>**/MacOS/*</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/mac/Start.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/Start.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0755</fileMode>
+            <filtered>true</filtered>
+            <includes>
+                <include>**/MacOS/*</include>
+            </includes>
+        </fileSet>
+
+        <!-- Resources -->
+        <fileSet>
             <directory>${project.basedir}/src/unix</directory>
-            <outputDirectory>bin</outputDirectory>
+            <outputDirectory>Contents/Resources/bin</outputDirectory>
             <directoryMode>0755</directoryMode>
             <fileMode>0755</fileMode>
             <filtered>true</filtered>
         </fileSet>
         <fileSet>
-            <directory>${project.basedir}/src/windows</directory>
-            <outputDirectory>bin</outputDirectory>
+            <directory>${project.basedir}/src/etc</directory>
+            <outputDirectory>Contents/Resources/etc</outputDirectory>
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
-            <filtered>true</filtered>
+            <filtered>false</filtered>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/licenses</directory>
+            <outputDirectory>Contents/Resources/share/licenses</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <filtered>false</filtered>
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/src/icons</directory>
-            <outputDirectory>var/icons</outputDirectory>
+            <outputDirectory>Contents/Resources/share/icons</outputDirectory>
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
             <includes>
                 <include>*.icns</include>
-                <include>*.ico</include>
-                <include>*.png</include>
             </includes>
         </fileSet>
         <fileSet>
-            <directory>${project.basedir}/src/licenses</directory>
-            <outputDirectory>doc/licenses</outputDirectory>
+            <directory>${project.build.directory}/dependencies</directory>
+            <outputDirectory>Contents/Resources/share</outputDirectory>
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
+            <excludes>
+                <exclude>**/commons-daemon-*.jar</exclude>
+            </excludes>
         </fileSet>
         <fileSet>
-            <directory>${project.build.directory}/runtime</directory>
-            <outputDirectory></outputDirectory>
-            <directoryMode>0755</directoryMode>
-            <fileMode>0644</fileMode>
+            <directory>${project.basedir}/src/openjdk/runtime/mac64</directory>
+            <outputDirectory>Contents/Resources/jre</outputDirectory>
             <filtered>false</filtered>
         </fileSet>
-        -->
-
-        <!-- launcher for macOS -->
-        <!--
-        <fileSet>
-          <directory>${basedir}/share/mac-application-bundles/Start.app</directory>
-          <outputDirectory>Start.app</outputDirectory>
-          <directoryMode>0755</directoryMode>
-          <fileMode>0644</fileMode>
-          <filtered>false</filtered>
-          <excludes>
-            <exclude>**/MacOS/*</exclude>
-          </excludes>
-        </fileSet>
-        <fileSet>
-          <directory>${basedir}/share/mac-application-bundles/Start.app</directory>
-          <outputDirectory>Start.app</outputDirectory>
-          <directoryMode>0755</directoryMode>
-          <fileMode>0755</fileMode>
-          <filtered>false</filtered>
-          <includes>
-            <include>**/MacOS/*</include>
-          </includes>
-        </fileSet>
-        <fileSet>
-          <directory>${basedir}/share/mac-application-bundles/ManagerTool.app</directory>
-          <outputDirectory>ManagerTool.app</outputDirectory>
-          <directoryMode>0755</directoryMode>
-          <fileMode>0644</fileMode>
-          <filtered>false</filtered>
-          <excludes>
-            <exclude>**/MacOS/*</exclude>
-          </excludes>
-        </fileSet>
-        <fileSet>
-          <directory>${basedir}/share/mac-application-bundles/ManagerTool.app</directory>
-          <outputDirectory>ManagerTool.app</outputDirectory>
-          <directoryMode>0755</directoryMode>
-          <fileMode>0755</fileMode>
-          <filtered>false</filtered>
-          <includes>
-            <include>**/MacOS/*</include>
-          </includes>
-        </fileSet>
-        -->
     </fileSets>
 
     <dependencySets>
         <dependencySet>
-            <outputDirectory>lib</outputDirectory>
+            <outputDirectory>Contents/Resources/lib</outputDirectory>
             <useProjectArtifact>true</useProjectArtifact>
             <useProjectAttachments>false</useProjectAttachments>
             <useTransitiveDependencies>true</useTransitiveDependencies>
@@ -135,10 +124,11 @@
             <excludes>
                 <exclude>com.google.code.findbugs:*</exclude>
                 <exclude>net.jcip:*</exclude>
+                <exclude>commons-daemon:*</exclude>
             </excludes>
         </dependencySet>
         <dependencySet>
-            <outputDirectory>doc/javadoc</outputDirectory>
+            <outputDirectory>Contents/Resources/share/javadoc</outputDirectory>
             <useProjectArtifact>true</useProjectArtifact>
             <useProjectAttachments>true</useProjectAttachments>
             <includes>
@@ -146,7 +136,7 @@
             </includes>
         </dependencySet>
         <dependencySet>
-            <outputDirectory>doc/sources</outputDirectory>
+            <outputDirectory>Contents/Resources/share/sources</outputDirectory>
             <useProjectArtifact>true</useProjectArtifact>
             <useProjectAttachments>true</useProjectAttachments>
             <includes>

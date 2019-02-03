@@ -331,6 +331,33 @@
                                 </configuration>
                             </execution>
                             <execution>
+                                <id>prepare-mac-package</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <echo message="Preparing application bundle for MacOS..." level="info"/>
+                                        <property name="mac64.packageDir"
+                                                  value="${project.basedir}/package/mac64/OpenEstate-ImmoServer.app"/>
+                                        <property name="mac64.resourcesDir"
+                                                  value="${mac64.packageDir}/Contents/Resources"/>
+                                        <property name="mac64.launcherDir"
+                                                  value="${mac64.packageDir}/Contents/MacOS/OpenEstate-ImmoServer"/>
+                                        <mkdir dir="${mac64.resourcesDir}"/>
+                                        <mkdir dir="${mac64.launcherDir}"/>
+
+                                        <echo message="Creating softlink in Start.app..." level="info"/>
+                                        <mkdir dir="${mac64.launcherDir}/Start.app/Contents"/>
+                                        <exec executable="ln" dir="${mac64.launcherDir}/Start.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+                                    </target>
+                                </configuration>
+                            </execution>
+                            <execution>
                                 <id>bundle-packages</id>
                                 <phase>install</phase>
                                 <goals>
@@ -345,6 +372,13 @@
                                         <exec executable="tar" dir="${packageDir}/linux64">
                                             <arg value="cfz"/>
                                             <arg value="../OpenEstate-ImmoServer-${project.version}.linux64.tar.gz"/>
+                                            <arg value="."/>
+                                        </exec>
+
+                                        <echo message="Creating Mac64 bundle..." level="info"/>
+                                        <exec executable="tar" dir="${packageDir}/mac64">
+                                            <arg value="cfz"/>
+                                            <arg value="../OpenEstate-ImmoServer-${project.version}.mac64.tar.gz"/>
                                             <arg value="."/>
                                         </exec>
 
@@ -406,10 +440,6 @@
 
                     <!-- launch4j -->
                     <plugin>
-                        <!--
-                        <groupId>org.bluestemsoftware.open.maven.plugin</groupId>
-                        <artifactId>launch4j-plugin</artifactId>
-                        -->
                         <groupId>com.akathist.maven.plugins.launch4j</groupId>
                         <artifactId>launch4j-maven-plugin</artifactId>
                         <version>1.7.24</version>
@@ -641,6 +671,23 @@
                                     <attach>false</attach>
                                     <descriptors>
                                         <descriptor>${project.basedir}/src/assembly/linux64.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>assemble-mac64</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <finalName>mac64</finalName>
+                                    <outputDirectory>${project.packageDir}</outputDirectory>
+                                    <tarLongFileMode>posix</tarLongFileMode>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                    <attach>false</attach>
+                                    <descriptors>
+                                        <descriptor>${project.basedir}/src/assembly/mac64.xml</descriptor>
                                     </descriptors>
                                 </configuration>
                             </execution>

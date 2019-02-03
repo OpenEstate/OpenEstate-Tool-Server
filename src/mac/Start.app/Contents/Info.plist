@@ -6,7 +6,7 @@
     <string>6.0</string>
 
     <key>CFBundleIdentifier</key>
-    <string>org.openstate.tool.server</string>
+    <string>org.openstate.tool.server.start</string>
 
     <key>CFBundleName</key>
     <string>OpenEstate-ImmoServer</string>
@@ -30,16 +30,13 @@
     <string>Start.sh</string>
 
     <key>CFBundleIconFile</key>
-    <string>ImmoServer.icns</string>
+    <string>share/icons/ImmoServer.icns</string>
 
     <key>LSApplicationCategoryType</key>
     <string>public.app-category.business</string>
 
-    <key>LSUIElement</key>
-    <true/>
-
     <key>NSHumanReadableCopyright</key>
-    <string>©2009-2019 OpenEstate.org</string>
+    <string>(C) 2009-2019 OpenEstate.org</string>
 
     <key>NSHighResolutionCapable</key>
     <true/>

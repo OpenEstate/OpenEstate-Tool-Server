@@ -6,13 +6,13 @@
     <string>6.0</string>
 
     <key>CFBundleIdentifier</key>
-    <string>org.openstate.tool.server.manager</string>
+    <string>org.openstate.tool.server.launcher</string>
 
     <key>CFBundleName</key>
-    <string>HSQLDB-Manager</string>
+    <string>OpenEstate-ImmoServer</string>
 
     <key>CFBundleDisplayName</key>
-    <string>HSQLDB-Manager</string>
+    <string>ImmoServer</string>
 
     <key>CFBundleVersion</key>
     <string>1.0.0</string>
@@ -27,19 +27,16 @@
     <string>????</string>
 
     <key>CFBundleExecutable</key>
-    <string>ManagerTool.sh</string>
+    <string>OpenEstate-ImmoServer.sh</string>
 
     <key>CFBundleIconFile</key>
-    <string>ImmoServer-GUI.icns</string>
+    <string>share/icons/ImmoServer.icns</string>
 
     <key>LSApplicationCategoryType</key>
     <string>public.app-category.business</string>
 
-    <key>LSUIElement</key>
-    <true/>
-
     <key>NSHumanReadableCopyright</key>
-    <string>©2009-2019 OpenEstate.org</string>
+    <string>(C) 2009-2019 OpenEstate.org</string>
 
     <key>NSHighResolutionCapable</key>
     <true/>
