@@ -54,4 +54,4 @@ Further information
 -   [*OpenEstate-Tool-Server* at GitHub](https://github.com/OpenEstate/OpenEstate-Tool-Server)
 -   [Releases of *OpenEstate-Tool-Server*](https://github.com/OpenEstate/OpenEstate-Tool-Server/releases)
 -   [Changelog of *OpenEstate-Tool-Server*](https://github.com/OpenEstate/OpenEstate-Tool-Server/blob/develop/CHANGELOG.md)
--   [Javadocs of *OpenEstate-Tool-Server*](http://manual.openestate.org/OpenEstate-Tool-Server/)
+-   [Javadocs of *OpenEstate-Tool-Server*](https://media.openestate.org/apidocs/OpenEstate-Tool-Server/)
