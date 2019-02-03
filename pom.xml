@@ -42,8 +42,8 @@
     <project.baseName>OpenEstate-ImmoServer</project.baseName>
     <project.javadocDir>${project.basedir}/javadoc</project.javadocDir>
     <project.releaseDir>${project.basedir}/release</project.releaseDir>
-    <yajsw.version>stable-12.08</yajsw.version>
-    <yajsw.download>https://netix.dl.sourceforge.net/project/yajsw/yajsw/yajsw-${yajsw.version}/yajsw-${yajsw.version}.zip</yajsw.download>
+    <commons-daemon.version>1.1.0</commons-daemon.version>
+    <commons-daemon.download>http://www.apache.org/dist/commons/daemon/binaries/windows/commons-daemon-${commons-daemon.version}-bin-windows.zip</commons-daemon.download>
     <createChecksum>true</createChecksum>
 
     <!-- Set this value to true, in order to skip GPG signing during the release phase. -->
@@ -71,6 +71,12 @@
       <version>1.59</version>
       <scope>compile</scope>
       <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>commons-daemon</groupId>
+      <artifactId>commons-daemon</artifactId>
+      <version>1.1.0</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
@@ -293,29 +299,26 @@
                     <mkdir dir="${project.build.directory}/runtime"/>
                     <mkdir dir="${project.build.directory}/runtime/bin"/>
 
-                    <!-- download yajsw -->
-                    <get src="${yajsw.download}" dest="${project.basedir}/share/yajsw"
+                    <!-- download native Windows binaries for commons-daemon -->
+                    <get src="${commons-daemon.download}" dest="${project.basedir}/share/commons-daemon"
                          skipexisting="true" verbose="false" />
 
-                    <!-- extract yajsw -->
-                    <delete dir="${project.basedir}/share/yajsw/pkg" />
-                    <unzip src="${project.basedir}/share/yajsw/yajsw-${yajsw.version}.zip"
-                           dest="${project.basedir}/share/yajsw/pkg" />
+                    <!-- extract native Windows binaries for commons-daemon -->
+                    <delete dir="${project.basedir}/share/commons-daemon/${commons-daemon.version}" />
+                    <unzip src="${project.basedir}/share/commons-daemon/commons-daemon-${commons-daemon.version}-bin-windows.zip"
+                           dest="${project.basedir}/share/commons-daemon/${commons-daemon.version}" />
 
-                    <!-- copy yajsw into runtime -->
-                    <copy todir="${project.build.directory}/runtime/var/wrapper"
-                          file="${project.basedir}/share/yajsw/pkg/yajsw-${yajsw.version}/wrapper.jar" />
-                    <copy todir="${project.build.directory}/runtime/var/wrapper"
-                          file="${project.basedir}/share/yajsw/pkg/yajsw-${yajsw.version}/wrapperApp.jar" />
-                    <copy tofile="${project.build.directory}/runtime/doc/licenses/yajsw.license.txt"
-                          file="${project.basedir}/share/yajsw/pkg/yajsw-${yajsw.version}/LICENSE.txt" />
-                    <copy tofile="${project.build.directory}/runtime/doc/sources/yajsw-${yajsw.version}.zip"
-                          file="${project.basedir}/share/yajsw/pkg/yajsw-${yajsw.version}/src/src.zip" />
-                    <copy todir="${project.build.directory}/runtime/var/wrapper/lib">
-                      <fileset dir="${project.basedir}/share/yajsw/pkg/yajsw-${yajsw.version}/lib" />
-                    </copy>
-                    <copy todir="${project.build.directory}/runtime/doc/wrapper">
-                      <fileset dir="${project.basedir}/share/yajsw/pkg/yajsw-${yajsw.version}/doc" />
+                    <!-- extract native Windows binaries for commons-daemon into runtime -->
+                    <copy tofile="${project.build.directory}/runtime/bin/service/OpenEstate-ImmoServer.exe"
+                          file="${project.basedir}/share/commons-daemon/${commons-daemon.version}/prunmgr.exe" />
+                    <copy tofile="${project.build.directory}/runtime/bin/service/Service32.exe"
+                          file="${project.basedir}/share/commons-daemon/${commons-daemon.version}/prunsrv.exe" />
+                    <copy tofile="${project.build.directory}/runtime/bin/service/Service64.exe"
+                          file="${project.basedir}/share/commons-daemon/${commons-daemon.version}/amd64/prunsrv.exe" />
+                    <copy todir="${project.build.directory}/runtime/bin/service">
+                      <fileset dir="${project.basedir}/share/commons-daemon/${commons-daemon.version}">
+                        <include name="*.txt"/>
+                      </fileset>
                     </copy>
 
                   </target>
@@ -381,7 +384,7 @@
                 </goals>
                 <configuration>
                   <outfile>${project.build.directory}/runtime/bin/Start.exe</outfile>
-                  <icon>${project.basedir}/share/icons/ImmoServer.ico</icon>
+                  <icon>${project.basedir}/src/icons/ImmoServer.ico</icon>
                   <dontWrapJar>true</dontWrapJar>
                   <jar>.</jar>
                   <chdir>..</chdir>
@@ -392,11 +395,10 @@
                     <preCp>etc\;lib\*.jar</preCp>
                   </classPath>
                   <jre>
-                    <minVersion>1.7.0</minVersion>
+                    <minVersion>1.8.0</minVersion>
                   </jre>
                   <headerType>gui</headerType>
                   <priority>normal</priority>
-                  <customProcName>false</customProcName>
                   <stayAlive>false</stayAlive>
                   <singleInstance>
                     <mutexName>OpenEstate-ImmoServer</mutexName>
@@ -419,6 +421,7 @@
               </execution>
 
               <!-- ManagerConsole.exe -->
+              <!--
               <execution>
                 <id>launch4j-ManagerBackup</id>
                 <phase>prepare-package</phase>
@@ -427,7 +430,7 @@
                 </goals>
                 <configuration>
                   <outfile>${project.build.directory}/runtime/bin/ManagerConsole.exe</outfile>
-                  <icon>${project.basedir}/share/icons/ImmoServer-Console.ico</icon>
+                  <icon>${project.basedir}/src/icons/ImmoServer-Console.ico</icon>
                   <dontWrapJar>true</dontWrapJar>
                   <jar>.</jar>
                   <chdir>..</chdir>
@@ -438,11 +441,10 @@
                     <preCp>etc\;lib\*.jar</preCp>
                   </classPath>
                   <jre>
-                    <minVersion>1.7.0</minVersion>
+                    <minVersion>1.8.0</minVersion>
                   </jre>
                   <headerType>console</headerType>
                   <priority>normal</priority>
-                  <customProcName>false</customProcName>
                   <stayAlive>false</stayAlive>
                   <singleInstance>
                     <mutexName>OpenEstate-ImmoServer-Console</mutexName>
@@ -463,8 +465,10 @@
                   </versionInfo>
                 </configuration>
               </execution>
+              -->
 
               <!-- ManagerTool.exe -->
+              <!--
               <execution>
                 <id>launch4j-ManagerTool</id>
                 <phase>prepare-package</phase>
@@ -473,7 +477,7 @@
                 </goals>
                 <configuration>
                   <outfile>${project.build.directory}/runtime/bin/ManagerTool.exe</outfile>
-                  <icon>${project.basedir}/share/icons/ImmoServer-GUI.ico</icon>
+                  <icon>${project.basedir}/src/icons/ImmoServer-GUI.ico</icon>
                   <dontWrapJar>true</dontWrapJar>
                   <jar>.</jar>
                   <chdir>..</chdir>
@@ -484,11 +488,10 @@
                     <preCp>etc\;lib\*.jar</preCp>
                   </classPath>
                   <jre>
-                    <minVersion>1.7.0</minVersion>
+                    <minVersion>1.8.0</minVersion>
                   </jre>
                   <headerType>gui</headerType>
                   <priority>normal</priority>
-                  <customProcName>false</customProcName>
                   <stayAlive>false</stayAlive>
                   <singleInstance>
                     <mutexName>OpenEstate-ImmoServer-Manager</mutexName>
@@ -509,6 +512,7 @@
                   </versionInfo>
                 </configuration>
               </execution>
+              -->
 
               <!-- SslInit.exe -->
               <execution>
@@ -519,7 +523,7 @@
                 </goals>
                 <configuration>
                   <outfile>${project.build.directory}/runtime/bin/SslInit.exe</outfile>
-                  <icon>${project.basedir}/share/icons/ImmoServer-Console.ico</icon>
+                  <icon>${project.basedir}/src/icons/ImmoServer-Console.ico</icon>
                   <dontWrapJar>true</dontWrapJar>
                   <jar>.</jar>
                   <chdir>..</chdir>
@@ -530,11 +534,10 @@
                     <preCp>etc\;lib\*.jar</preCp>
                   </classPath>
                   <jre>
-                    <minVersion>1.7.0</minVersion>
+                    <minVersion>1.8.0</minVersion>
                   </jre>
                   <headerType>console</headerType>
                   <priority>normal</priority>
-                  <customProcName>false</customProcName>
                   <stayAlive>false</stayAlive>
                   <singleInstance>
                     <mutexName>OpenEstate-ImmoServer-SSL-Init</mutexName>
@@ -599,7 +602,7 @@
                   <!--<useAllReactorProjects>true</useAllReactorProjects>-->
                   <tarLongFileMode>posix</tarLongFileMode>
                   <descriptors>
-                    <descriptor>assembly.xml</descriptor>
+                    <descriptor>${project.basedir}/src/assembly/release.xml</descriptor>
                   </descriptors>
                 </configuration>
               </execution>
