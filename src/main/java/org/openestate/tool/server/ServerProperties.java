@@ -27,30 +27,24 @@ import org.xnap.commons.i18n.I18nFactory;
 /**
  * ServerProperties.
  *
- * @since 1.0
  * @author Andreas Rudolph
+ * @since 1.0
  */
-public class ServerProperties extends org.hsqldb.server.ServerProperties
-{
-  private final static Logger LOGGER = LoggerFactory.getLogger( ServerProperties.class );
-  private static final I18n I18N = I18nFactory.getI18n( ServerProperties.class );
+public class ServerProperties extends org.hsqldb.server.ServerProperties {
+    private final static Logger LOGGER = LoggerFactory.getLogger(ServerProperties.class);
+    private static final I18n I18N = I18nFactory.getI18n(ServerProperties.class);
 
-  public ServerProperties( int protocol, File file ) throws IOException
-  {
-    super( protocol, file );
-  }
+    public ServerProperties(int protocol, File file) throws IOException {
+        super(protocol, file);
+    }
 
-  public static ServerProperties create( int protocol, InputStream props ) throws IOException
-  {
-    File tempFile = File.createTempFile( "openestate-immoserver-", ".properties" );
-    try
-    {
-      FileUtils.copyInputStreamToFile( props, tempFile );
-      return new ServerProperties( protocol, tempFile );
+    public static ServerProperties create(int protocol, InputStream props) throws IOException {
+        File tempFile = File.createTempFile("openestate-immoserver-", ".properties");
+        try {
+            FileUtils.copyInputStreamToFile(props, tempFile);
+            return new ServerProperties(protocol, tempFile);
+        } finally {
+            FileUtils.deleteQuietly(tempFile);
+        }
     }
-    finally
-    {
-      FileUtils.deleteQuietly( tempFile );
-    }
-  }
 }

@@ -61,248 +61,219 @@ import org.xnap.commons.i18n.I18nFactory;
 /**
  * SslGenerator.
  *
- * @since 1.0
  * @author Andreas Rudolph
+ * @since 1.0
  */
-public class SslGenerator
-{
-  private final static Logger LOGGER = LoggerFactory.getLogger( SslGenerator.class );
-  private static final I18n I18N = I18nFactory.getI18n( SslGenerator.class );
-  private final static String ALIAS = "OpenEstate-ImmoServer";
-  private final static String PROVIDER = "BC";
-  private final static String KEY_ALGORITHM = "RSA";
-  private final static int KEY_LENGTH = 4096;
-  private final static String SIGNATURE_ALGORITHM = "SHA256withRSA";
+public class SslGenerator {
+    private final static Logger LOGGER = LoggerFactory.getLogger(SslGenerator.class);
+    private static final I18n I18N = I18nFactory.getI18n(SslGenerator.class);
+    private final static String ALIAS = "OpenEstate-ImmoServer";
+    private final static String PROVIDER = "BC";
+    private final static String KEY_ALGORITHM = "RSA";
+    private final static int KEY_LENGTH = 4096;
+    private final static String SIGNATURE_ALGORITHM = "SHA256withRSA";
 
-  private SslGenerator()
-  {
-  }
-
-  private static ContentSigner createSigner( PrivateKey privateKey )
-  {
-    try
-    {
-      AlgorithmIdentifier sigAlgId = new DefaultSignatureAlgorithmIdentifierFinder().find( SIGNATURE_ALGORITHM );
-      AlgorithmIdentifier digAlgId = new DefaultDigestAlgorithmIdentifierFinder().find( sigAlgId );
-
-      return new BcRSAContentSignerBuilder( sigAlgId, digAlgId )
-        .build( PrivateKeyFactory.createKey( privateKey.getEncoded() ) );
-    }
-    catch (Exception ex)
-    {
-      throw new RuntimeException( "Could not create content signer.", ex );
-    }
-  }
-
-  public static void main( String[] args )
-  {
-    final Console console = System.console();
-    final String line = StringUtils.repeat( "-", 75 );
-
-    console.writer().println( line );
-    console.writer().println( I18N.tr( "Generate RSA keypair and certificate for SSL encryption." ) );
-    console.writer().println( line );
-    console.writer().println( StringUtils.EMPTY );
-
-    // register bouncy castle provider
-    Security.addProvider( new BouncyCastleProvider() );
-
-    // get common name
-    String commonName = (args.length>0)? StringUtils.trimToNull( args[0] ): null;
-    while (commonName==null)
-    {
-      //LOGGER.error( "No common name was specified as first command line argument!" );
-      //System.exit( 1 );
-      //return;
-
-      console.writer().print( I18N.tr( "Enter the ip-address / hostname of this server:" ) + StringUtils.SPACE );
-      console.writer().flush();
-      commonName = StringUtils.trimToNull( console.readLine() );
+    private SslGenerator() {
     }
 
-    // get password
-    char[] password = (args.length>1)? StringUtils.trimToEmpty( args[1] ).toCharArray(): null;
-    if (password==null)
-    {
-      //LOGGER.error( "No password was specified as second command line argument!" );
-      //System.exit( 1 );
-      //return;
+    private static ContentSigner createSigner(PrivateKey privateKey) {
+        try {
+            AlgorithmIdentifier sigAlgId = new DefaultSignatureAlgorithmIdentifierFinder().find(SIGNATURE_ALGORITHM);
+            AlgorithmIdentifier digAlgId = new DefaultDigestAlgorithmIdentifierFinder().find(sigAlgId);
 
-      while (password==null)
-      {
-        console.writer().print( I18N.tr( "Enter the password to access the keystore:" ) + StringUtils.SPACE );
-        console.writer().flush();
-        password = console.readPassword();
-      }
-
-      console.writer().print( I18N.tr( "Enter the password to access the keystore again:" ) + StringUtils.SPACE );
-      console.writer().flush();
-      char[] password2 = console.readPassword();
-      if (!StringUtils.equals( String.valueOf( password ), String.valueOf( password2 ) ))
-      {
-        console.writer().println( I18N.tr( "Error!" ) );
-        console.writer().println( I18N.tr( "The provided passwords do not match." ) );
-        System.exit( 1 );
-      }
+            return new BcRSAContentSignerBuilder(sigAlgId, digAlgId)
+                    .build(PrivateKeyFactory.createKey(privateKey.getEncoded()));
+        } catch (Exception ex) {
+            throw new RuntimeException("Could not create content signer.", ex);
+        }
     }
 
-    console.writer().println( StringUtils.EMPTY );
-    console.writer().println( line );
-    console.writer().println( I18N.tr( "Creating files for SSL encryption..." ) );
-    console.writer().println( line );
-    console.writer().println( StringUtils.EMPTY );
+    public static void main(String[] args) {
+        final Console console = System.console();
+        final String line = StringUtils.repeat("-", 75);
 
-    final File sslDir = new File( new File( "etc" ), "ssl" );
-    if (!sslDir.exists() && !sslDir.mkdirs())
-    {
-      LOGGER.error( "Can't create ssl directory at '" + sslDir.getAbsolutePath() + "'!" );
-      System.exit( 1 );
-      return;
+        console.writer().println(line);
+        console.writer().println(I18N.tr("Generate RSA keypair and certificate for SSL encryption."));
+        console.writer().println(line);
+        console.writer().println(StringUtils.EMPTY);
+
+        // register bouncy castle provider
+        Security.addProvider(new BouncyCastleProvider());
+
+        // get common name
+        String commonName = (args.length > 0) ? StringUtils.trimToNull(args[0]) : null;
+        while (commonName == null) {
+            //LOGGER.error( "No common name was specified as first command line argument!" );
+            //System.exit( 1 );
+            //return;
+
+            console.writer().print(I18N.tr("Enter the ip-address / hostname of this server:") + StringUtils.SPACE);
+            console.writer().flush();
+            commonName = StringUtils.trimToNull(console.readLine());
+        }
+
+        // get password
+        char[] password = (args.length > 1) ? StringUtils.trimToEmpty(args[1]).toCharArray() : null;
+        if (password == null) {
+            //LOGGER.error( "No password was specified as second command line argument!" );
+            //System.exit( 1 );
+            //return;
+
+            while (password == null) {
+                console.writer().print(I18N.tr("Enter the password to access the keystore:") + StringUtils.SPACE);
+                console.writer().flush();
+                password = console.readPassword();
+            }
+
+            console.writer().print(I18N.tr("Enter the password to access the keystore again:") + StringUtils.SPACE);
+            console.writer().flush();
+            char[] password2 = console.readPassword();
+            if (!StringUtils.equals(String.valueOf(password), String.valueOf(password2))) {
+                console.writer().println(I18N.tr("Error!"));
+                console.writer().println(I18N.tr("The provided passwords do not match."));
+                System.exit(1);
+            }
+        }
+
+        console.writer().println(StringUtils.EMPTY);
+        console.writer().println(line);
+        console.writer().println(I18N.tr("Creating files for SSL encryption..."));
+        console.writer().println(line);
+        console.writer().println(StringUtils.EMPTY);
+
+        final File sslDir = new File(new File("etc"), "ssl");
+        if (!sslDir.exists() && !sslDir.mkdirs()) {
+            LOGGER.error("Can't create ssl directory at '" + sslDir.getAbsolutePath() + "'!");
+            System.exit(1);
+            return;
+        }
+
+        // create random number generator
+        final SecureRandom random = new SecureRandom();
+
+        // create key generator
+        final KeyPairGenerator keyGen;
+        try {
+            keyGen = KeyPairGenerator.getInstance(KEY_ALGORITHM, PROVIDER);
+            keyGen.initialize(KEY_LENGTH, random);
+        } catch (Exception ex) {
+            LOGGER.error("Can't initialize key generator!");
+            LOGGER.error("> " + ex.getLocalizedMessage(), ex);
+            System.exit(1);
+            return;
+        }
+
+        // generate a keypair
+        final KeyPair pair = keyGen.generateKeyPair();
+
+        // export private key
+        final PrivateKey priv = pair.getPrivate();
+        final File privFile = new File(sslDir, "private.key");
+        FileUtils.deleteQuietly(privFile);
+        console.writer().println(I18N.tr("Writing private key to {0}.", "'" + privFile.getAbsolutePath() + "'"));
+        try (PemWriter pemWriter = new PemWriter(new FileWriterWithEncoding(privFile, "UTF-8"))) {
+            pemWriter.writeObject(new PemObject("OpenEstate-ImmoServer / Private Key", priv.getEncoded()));
+            pemWriter.flush();
+        } catch (Exception ex) {
+            LOGGER.error("Can't export private key!");
+            LOGGER.error("> " + ex.getLocalizedMessage(), ex);
+            System.exit(1);
+            return;
+        }
+
+        // export public key
+        final PublicKey pub = pair.getPublic();
+        final File pubFile = new File(sslDir, "public.key");
+        FileUtils.deleteQuietly(pubFile);
+        console.writer().println(I18N.tr("Writing public key to {0}.", "'" + pubFile.getAbsolutePath() + "'"));
+        try (PemWriter pemWriter = new PemWriter(new FileWriterWithEncoding(pubFile, "UTF-8"))) {
+            pemWriter.writeObject(new PemObject("OpenEstate-ImmoServer / Public Key", pub.getEncoded()));
+            pemWriter.flush();
+        } catch (Exception ex) {
+            LOGGER.error("Can't export public key!");
+            LOGGER.error("> " + ex.getLocalizedMessage(), ex);
+            System.exit(1);
+            return;
+        }
+
+        // generate certificate
+        final X509Certificate cert;
+        try {
+            Date startDate = new Date();
+            Date expiryDate = DateUtils.addYears(startDate, 10);
+            X500Name subject = new X500Name("CN=" + commonName);
+            SubjectPublicKeyInfo publicKeyInfo = SubjectPublicKeyInfo.getInstance(pub.getEncoded());
+            BigInteger serial = BigInteger.valueOf(random.nextLong()).abs();
+
+            //X509v1CertificateBuilder builder = new X509v1CertificateBuilder( subject, serial, startDate, expiryDate, subject, publicKeyInfo );
+            //X509CertificateHolder holder = builder.build( createSigner( priv ) );
+            //cert = new JcaX509CertificateConverter().getCertificate( holder );
+
+            X509v3CertificateBuilder builder = new X509v3CertificateBuilder(subject, serial, startDate, expiryDate, subject, publicKeyInfo);
+
+            X509ExtensionUtils x509ExtensionUtils = new X509ExtensionUtils(
+                    new BcDigestCalculatorProvider().get(new AlgorithmIdentifier(OIWObjectIdentifiers.idSHA1)));
+            builder.addExtension(Extension.subjectKeyIdentifier, false, x509ExtensionUtils.createSubjectKeyIdentifier(publicKeyInfo));
+
+            X509CertificateHolder holder = builder.build(createSigner(priv));
+            cert = new JcaX509CertificateConverter().getCertificate(holder);
+
+            // export certificate
+            File f = new File(sslDir, "private.crt");
+            FileUtils.deleteQuietly(f);
+            console.writer().println(I18N.tr("Writing certificate to {0}.", "'" + f.getAbsolutePath() + "'"));
+            try (PemWriter pemWriter = new PemWriter(new FileWriterWithEncoding(f, "UTF-8"))) {
+                pemWriter.writeObject(new PemObject("OpenEstate-ImmoServer / Certificate", cert.getEncoded()));
+                pemWriter.flush();
+            }
+        } catch (Exception ex) {
+            LOGGER.error("Can't create certificate!");
+            LOGGER.error("> " + ex.getLocalizedMessage(), ex);
+            System.exit(1);
+            return;
+        }
+
+        // create keystore
+        try {
+            KeyStore store = KeyStore.getInstance("jks");
+            store.load(null, password);
+            store.setKeyEntry(ALIAS, priv, password, new Certificate[]{cert});
+
+            File f = new File(sslDir, "keystore.jks");
+            FileUtils.deleteQuietly(f);
+            console.writer().println(I18N.tr("Writing keystore to {0}.", "'" + f.getAbsolutePath() + "'"));
+
+            try (OutputStream output = new FileOutputStream(f)) {
+                store.store(output, password);
+                output.flush();
+            }
+        } catch (Exception ex) {
+            LOGGER.error("Can't create keystore!");
+            LOGGER.error("> " + ex.getLocalizedMessage(), ex);
+            System.exit(1);
+            return;
+        }
+
+        console.writer().println(StringUtils.EMPTY);
+        console.writer().println(line);
+        console.writer().println(I18N.tr("SSL encryption was successfully prepared!"));
+        console.writer().println(line);
+        console.writer().println(StringUtils.EMPTY);
+        console.writer().println(I18N.tr("Follow these steps in order to enable SSL encryption."));
+        console.writer().println(StringUtils.EMPTY);
+        console.writer().println("(1) " + I18N.tr("Open the following configuration file with a text editor:"));
+        console.writer().println(StringUtils.EMPTY);
+        console.writer().println(new File("etc", "server.properies").getAbsolutePath());
+        console.writer().println(StringUtils.EMPTY);
+        console.writer().println("(2) " + I18N.tr("Change the following values in the configuration file:"));
+        console.writer().println(StringUtils.EMPTY);
+        console.writer().println("server.tls=true");
+        console.writer().println("system.javax.net.ssl.keyStore=./etc/ssl/keystore.jks");
+        console.writer().println("system.javax.net.ssl.keyStorePassword=" + String.valueOf(password));
+        console.writer().println(StringUtils.EMPTY);
+        console.writer().println("(3) " + I18N.tr("Restart {0}.", Server.TITLE));
+        console.writer().println(StringUtils.EMPTY);
+        console.writer().println(line);
+        console.writer().println(StringUtils.EMPTY);
     }
-
-    // create random number generator
-    final SecureRandom random = new SecureRandom();
-
-    // create key generator
-    final KeyPairGenerator keyGen;
-    try
-    {
-      keyGen = KeyPairGenerator.getInstance( KEY_ALGORITHM, PROVIDER );
-      keyGen.initialize( KEY_LENGTH, random );
-    }
-    catch (Exception ex)
-    {
-      LOGGER.error( "Can't initialize key generator!" );
-      LOGGER.error( "> " + ex.getLocalizedMessage(), ex );
-      System.exit( 1 );
-      return;
-    }
-
-    // generate a keypair
-    final KeyPair pair = keyGen.generateKeyPair();
-
-    // export private key
-    final PrivateKey priv = pair.getPrivate();
-    final File privFile = new File( sslDir, "private.key" );
-    FileUtils.deleteQuietly( privFile );
-    console.writer().println( I18N.tr( "Writing private key to {0}.", "'" + privFile.getAbsolutePath() + "'" ) );
-    try (PemWriter pemWriter = new PemWriter( new FileWriterWithEncoding( privFile, "UTF-8" ) ))
-    {
-      pemWriter.writeObject( new PemObject( "OpenEstate-ImmoServer / Private Key", priv.getEncoded() ) );
-      pemWriter.flush();
-    }
-    catch (Exception ex)
-    {
-      LOGGER.error( "Can't export private key!" );
-      LOGGER.error( "> " + ex.getLocalizedMessage(), ex );
-      System.exit( 1 );
-      return;
-    }
-
-    // export public key
-    final PublicKey pub = pair.getPublic();
-    final File pubFile = new File( sslDir, "public.key" );
-    FileUtils.deleteQuietly( pubFile );
-    console.writer().println( I18N.tr( "Writing public key to {0}.", "'" + pubFile.getAbsolutePath() + "'" ) );
-    try (PemWriter pemWriter = new PemWriter( new FileWriterWithEncoding( pubFile, "UTF-8" ) ))
-    {
-      pemWriter.writeObject( new PemObject( "OpenEstate-ImmoServer / Public Key", pub.getEncoded() ) );
-      pemWriter.flush();
-    }
-    catch (Exception ex)
-    {
-      LOGGER.error( "Can't export public key!" );
-      LOGGER.error( "> " + ex.getLocalizedMessage(), ex );
-      System.exit( 1 );
-      return;
-    }
-
-    // generate certificate
-    final X509Certificate cert;
-    try
-    {
-      Date startDate = new Date();
-      Date expiryDate = DateUtils.addYears( startDate, 10 );
-      X500Name subject = new X500Name( "CN=" + commonName );
-      SubjectPublicKeyInfo publicKeyInfo = SubjectPublicKeyInfo.getInstance( pub.getEncoded() );
-      BigInteger serial = BigInteger.valueOf( random.nextLong() ).abs();
-
-      //X509v1CertificateBuilder builder = new X509v1CertificateBuilder( subject, serial, startDate, expiryDate, subject, publicKeyInfo );
-      //X509CertificateHolder holder = builder.build( createSigner( priv ) );
-      //cert = new JcaX509CertificateConverter().getCertificate( holder );
-
-      X509v3CertificateBuilder builder = new X509v3CertificateBuilder( subject, serial, startDate, expiryDate, subject, publicKeyInfo );
-
-      X509ExtensionUtils x509ExtensionUtils = new X509ExtensionUtils(
-        new BcDigestCalculatorProvider().get( new AlgorithmIdentifier( OIWObjectIdentifiers.idSHA1 ) ) );
-      builder.addExtension( Extension.subjectKeyIdentifier, false, x509ExtensionUtils.createSubjectKeyIdentifier( publicKeyInfo ) );
-
-      X509CertificateHolder holder = builder.build( createSigner( priv ) );
-      cert = new JcaX509CertificateConverter().getCertificate( holder );
-
-      // export certificate
-      File f = new File( sslDir, "private.crt" );
-      FileUtils.deleteQuietly( f );
-      console.writer().println( I18N.tr( "Writing certificate to {0}.", "'" + f.getAbsolutePath() + "'" ) );
-      try (PemWriter pemWriter = new PemWriter( new FileWriterWithEncoding( f, "UTF-8" ) ))
-      {
-        pemWriter.writeObject( new PemObject( "OpenEstate-ImmoServer / Certificate", cert.getEncoded() ) );
-        pemWriter.flush();
-      }
-    }
-    catch (Exception ex)
-    {
-      LOGGER.error( "Can't create certificate!" );
-      LOGGER.error( "> " + ex.getLocalizedMessage(), ex );
-      System.exit( 1 );
-      return;
-    }
-
-    // create keystore
-    try
-    {
-      KeyStore store = KeyStore.getInstance( "jks" );
-      store.load( null, password );
-      store.setKeyEntry( ALIAS, priv, password, new Certificate[]{cert} );
-
-      File f = new File( sslDir, "keystore.jks" );
-      FileUtils.deleteQuietly( f );
-      console.writer().println( I18N.tr( "Writing keystore to {0}.", "'" + f.getAbsolutePath() + "'" ) );
-
-      try (OutputStream output = new FileOutputStream( f ))
-      {
-        store.store( output, password );
-        output.flush();
-      }
-    }
-    catch (Exception ex)
-    {
-      LOGGER.error( "Can't create keystore!" );
-      LOGGER.error( "> " + ex.getLocalizedMessage(), ex );
-      System.exit( 1 );
-      return;
-    }
-
-    console.writer().println( StringUtils.EMPTY );
-    console.writer().println( line );
-    console.writer().println( I18N.tr( "SSL encryption was successfully prepared!" ) );
-    console.writer().println( line );
-    console.writer().println( StringUtils.EMPTY );
-    console.writer().println( I18N.tr( "Follow these steps in order to enable SSL encryption." ) );
-    console.writer().println( StringUtils.EMPTY );
-    console.writer().println( "(1) " +  I18N.tr( "Open the following configuration file with a text editor:" ) );
-    console.writer().println( StringUtils.EMPTY );
-    console.writer().println( new File( "etc", "server.properies" ).getAbsolutePath() );
-    console.writer().println( StringUtils.EMPTY );
-    console.writer().println( "(2) " +  I18N.tr( "Change the following values in the configuration file:" ) );
-    console.writer().println( StringUtils.EMPTY );
-    console.writer().println( "server.tls=true" );
-    console.writer().println( "system.javax.net.ssl.keyStore=./etc/ssl/keystore.jks" );
-    console.writer().println( "system.javax.net.ssl.keyStorePassword=" + String.valueOf( password ) );
-    console.writer().println( StringUtils.EMPTY );
-    console.writer().println( "(3) " +  I18N.tr( "Restart {0}.", Server.TITLE ) );
-    console.writer().println( StringUtils.EMPTY );
-    console.writer().println( line );
-    console.writer().println( StringUtils.EMPTY );
-  }
 }

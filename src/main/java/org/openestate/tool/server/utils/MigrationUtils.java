@@ -35,64 +35,56 @@ import org.xnap.commons.i18n.I18nFactory;
 /**
  * MigrationUtils.
  *
- * @since 1.0
  * @author Andreas Rudolph
+ * @since 1.0
  */
-public final class MigrationUtils
-{
-  private final static Logger LOGGER = LoggerFactory.getLogger( MigrationUtils.class );
-  private static final I18n I18N = I18nFactory.getI18n( MigrationUtils.class );
+public final class MigrationUtils {
+    private final static Logger LOGGER = LoggerFactory.getLogger(MigrationUtils.class);
+    private static final I18n I18N = I18nFactory.getI18n(MigrationUtils.class);
 
-  private MigrationUtils()
-  {
-  }
-
-  public static void migrateFromOldDatabase( File dbDir, String name ) throws IOException
-  {
-    if (dbDir==null || !dbDir.isDirectory()) return;
-
-    // look for database files
-    final File dbScriptFile = new File( dbDir, name + ".script" );
-    final File dbPropsFile = new File( dbDir, name + ".properties" );
-    if (!dbPropsFile.isFile() || !dbScriptFile.isFile()) return;
-
-    // load database parameters
-    Properties props = new Properties();
-    try (InputStream input = new FileInputStream( dbPropsFile ))
-    {
-      props.load( input );
+    private MigrationUtils() {
     }
 
-    final String dbVersion = StringUtils.trimToEmpty( props.getProperty( "version" ) );
+    public static void migrateFromOldDatabase(File dbDir, String name) throws IOException {
+        if (dbDir == null || !dbDir.isDirectory()) return;
 
-    // upgrade database structures from HSQLDB 2.2.x
-    if (dbVersion.startsWith( "2.2." ))
-    {
-      LOGGER.info( "Migrating database '" + dbDir.getAbsolutePath() + "' from " + dbVersion + " to " + HsqlDatabaseProperties.THIS_VERSION + "." );
+        // look for database files
+        final File dbScriptFile = new File(dbDir, name + ".script");
+        final File dbPropsFile = new File(dbDir, name + ".properties");
+        if (!dbPropsFile.isFile() || !dbScriptFile.isFile()) return;
 
-      File dbScriptFileNew = new File( dbDir, dbScriptFile.getName() + ".new" );
-      File dbScriptFileOld = new File( dbDir, dbScriptFile.getName() + ".old" );
-      Pattern pattern = Pattern.compile(
-        "SELECT ([\\w]*) INTO ([\\w]*) FROM ([\\w\\.]*) WHERE ([\\w]*)\\s?=\\s?CURRENT VALUE FOR ([\\w\\.]*);" );
-
-      try (Writer output = new FileWriterWithEncoding( dbScriptFileNew, "UTF-8" ))
-      {
-        for (String line : FileUtils.readLines( dbScriptFile, "UTF-8" ))
-        {
-          Matcher m = pattern.matcher( line );
-          while (m.find())
-          {
-            line = StringUtils.replace(
-              line, m.group( 0 ), "SET " + m.group( 2 ) + " = IDENTITY();" );
-          }
-          output.write( line );
-          output.write( System.lineSeparator() );
+        // load database parameters
+        Properties props = new Properties();
+        try (InputStream input = new FileInputStream(dbPropsFile)) {
+            props.load(input);
         }
-        output.flush();
-      }
 
-      FileUtils.copyFile( dbScriptFile, dbScriptFileOld );
-      FileUtils.copyFile( dbScriptFileNew, dbScriptFile );
+        final String dbVersion = StringUtils.trimToEmpty(props.getProperty("version"));
+
+        // upgrade database structures from HSQLDB 2.2.x
+        if (dbVersion.startsWith("2.2.")) {
+            LOGGER.info("Migrating database '" + dbDir.getAbsolutePath() + "' from " + dbVersion + " to " + HsqlDatabaseProperties.THIS_VERSION + ".");
+
+            File dbScriptFileNew = new File(dbDir, dbScriptFile.getName() + ".new");
+            File dbScriptFileOld = new File(dbDir, dbScriptFile.getName() + ".old");
+            Pattern pattern = Pattern.compile(
+                    "SELECT ([\\w]*) INTO ([\\w]*) FROM ([\\w\\.]*) WHERE ([\\w]*)\\s?=\\s?CURRENT VALUE FOR ([\\w\\.]*);");
+
+            try (Writer output = new FileWriterWithEncoding(dbScriptFileNew, "UTF-8")) {
+                for (String line : FileUtils.readLines(dbScriptFile, "UTF-8")) {
+                    Matcher m = pattern.matcher(line);
+                    while (m.find()) {
+                        line = StringUtils.replace(
+                                line, m.group(0), "SET " + m.group(2) + " = IDENTITY();");
+                    }
+                    output.write(line);
+                    output.write(System.lineSeparator());
+                }
+                output.flush();
+            }
+
+            FileUtils.copyFile(dbScriptFile, dbScriptFileOld);
+            FileUtils.copyFile(dbScriptFileNew, dbScriptFile);
+        }
     }
-  }
 }
