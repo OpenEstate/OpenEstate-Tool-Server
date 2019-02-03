@@ -39,7 +39,9 @@ import org.xnap.commons.i18n.I18nFactory;
  * @since 1.0
  */
 public final class MigrationUtils {
-    private final static Logger LOGGER = LoggerFactory.getLogger(MigrationUtils.class);
+    @SuppressWarnings("unused")
+    private static final Logger LOGGER = LoggerFactory.getLogger(MigrationUtils.class);
+    @SuppressWarnings("unused")
     private static final I18n I18N = I18nFactory.getI18n(MigrationUtils.class);
 
     private MigrationUtils() {

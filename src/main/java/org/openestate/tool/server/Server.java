@@ -21,8 +21,6 @@ import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
@@ -43,11 +41,12 @@ import org.xnap.commons.i18n.I18nFactory;
  * @author Andreas Rudolph
  * @since 1.0
  */
+@SuppressWarnings("WeakerAccess")
 public class Server extends org.hsqldb.Server {
-    private final static Logger LOGGER = LoggerFactory.getLogger(Server.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Server.class);
     private static final I18n I18N = I18nFactory.getI18n(Server.class);
-    public final static String TITLE = "OpenEstate-ImmoServer";
-    private final static String SYSTEM_TRAY_PROPERTY = "openestate.server.systemTray";
+    public static final String TITLE = "OpenEstate-ImmoServer";
+    private static final String SYSTEM_TRAY_PROPERTY = "openestate.server.systemTray";
     private static Server server = null;
     private static TrayIcon systemTrayIcon = null;
 
@@ -82,12 +81,9 @@ public class Server extends org.hsqldb.Server {
 
         final PopupMenu popup = new PopupMenu();
         final MenuItem stopItem = new MenuItem(I18N.tr("shutdown {0}", TITLE));
-        stopItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                stopItem.setEnabled(false);
-                server.stop();
-            }
+        stopItem.addActionListener(e -> {
+            stopItem.setEnabled(false);
+            server.stop();
         });
         popup.add(stopItem);
 

@@ -30,8 +30,11 @@ import org.xnap.commons.i18n.I18nFactory;
  * @author Andreas Rudolph
  * @since 1.0
  */
+@SuppressWarnings("WeakerAccess")
 public class ServerProperties extends org.hsqldb.server.ServerProperties {
-    private final static Logger LOGGER = LoggerFactory.getLogger(ServerProperties.class);
+    @SuppressWarnings("unused")
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServerProperties.class);
+    @SuppressWarnings("unused")
     private static final I18n I18N = I18nFactory.getI18n(ServerProperties.class);
 
     public ServerProperties(int protocol, File file) throws IOException {

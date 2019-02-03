@@ -65,13 +65,13 @@ import org.xnap.commons.i18n.I18nFactory;
  * @since 1.0
  */
 public class SslGenerator {
-    private final static Logger LOGGER = LoggerFactory.getLogger(SslGenerator.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SslGenerator.class);
     private static final I18n I18N = I18nFactory.getI18n(SslGenerator.class);
-    private final static String ALIAS = "OpenEstate-ImmoServer";
-    private final static String PROVIDER = "BC";
-    private final static String KEY_ALGORITHM = "RSA";
-    private final static int KEY_LENGTH = 4096;
-    private final static String SIGNATURE_ALGORITHM = "SHA256withRSA";
+    private static final String ALIAS = "OpenEstate-ImmoServer";
+    private static final String PROVIDER = "BC";
+    private static final String KEY_ALGORITHM = "RSA";
+    private static final int KEY_LENGTH = 4096;
+    private static final String SIGNATURE_ALGORITHM = "SHA256withRSA";
 
     private SslGenerator() {
     }
@@ -88,12 +88,13 @@ public class SslGenerator {
         }
     }
 
+    @SuppressWarnings("Duplicates")
     public static void main(String[] args) {
         final Console console = System.console();
         final String line = StringUtils.repeat("-", 75);
 
         console.writer().println(line);
-        console.writer().println(I18N.tr("Generate RSA keypair and certificate for SSL encryption."));
+        console.writer().println(I18N.tr("Generate RSA key pair and certificate for SSL encryption."));
         console.writer().println(line);
         console.writer().println(StringUtils.EMPTY);
 
@@ -163,7 +164,7 @@ public class SslGenerator {
             return;
         }
 
-        // generate a keypair
+        // generate a key pair
         final KeyPair pair = keyGen.generateKeyPair();
 
         // export private key
@@ -263,7 +264,7 @@ public class SslGenerator {
         console.writer().println(StringUtils.EMPTY);
         console.writer().println("(1) " + I18N.tr("Open the following configuration file with a text editor:"));
         console.writer().println(StringUtils.EMPTY);
-        console.writer().println(new File("etc", "server.properies").getAbsolutePath());
+        console.writer().println(new File("etc", "server.properties").getAbsolutePath());
         console.writer().println(StringUtils.EMPTY);
         console.writer().println("(2) " + I18N.tr("Change the following values in the configuration file:"));
         console.writer().println(StringUtils.EMPTY);
