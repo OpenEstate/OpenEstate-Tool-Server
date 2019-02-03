@@ -1,7 +1,7 @@
 @REM ----------------------------------------------------------------------------
 @REM OpenEstate-ImmoServer
 @REM launch a management console on the database server
-@REM Copyright (C) 2009-2017 OpenEstate.org
+@REM Copyright (C) 2009-2019 OpenEstate.org
 @REM ----------------------------------------------------------------------------
 @echo off
 

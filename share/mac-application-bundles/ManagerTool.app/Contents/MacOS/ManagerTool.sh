@@ -2,7 +2,7 @@
 # ----------------------------------------------------------------------------
 # OpenEstate-ImmoServer
 # Launch the HSQLDB-Manager from macOS application bundle.
-# Copyright (C) 2009-2017 OpenEstate.org
+# Copyright (C) 2009-2019 OpenEstate.org
 # ----------------------------------------------------------------------------
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"

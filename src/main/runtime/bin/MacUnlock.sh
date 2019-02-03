@@ -2,7 +2,7 @@
 # ----------------------------------------------------------------------------
 # OpenEstate-ImmoServer
 # unlock application bundles in macOS Gatekeeper
-# Copyright (C) 2009-2017 OpenEstate.org
+# Copyright (C) 2009-2019 OpenEstate.org
 # ----------------------------------------------------------------------------
 
 LABEL="OpenEstate.org"

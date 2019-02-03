@@ -2,7 +2,7 @@
 # ----------------------------------------------------------------------------
 # OpenEstate-ImmoServer
 # setup ImmoTool server for systemd / launchd
-# Copyright (C) 2009-2017 OpenEstate.org
+# Copyright (C) 2009-2019 OpenEstate.org
 # ----------------------------------------------------------------------------
 
 # detect server directory

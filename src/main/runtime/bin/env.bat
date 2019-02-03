@@ -1,7 +1,7 @@
 @REM ----------------------------------------------------------------------------
 @REM OpenEstate-ImmoServer
 @REM setup ImmoTool server for the YAJSW wrapper
-@REM Copyright (C) 2009-2017 OpenEstate.org
+@REM Copyright (C) 2009-2019 OpenEstate.org
 @REM ----------------------------------------------------------------------------
 @echo off
 

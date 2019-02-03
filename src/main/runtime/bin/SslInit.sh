@@ -2,7 +2,7 @@
 # ----------------------------------------------------------------------------
 # OpenEstate-ImmoServer
 # generate RSA keypair and certificate for SSL encryption
-# Copyright (C) 2009-2017 OpenEstate.org
+# Copyright (C) 2009-2019 OpenEstate.org
 # ----------------------------------------------------------------------------
 
 # Use a specific command to launch the Java Runtime Environment
