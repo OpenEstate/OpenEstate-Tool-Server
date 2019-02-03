@@ -1,5 +1,5 @@
-OpenEstate-Tool-Server 1.0-SNAPSHOT
-===================================
+OpenEstate-Tool-Server 1.0.0-SNAPSHOT
+=====================================
 
 *OpenEstate-Tool-Server* (also called *OpenEstate-ImmoServer*) provides a [*HSQLDB* server](http://hsqldb.org/), that may be used for multi user installations of *OpenEstate-ImmoTool*.
 
