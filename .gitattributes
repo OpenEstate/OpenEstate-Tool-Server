@@ -1,3 +1,4 @@
+src/innosetup/* text eol=crlf
 src/licenses/* text eol=crlf
 src/unix/* text eol=lf
 src/windows/* text eol=crlf

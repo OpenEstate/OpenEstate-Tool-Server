@@ -347,6 +347,20 @@
                                             <arg value="../OpenEstate-ImmoServer-${project.version}.linux64.tar.gz"/>
                                             <arg value="."/>
                                         </exec>
+
+                                        <echo message="Creating Windows32 installer..." level="info"/>
+                                        <exec executable="bash" dir="${project.basedir}">
+                                            <env key="BUILD_VERSION" value="${project.version}"/>
+                                            <env key="BUILD_QUIETLY" value="1"/>
+                                            <arg value="build-installer-win32.sh"/>
+                                        </exec>
+
+                                        <echo message="Creating Windows64 installer..." level="info"/>
+                                        <exec executable="bash" dir="${project.basedir}">
+                                            <env key="BUILD_VERSION" value="${project.version}"/>
+                                            <env key="BUILD_QUIETLY" value="1"/>
+                                            <arg value="build-installer-win64.sh"/>
+                                        </exec>
                                     </target>
                                 </configuration>
                             </execution>
