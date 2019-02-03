@@ -299,30 +299,32 @@
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <mkdir dir="${project.build.directory}/launch4j"/>
+                                        <property name="commons-daemon.tempDir"
+                                                  value="${project.basedir}/temp/commons-daemon"/>
 
+                                        <mkdir dir="${project.build.directory}/launch4j"/>
                                         <mkdir dir="${project.build.directory}/commons-daemon"/>
+                                        <mkdir dir="${commons-daemon.tempDir}"/>
 
                                         <!-- download native Windows binaries for commons-daemon -->
                                         <get src="${commons-daemon.download}"
-                                             dest="${project.basedir}/share/commons-daemon"
+                                             dest="${commons-daemon.tempDir}"
                                              skipexisting="true" verbose="false"/>
 
                                         <!-- extract native Windows binaries for commons-daemon -->
-                                        <delete dir="${project.basedir}/share/commons-daemon/${commons-daemon.version}"/>
-                                        <unzip src="${project.basedir}/share/commons-daemon/commons-daemon-${commons-daemon.version}-bin-windows.zip"
-                                               dest="${project.basedir}/share/commons-daemon/${commons-daemon.version}"/>
+                                        <delete dir="${commons-daemon.tempDir}/${commons-daemon.version}"/>
+                                        <unzip src="${commons-daemon.tempDir}/commons-daemon-${commons-daemon.version}-bin-windows.zip"
+                                               dest="${commons-daemon.tempDir}/${commons-daemon.version}"/>
 
-                                        <!-- extract native Windows binaries for commons-daemon into runtime -->
+                                        <!-- copy native Windows binaries for commons-daemon into runtime -->
                                         <copy tofile="${project.build.directory}/commons-daemon/OpenEstate-ImmoServer.exe"
-                                              file="${project.basedir}/share/commons-daemon/${commons-daemon.version}/prunmgr.exe"/>
+                                              file="${commons-daemon.tempDir}/${commons-daemon.version}/prunmgr.exe"/>
                                         <copy tofile="${project.build.directory}/commons-daemon/Service32.exe"
-                                              file="${project.basedir}/share/commons-daemon/${commons-daemon.version}/prunsrv.exe"/>
+                                              file="${commons-daemon.tempDir}/${commons-daemon.version}/prunsrv.exe"/>
                                         <copy tofile="${project.build.directory}/commons-daemon/Service64.exe"
-                                              file="${project.basedir}/share/commons-daemon/${commons-daemon.version}/amd64/prunsrv.exe"/>
+                                              file="${commons-daemon.tempDir}/${commons-daemon.version}/amd64/prunsrv.exe"/>
                                         <copy todir="${project.build.directory}/commons-daemon">
-                                            <fileset
-                                                    dir="${project.basedir}/share/commons-daemon/${commons-daemon.version}">
+                                            <fileset dir="${commons-daemon.tempDir}/${commons-daemon.version}">
                                                 <include name="*.txt"/>
                                             </fileset>
                                         </copy>

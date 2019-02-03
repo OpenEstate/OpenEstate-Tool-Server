@@ -16,6 +16,7 @@
             <destName>Contents/Resources/share/licenses/OpenEstate-ImmoServer.license.txt</destName>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
+            <lineEnding>unix</lineEnding>
         </file>
     </files>
 
@@ -37,6 +38,7 @@
             <directoryMode>0755</directoryMode>
             <fileMode>0755</fileMode>
             <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
             <includes>
                 <include>**/MacOS/*</include>
             </includes>
@@ -59,6 +61,7 @@
             <directoryMode>0755</directoryMode>
             <fileMode>0755</fileMode>
             <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
             <includes>
                 <include>**/MacOS/*</include>
             </includes>
@@ -71,6 +74,7 @@
             <directoryMode>0755</directoryMode>
             <fileMode>0755</fileMode>
             <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/src/etc</directory>
@@ -78,6 +82,7 @@
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
+            <lineEnding>unix</lineEnding>
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/src/licenses</directory>
@@ -85,6 +90,7 @@
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
+            <lineEnding>unix</lineEnding>
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/src/icons</directory>

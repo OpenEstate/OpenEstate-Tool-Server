@@ -16,6 +16,7 @@
             <destName>share/licenses/OpenEstate-ImmoServer.license.txt</destName>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
+            <lineEnding>windows</lineEnding>
         </file>
         <file>
             <source>${project.build.directory}/commons-daemon/Service32.exe</source>
@@ -32,6 +33,7 @@
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <filtered>true</filtered>
+            <lineEnding>windows</lineEnding>
         </fileSet>
         <fileSet>
             <directory>${project.build.directory}/launch4j</directory>
@@ -57,6 +59,7 @@
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
+            <lineEnding>windows</lineEnding>
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/src/licenses</directory>
@@ -64,6 +67,7 @@
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
+            <lineEnding>windows</lineEnding>
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/src/icons</directory>
@@ -72,7 +76,6 @@
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
             <includes>
-                <include>*.icns</include>
                 <include>*.ico</include>
                 <include>*.png</include>
             </includes>
