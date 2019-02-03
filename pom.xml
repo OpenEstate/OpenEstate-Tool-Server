@@ -191,7 +191,7 @@
                 <version>3.0.5</version>
                 <configuration>
                     <failOnError>false</failOnError>
-                    <excludeFilterFile>${project.basedir}/findbugs-exclude.xml</excludeFilterFile>
+                    <excludeFilterFile>${project.basedir}/src/findbugs/exclude.xml</excludeFilterFile>
                 </configuration>
             </plugin>
 
