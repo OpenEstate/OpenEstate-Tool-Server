@@ -3,6 +3,19 @@
 @REM install Windows service for OpenEstate-ImmoServer
 @REM Copyright (C) 2009-2019 OpenEstate.org
 @REM ----------------------------------------------------------------------------
+@REM
+@REM Licensed under the Apache License, Version 2.0 (the "License");
+@REM you may not use this file except in compliance with the License.
+@REM You may obtain a copy of the License at
+@REM
+@REM http://www.apache.org/licenses/LICENSE-2.0
+@REM
+@REM Unless required by applicable law or agreed to in writing, software
+@REM distributed under the License is distributed on an "AS IS" BASIS,
+@REM WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+@REM See the License for the specific language governing permissions and
+@REM limitations under the License.
+@REM
 @echo off
 
 set "SCRIPT=%~nx0"
@@ -14,25 +27,13 @@ pushd %BASE_DIR%
 set "BASE_DIR=%CD%"
 popd
 
-reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set ARCH=32BIT || set ARCH=64BIT
-if %ARCH%==32BIT (
-    :: This is a 32bit operating system.
-    set "SERVICE_COMMAND=%SCRIPT_DIR%\service\Service32.exe"
-) else if %ARCH%==64BIT (
-    :: This is a 64bit operating system.
-    set "SERVICE_COMMAND=%SCRIPT_DIR%\service\Service64.exe"
-) else (
-    echo Your operating system is not supported!
-    pause
-    exit 1
-)
-
 if exist "%BASE_DIR%\jre\" (
     set "JVM_DLL=%BASE_DIR%\jre\bin\server\jvm.dll"
 ) else (
     set "JVM_DLL=auto"
 )
 
+set "SERVICE_COMMAND=%SCRIPT_DIR%\service\Service.exe"
 %SERVICE_COMMAND% //IS//OpenEstate-ImmoServer ^
     --DisplayName="OpenEstate-ImmoServer" ^
     --Description="Server for OpenEstate-ImmoTool" ^

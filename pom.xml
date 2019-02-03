@@ -2,616 +2,674 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.openestate.tool.server</groupId>
-  <artifactId>OpenEstate-Tool-Server</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+    <groupId>org.openestate.tool.server</groupId>
+    <artifactId>OpenEstate-Tool-Server</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-  <name>OpenEstate-Tool-Server</name>
-  <description>This application provides a server for multi user installations of OpenEstate-ImmoTool.</description>
-  <url>https://openestate.org</url>
-  <organization>
-    <name>OpenEstate</name>
-    <url>https://openestate.org/</url>
-  </organization>
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-      <comments>A business-friendly OSS license</comments>
-    </license>
-  </licenses>
+    <name>OpenEstate-Tool-Server</name>
+    <description>This application provides a server for multi user installations of OpenEstate-ImmoTool.</description>
+    <url>https://openestate.org</url>
+    <organization>
+        <name>OpenEstate</name>
+        <url>https://openestate.org/</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
 
-  <developers>
-    <developer>
-      <id>andy</id>
-      <name>Andreas Rudolph</name>
-      <email>andy@openindex.de</email>
-      <organization>OpenIndex</organization>
-      <organizationUrl>https://openindex.de/</organizationUrl>
-    </developer>
-  </developers>
+    <developers>
+        <developer>
+            <id>andy</id>
+            <name>Andreas Rudolph</name>
+            <email>andy@openindex.de</email>
+            <organization>OpenIndex</organization>
+            <organizationUrl>https://openindex.de/</organizationUrl>
+        </developer>
+    </developers>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.buildVersion>${project.version}</project.buildVersion>
-    <project.launch4jVersion>1.0.0.0</project.launch4jVersion>
-    <project.baseName>OpenEstate-ImmoServer</project.baseName>
-    <project.javadocDir>${project.basedir}/javadoc</project.javadocDir>
-    <project.releaseDir>${project.basedir}/release</project.releaseDir>
-    <commons-daemon.version>1.1.0</commons-daemon.version>
-    <commons-daemon.download>http://www.apache.org/dist/commons/daemon/binaries/windows/commons-daemon-${commons-daemon.version}-bin-windows.zip</commons-daemon.download>
-    <createChecksum>true</createChecksum>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.buildVersion>${project.version}</project.buildVersion>
+        <project.launch4jVersion>1.0.0.0</project.launch4jVersion>
+        <project.baseName>OpenEstate-ImmoServer</project.baseName>
+        <project.javadocDir>${project.basedir}/javadoc</project.javadocDir>
+        <project.packageDir>${project.basedir}/package</project.packageDir>
+        <commons-daemon.version>1.1.0</commons-daemon.version>
+        <commons-daemon.download>
+            http://www.apache.org/dist/commons/daemon/binaries/windows/commons-daemon-${commons-daemon.version}-bin-windows.zip
+        </commons-daemon.download>
+        <createChecksum>true</createChecksum>
 
-    <!-- Set this value to true, in order to skip GPG signing during the release phase. -->
-    <gpg.skip>false</gpg.skip>
-  </properties>
+        <!-- Set this value to true, in order to skip GPG signing during the release phase. -->
+        <gpg.skip>false</gpg.skip>
+        <gpg.passphrase></gpg.passphrase>
+    </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>com.google.code.findbugs</groupId>
-      <artifactId>annotations</artifactId>
-      <version>3.0.1u2</version>
-      <scope>compile</scope>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.bouncycastle</groupId>
-      <artifactId>bcprov-jdk15on</artifactId>
-      <version>1.59</version>
-      <scope>compile</scope>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.bouncycastle</groupId>
-      <artifactId>bcpkix-jdk15on</artifactId>
-      <version>1.59</version>
-      <scope>compile</scope>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>commons-daemon</groupId>
-      <artifactId>commons-daemon</artifactId>
-      <version>${commons-daemon.version}</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.6</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.8.1</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.googlecode.gettext-commons</groupId>
-      <artifactId>gettext-commons</artifactId>
-      <version>0.9.8</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.hsqldb</groupId>
-      <artifactId>hsqldb</artifactId>
-      <version>2.3.5</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.17</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.7.25</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.7.25</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.hsqldb</groupId>
-      <artifactId>sqltool</artifactId>
-      <version>2.3.5</version>
-      <scope>compile</scope>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>annotations</artifactId>
+            <version>3.0.1u2</version>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.59</version>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk15on</artifactId>
+            <version>1.59</version>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>commons-daemon</groupId>
+            <artifactId>commons-daemon</artifactId>
+            <version>${commons-daemon.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.8.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.gettext-commons</groupId>
+            <artifactId>gettext-commons</artifactId>
+            <version>0.9.8</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.3.5</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.25</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>sqltool</artifactId>
+            <version>2.3.5</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
-  <build>
-    <plugins>
-
-      <!-- clean -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-clean-plugin</artifactId>
-        <version>3.1.0</version>
-        <configuration>
-          <filesets>
-            <fileset>
-              <directory>${project.releaseDir}</directory>
-              <followSymlinks>false</followSymlinks>
-            </fileset>
-            <fileset>
-              <directory>${project.javadocDir}</directory>
-              <followSymlinks>false</followSymlinks>
-            </fileset>
-          </filesets>
-        </configuration>
-      </plugin>
-
-      <!-- resources -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>3.1.0</version>
-        <configuration>
-          <encoding>${project.build.sourceEncoding}</encoding>
-        </configuration>
-      </plugin>
-
-      <!-- compiler -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
-        <configuration>
-          <encoding>${project.build.sourceEncoding}</encoding>
-          <source>1.8</source>
-          <target>1.8</target>
-          <showDeprecation>true</showDeprecation>
-          <debug>false</debug>
-        </configuration>
-      </plugin>
-
-      <!-- findbugs -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.5</version>
-        <configuration>
-          <failOnError>false</failOnError>
-          <excludeFilterFile>${project.basedir}/findbugs-exclude.xml</excludeFilterFile>
-        </configuration>
-      </plugin>
-
-      <!-- gettext / http://gettext-commons.googlecode.com/svn/maven2-plugins-site/plugin-info.html -->
-      <plugin>
-        <groupId>com.googlecode.gettext-commons</groupId>
-        <artifactId>gettext-maven-plugin</artifactId>
-        <version>1.2.4</version>
-        <configuration>
-          <targetBundle>org.openestate.tool.server.resources.Messages</targetBundle>
-          <poDirectory>${project.basedir}/src/main/i18n</poDirectory>
-          <outputDirectory>${project.basedir}/src/main/resources</outputDirectory>
-          <outputFormat>class</outputFormat>
-
-          <!-- set path to the gettext utilities, if they are not found automatically -->
-          <!--
-          <msgcatCmd>msgcat</msgcatCmd>
-          <msgfmtCmd>msgfmt</msgfmtCmd>
-          <msgmergeCmd>msgmerge</msgmergeCmd>
-          <xgettextCmd>xgettext</xgettextCmd>
-          -->
-        </configuration>
-        <executions>
-          <execution>
-            <id>i18n-generate-bundle</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>dist</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-
-  <profiles>
-
-    <!-- release profile for maven.openestate.org -->
-    <profile>
-      <id>openestate-release</id>
-
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-
-      <distributionManagement>
-        <repository>
-          <id>openestate</id>
-          <url>https://maven.openestate.org/repository/openestate-releases/</url>
-        </repository>
-        <snapshotRepository>
-          <id>openestate</id>
-          <url>https://maven.openestate.org/repository/openestate-snapshots/</url>
-        </snapshotRepository>
-      </distributionManagement>
-
-      <build>
+    <build>
         <plugins>
 
-          <!-- source -->
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>3.0.1</version>
-            <executions>
-              <execution>
-                <id>attach-sources</id>
-                <goals>
-                  <goal>jar-no-fork</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-
-          <!-- javadoc -->
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.0.1</version>
-            <executions>
-              <execution>
-                <id>attach-javadocs</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
+            <!-- clean -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.1.0</version>
                 <configuration>
-                  <quiet>true</quiet>
-                  <encoding>${project.build.sourceEncoding}</encoding>
-                  <docencoding>${project.build.sourceEncoding}</docencoding>
+                    <filesets>
+                        <fileset>
+                            <directory>${project.packageDir}</directory>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
+                            <directory>${project.javadocDir}</directory>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                    </filesets>
                 </configuration>
-              </execution>
-            </executions>
-          </plugin>
+            </plugin>
 
-          <!-- antrun -->
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <version>1.8</version>
-            <executions>
-              <execution>
-                <id>prepare-runtime</id>
-                <phase>prepare-package</phase>
-                <goals>
-                  <goal>run</goal>
-                </goals>
+            <!-- resources -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
                 <configuration>
-                  <target>
-                    <mkdir dir="${project.build.directory}/runtime"/>
-                    <mkdir dir="${project.build.directory}/runtime/bin"/>
-
-                    <!-- download native Windows binaries for commons-daemon -->
-                    <get src="${commons-daemon.download}" dest="${project.basedir}/share/commons-daemon"
-                         skipexisting="true" verbose="false" />
-
-                    <!-- extract native Windows binaries for commons-daemon -->
-                    <delete dir="${project.basedir}/share/commons-daemon/${commons-daemon.version}" />
-                    <unzip src="${project.basedir}/share/commons-daemon/commons-daemon-${commons-daemon.version}-bin-windows.zip"
-                           dest="${project.basedir}/share/commons-daemon/${commons-daemon.version}" />
-
-                    <!-- extract native Windows binaries for commons-daemon into runtime -->
-                    <copy tofile="${project.build.directory}/runtime/bin/service/OpenEstate-ImmoServer.exe"
-                          file="${project.basedir}/share/commons-daemon/${commons-daemon.version}/prunmgr.exe" />
-                    <copy tofile="${project.build.directory}/runtime/bin/service/Service32.exe"
-                          file="${project.basedir}/share/commons-daemon/${commons-daemon.version}/prunsrv.exe" />
-                    <copy tofile="${project.build.directory}/runtime/bin/service/Service64.exe"
-                          file="${project.basedir}/share/commons-daemon/${commons-daemon.version}/amd64/prunsrv.exe" />
-                    <copy todir="${project.build.directory}/runtime/bin/service">
-                      <fileset dir="${project.basedir}/share/commons-daemon/${commons-daemon.version}">
-                        <include name="*.txt"/>
-                      </fileset>
-                    </copy>
-
-                  </target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
-              </execution>
-            </executions>
-          </plugin>
+            </plugin>
 
-          <!-- dependencies -->
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <version>3.1.1</version>
-            <executions>
-              <execution>
-                <id>copy-dependency-sources</id>
-                <phase>prepare-package</phase>
-                <goals>
-                  <goal>copy-dependencies</goal>
-                </goals>
+            <!-- compiler -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
                 <configuration>
-                  <silent>true</silent>
-                  <classifier>sources</classifier>
-                  <outputDirectory>${project.build.directory}/runtime/doc/sources</outputDirectory>
-                  <excludeGroupIds>com.google.code.findbugs,net.jcip</excludeGroupIds>
-                  <includeScope>runtime</includeScope>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <showDeprecation>true</showDeprecation>
+                    <debug>false</debug>
                 </configuration>
-              </execution>
-              <execution>
-                <id>copy-dependency-javadoc</id>
-                <phase>prepare-package</phase>
-                <goals>
-                  <goal>copy-dependencies</goal>
-                </goals>
+            </plugin>
+
+            <!-- findbugs -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.5</version>
                 <configuration>
-                  <silent>true</silent>
-                  <classifier>javadoc</classifier>
-                  <outputDirectory>${project.build.directory}/runtime/doc/javadoc</outputDirectory>
-                  <excludeGroupIds>com.google.code.findbugs,net.jcip</excludeGroupIds>
-                  <includeScope>runtime</includeScope>
+                    <failOnError>false</failOnError>
+                    <excludeFilterFile>${project.basedir}/findbugs-exclude.xml</excludeFilterFile>
                 </configuration>
-              </execution>
-            </executions>
-          </plugin>
+            </plugin>
 
-          <!-- launch4j -->
-          <plugin>
-            <!--
-            <groupId>org.bluestemsoftware.open.maven.plugin</groupId>
-            <artifactId>launch4j-plugin</artifactId>
-            -->
-            <groupId>com.akathist.maven.plugins.launch4j</groupId>
-            <artifactId>launch4j-maven-plugin</artifactId>
-            <version>1.7.24</version>
-            <executions>
-
-              <!-- Start.exe -->
-              <execution>
-                <id>launch4j-Start</id>
-                <phase>prepare-package</phase>
-                <goals>
-                  <goal>launch4j</goal>
-                </goals>
+            <!-- gettext / http://gettext-commons.googlecode.com/svn/maven2-plugins-site/plugin-info.html -->
+            <plugin>
+                <groupId>com.googlecode.gettext-commons</groupId>
+                <artifactId>gettext-maven-plugin</artifactId>
+                <version>1.2.4</version>
                 <configuration>
-                  <outfile>${project.build.directory}/runtime/bin/Start.exe</outfile>
-                  <icon>${project.basedir}/src/icons/ImmoServer.ico</icon>
-                  <dontWrapJar>true</dontWrapJar>
-                  <jar>.</jar>
-                  <chdir>..</chdir>
-                  <cmdLine></cmdLine>
-                  <classPath>
-                    <mainClass>org.openestate.tool.server.Server</mainClass>
-                    <addDependencies>false</addDependencies>
-                    <preCp>etc\;lib\*.jar</preCp>
-                  </classPath>
-                  <jre>
-                    <minVersion>1.8.0</minVersion>
-                  </jre>
-                  <headerType>gui</headerType>
-                  <priority>normal</priority>
-                  <stayAlive>false</stayAlive>
-                  <singleInstance>
-                    <mutexName>OpenEstate-ImmoServer</mutexName>
-                    <windowTitle>OpenEstate-ImmoServer</windowTitle>
-                  </singleInstance>
-                  <downloadUrl>https://www.java.com/de/download/manual.jsp</downloadUrl>
-                  <supportUrl>http://openestate.org</supportUrl>
-                  <versionInfo>
-                    <copyright>OpenEstate.org</copyright>
-                    <productName>OpenEstate-ImmoServer</productName>
-                    <internalName>ImmoServer</internalName>
-                    <originalFilename>Start.exe</originalFilename>
-                    <fileDescription>OpenEstate-ImmoServer</fileDescription>
-                    <fileVersion>${project.launch4jVersion}</fileVersion>
-                    <txtFileVersion>${project.buildVersion}</txtFileVersion>
-                    <productVersion>${project.launch4jVersion}</productVersion>
-                    <txtProductVersion>${project.buildVersion}</txtProductVersion>
-                  </versionInfo>
+                    <targetBundle>org.openestate.tool.server.resources.Messages</targetBundle>
+                    <poDirectory>${project.basedir}/src/main/i18n</poDirectory>
+                    <outputDirectory>${project.basedir}/src/main/resources</outputDirectory>
+                    <outputFormat>class</outputFormat>
+
+                    <!-- set path to the gettext utilities, if they are not found automatically -->
+                    <!--
+                    <msgcatCmd>msgcat</msgcatCmd>
+                    <msgfmtCmd>msgfmt</msgfmtCmd>
+                    <msgmergeCmd>msgmerge</msgmergeCmd>
+                    <xgettextCmd>xgettext</xgettextCmd>
+                    -->
                 </configuration>
-              </execution>
-
-              <!-- ManagerConsole.exe -->
-              <!--
-              <execution>
-                <id>launch4j-ManagerBackup</id>
-                <phase>prepare-package</phase>
-                <goals>
-                  <goal>launch4j</goal>
-                </goals>
-                <configuration>
-                  <outfile>${project.build.directory}/runtime/bin/ManagerConsole.exe</outfile>
-                  <icon>${project.basedir}/src/icons/ImmoServer-Console.ico</icon>
-                  <dontWrapJar>true</dontWrapJar>
-                  <jar>.</jar>
-                  <chdir>..</chdir>
-                  <cmdLine></cmdLine>
-                  <classPath>
-                    <mainClass>org.hsqldb.cmdline.SqlTool</mainClass>
-                    <addDependencies>false</addDependencies>
-                    <preCp>etc\;lib\*.jar</preCp>
-                  </classPath>
-                  <jre>
-                    <minVersion>1.8.0</minVersion>
-                  </jre>
-                  <headerType>console</headerType>
-                  <priority>normal</priority>
-                  <stayAlive>false</stayAlive>
-                  <singleInstance>
-                    <mutexName>OpenEstate-ImmoServer-Console</mutexName>
-                    <windowTitle>OpenEstate-ImmoServer-Console</windowTitle>
-                  </singleInstance>
-                  <downloadUrl>https://www.java.com/de/download/manual.jsp</downloadUrl>
-                  <supportUrl>http://openestate.org</supportUrl>
-                  <versionInfo>
-                    <copyright>OpenEstate.org</copyright>
-                    <productName>OpenEstate-ImmoServer-Console</productName>
-                    <internalName>ImmoServer-Console</internalName>
-                    <originalFilename>ManagerConsole.exe</originalFilename>
-                    <fileDescription>OpenEstate-ImmoServer-Console</fileDescription>
-                    <fileVersion>${project.launch4jVersion}</fileVersion>
-                    <txtFileVersion>${project.buildVersion}</txtFileVersion>
-                    <productVersion>${project.launch4jVersion}</productVersion>
-                    <txtProductVersion>${project.buildVersion}</txtProductVersion>
-                  </versionInfo>
-                </configuration>
-              </execution>
-              -->
-
-              <!-- ManagerTool.exe -->
-              <!--
-              <execution>
-                <id>launch4j-ManagerTool</id>
-                <phase>prepare-package</phase>
-                <goals>
-                  <goal>launch4j</goal>
-                </goals>
-                <configuration>
-                  <outfile>${project.build.directory}/runtime/bin/ManagerTool.exe</outfile>
-                  <icon>${project.basedir}/src/icons/ImmoServer-GUI.ico</icon>
-                  <dontWrapJar>true</dontWrapJar>
-                  <jar>.</jar>
-                  <chdir>..</chdir>
-                  <cmdLine></cmdLine>
-                  <classPath>
-                    <mainClass>org.hsqldb.util.DatabaseManagerSwing</mainClass>
-                    <addDependencies>false</addDependencies>
-                    <preCp>etc\;lib\*.jar</preCp>
-                  </classPath>
-                  <jre>
-                    <minVersion>1.8.0</minVersion>
-                  </jre>
-                  <headerType>gui</headerType>
-                  <priority>normal</priority>
-                  <stayAlive>false</stayAlive>
-                  <singleInstance>
-                    <mutexName>OpenEstate-ImmoServer-Manager</mutexName>
-                    <windowTitle>OpenEstate-ImmoServer-Manager</windowTitle>
-                  </singleInstance>
-                  <downloadUrl>https://www.java.com/de/download/manual.jsp</downloadUrl>
-                  <supportUrl>http://openestate.org</supportUrl>
-                  <versionInfo>
-                    <copyright>OpenEstate.org</copyright>
-                    <productName>OpenEstate-ImmoServer-Manager</productName>
-                    <internalName>ImmoServer-Manager</internalName>
-                    <originalFilename>ManagerTool.exe</originalFilename>
-                    <fileDescription>OpenEstate-ImmoServer-Manager</fileDescription>
-                    <fileVersion>${project.launch4jVersion}</fileVersion>
-                    <txtFileVersion>${project.buildVersion}</txtFileVersion>
-                    <productVersion>${project.launch4jVersion}</productVersion>
-                    <txtProductVersion>${project.buildVersion}</txtProductVersion>
-                  </versionInfo>
-                </configuration>
-              </execution>
-              -->
-
-              <!-- SslInit.exe -->
-              <execution>
-                <id>launch4j-SslInit</id>
-                <phase>prepare-package</phase>
-                <goals>
-                  <goal>launch4j</goal>
-                </goals>
-                <configuration>
-                  <outfile>${project.build.directory}/runtime/bin/SslInit.exe</outfile>
-                  <icon>${project.basedir}/src/icons/ImmoServer-Console.ico</icon>
-                  <dontWrapJar>true</dontWrapJar>
-                  <jar>.</jar>
-                  <chdir>..</chdir>
-                  <cmdLine></cmdLine>
-                  <classPath>
-                    <mainClass>org.openestate.tool.server.utils.SslGenerator</mainClass>
-                    <addDependencies>false</addDependencies>
-                    <preCp>etc\;lib\*.jar</preCp>
-                  </classPath>
-                  <jre>
-                    <minVersion>1.8.0</minVersion>
-                  </jre>
-                  <headerType>console</headerType>
-                  <priority>normal</priority>
-                  <stayAlive>false</stayAlive>
-                  <singleInstance>
-                    <mutexName>OpenEstate-ImmoServer-SSL-Init</mutexName>
-                    <windowTitle>OpenEstate-ImmoServer-SSL-Init</windowTitle>
-                  </singleInstance>
-                  <downloadUrl>https://www.java.com/de/download/manual.jsp</downloadUrl>
-                  <supportUrl>http://openestate.org</supportUrl>
-                  <versionInfo>
-                    <copyright>OpenEstate.org</copyright>
-                    <productName>OpenEstate-ImmoServer-SSL-Init</productName>
-                    <internalName>SSL-Init</internalName>
-                    <originalFilename>SslInit.exe</originalFilename>
-                    <fileDescription>OpenEstate-ImmoServer-SSL-Init</fileDescription>
-                    <fileVersion>${project.launch4jVersion}</fileVersion>
-                    <txtFileVersion>${project.buildVersion}</txtFileVersion>
-                    <productVersion>${project.launch4jVersion}</productVersion>
-                    <txtProductVersion>${project.buildVersion}</txtProductVersion>
-                  </versionInfo>
-                </configuration>
-              </execution>
-
-            </executions>
-          </plugin>
-
-          <!-- signing -->
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.6</version>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-                <configuration>
-                  <keyname>${gpg.keyname}</keyname>
-                  <passphraseServerId>${gpg.passphrase}</passphraseServerId>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-
-          <!-- assembly -->
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <version>3.1.0</version>
-            <executions>
-              <execution>
-                <id>release</id>
-                <goals>
-                  <goal>single</goal>
-                </goals>
-                <phase>install</phase>
-                <configuration>
-                  <finalName>${project.baseName}-${project.version}-release</finalName>
-                  <outputDirectory>${project.releaseDir}</outputDirectory>
-                  <appendAssemblyId>false</appendAssemblyId>
-                  <attach>false</attach>
-                  <!--<useAllReactorProjects>true</useAllReactorProjects>-->
-                  <tarLongFileMode>posix</tarLongFileMode>
-                  <descriptors>
-                    <descriptor>${project.basedir}/src/assembly/release.xml</descriptor>
-                  </descriptors>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-
+                <executions>
+                    <execution>
+                        <id>i18n-generate-bundle</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>dist</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
-      </build>
-    </profile>
+    </build>
 
-  </profiles>
+    <profiles>
+
+        <!-- release profile for maven.openestate.org -->
+        <profile>
+            <id>openestate-release</id>
+
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <distributionManagement>
+                <repository>
+                    <id>openestate</id>
+                    <url>https://maven.openestate.org/repository/openestate-releases/</url>
+                </repository>
+                <snapshotRepository>
+                    <id>openestate</id>
+                    <url>https://maven.openestate.org/repository/openestate-snapshots/</url>
+                </snapshotRepository>
+            </distributionManagement>
+
+            <build>
+                <plugins>
+
+                    <!-- source -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- javadoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <quiet>true</quiet>
+                                    <encoding>${project.build.sourceEncoding}</encoding>
+                                    <docencoding>${project.build.sourceEncoding}</docencoding>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- antrun -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <id>prepare-runtime</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <mkdir dir="${project.build.directory}/launch4j"/>
+
+                                        <mkdir dir="${project.build.directory}/commons-daemon"/>
+
+                                        <!-- download native Windows binaries for commons-daemon -->
+                                        <get src="${commons-daemon.download}"
+                                             dest="${project.basedir}/share/commons-daemon"
+                                             skipexisting="true" verbose="false"/>
+
+                                        <!-- extract native Windows binaries for commons-daemon -->
+                                        <delete dir="${project.basedir}/share/commons-daemon/${commons-daemon.version}"/>
+                                        <unzip src="${project.basedir}/share/commons-daemon/commons-daemon-${commons-daemon.version}-bin-windows.zip"
+                                               dest="${project.basedir}/share/commons-daemon/${commons-daemon.version}"/>
+
+                                        <!-- extract native Windows binaries for commons-daemon into runtime -->
+                                        <copy tofile="${project.build.directory}/commons-daemon/OpenEstate-ImmoServer.exe"
+                                              file="${project.basedir}/share/commons-daemon/${commons-daemon.version}/prunmgr.exe"/>
+                                        <copy tofile="${project.build.directory}/commons-daemon/Service32.exe"
+                                              file="${project.basedir}/share/commons-daemon/${commons-daemon.version}/prunsrv.exe"/>
+                                        <copy tofile="${project.build.directory}/commons-daemon/Service64.exe"
+                                              file="${project.basedir}/share/commons-daemon/${commons-daemon.version}/amd64/prunsrv.exe"/>
+                                        <copy todir="${project.build.directory}/commons-daemon">
+                                            <fileset
+                                                    dir="${project.basedir}/share/commons-daemon/${commons-daemon.version}">
+                                                <include name="*.txt"/>
+                                            </fileset>
+                                        </copy>
+
+                                    </target>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>bundle-packages</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <echo message="Creating release packages..." level="info"/>
+                                        <property name="packageDir" value="${project.basedir}/package"/>
+
+                                        <echo message="Creating Linux64 bundle..." level="info"/>
+                                        <exec executable="tar" dir="${packageDir}/linux64">
+                                            <arg value="cfz"/>
+                                            <arg value="../OpenEstate-ImmoServer-${project.version}.linux64.tar.gz"/>
+                                            <arg value="."/>
+                                        </exec>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- dependencies -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>3.1.1</version>
+                        <executions>
+                            <execution>
+                                <id>copy-dependency-sources</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>copy-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <silent>true</silent>
+                                    <classifier>sources</classifier>
+                                    <outputDirectory>${project.build.directory}/dependencies/sources</outputDirectory>
+                                    <excludeGroupIds>com.google.code.findbugs,net.jcip</excludeGroupIds>
+                                    <includeScope>runtime</includeScope>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>copy-dependency-javadoc</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>copy-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <silent>true</silent>
+                                    <classifier>javadoc</classifier>
+                                    <outputDirectory>${project.build.directory}/dependencies/javadoc</outputDirectory>
+                                    <excludeGroupIds>com.google.code.findbugs,net.jcip</excludeGroupIds>
+                                    <includeScope>runtime</includeScope>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- launch4j -->
+                    <plugin>
+                        <!--
+                        <groupId>org.bluestemsoftware.open.maven.plugin</groupId>
+                        <artifactId>launch4j-plugin</artifactId>
+                        -->
+                        <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                        <artifactId>launch4j-maven-plugin</artifactId>
+                        <version>1.7.24</version>
+                        <executions>
+
+                            <!-- Start.exe -->
+                            <execution>
+                                <id>launch4j-Start</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>launch4j</goal>
+                                </goals>
+                                <configuration>
+                                    <outfile>${project.build.directory}/launch4j/Start.exe</outfile>
+                                    <icon>${project.basedir}/src/icons/ImmoServer.ico</icon>
+                                    <dontWrapJar>true</dontWrapJar>
+                                    <jar>.</jar>
+                                    <chdir>..</chdir>
+                                    <cmdLine></cmdLine>
+                                    <classPath>
+                                        <mainClass>org.openestate.tool.server.Server</mainClass>
+                                        <addDependencies>false</addDependencies>
+                                        <preCp>etc\;lib\*.jar</preCp>
+                                    </classPath>
+                                    <jre>
+                                        <minVersion>1.8.0</minVersion>
+                                    </jre>
+                                    <headerType>gui</headerType>
+                                    <priority>normal</priority>
+                                    <stayAlive>false</stayAlive>
+                                    <singleInstance>
+                                        <mutexName>OpenEstate-ImmoServer</mutexName>
+                                        <windowTitle>OpenEstate-ImmoServer</windowTitle>
+                                    </singleInstance>
+                                    <downloadUrl>https://www.java.com/de/download/manual.jsp</downloadUrl>
+                                    <supportUrl>http://openestate.org</supportUrl>
+                                    <versionInfo>
+                                        <copyright>OpenEstate.org</copyright>
+                                        <productName>OpenEstate-ImmoServer</productName>
+                                        <internalName>ImmoServer</internalName>
+                                        <originalFilename>Start.exe</originalFilename>
+                                        <fileDescription>OpenEstate-ImmoServer</fileDescription>
+                                        <fileVersion>${project.launch4jVersion}</fileVersion>
+                                        <txtFileVersion>${project.buildVersion}</txtFileVersion>
+                                        <productVersion>${project.launch4jVersion}</productVersion>
+                                        <txtProductVersion>${project.buildVersion}</txtProductVersion>
+                                    </versionInfo>
+                                </configuration>
+                            </execution>
+
+                            <!-- ManagerConsole.exe -->
+                            <!--
+                            <execution>
+                              <id>launch4j-ManagerBackup</id>
+                              <phase>prepare-package</phase>
+                              <goals>
+                                <goal>launch4j</goal>
+                              </goals>
+                              <configuration>
+                                <outfile>${project.build.directory}/launch4j/ManagerConsole.exe</outfile>
+                                <icon>${project.basedir}/src/icons/ImmoServer-Console.ico</icon>
+                                <dontWrapJar>true</dontWrapJar>
+                                <jar>.</jar>
+                                <chdir>..</chdir>
+                                <cmdLine></cmdLine>
+                                <classPath>
+                                  <mainClass>org.hsqldb.cmdline.SqlTool</mainClass>
+                                  <addDependencies>false</addDependencies>
+                                  <preCp>etc\;lib\*.jar</preCp>
+                                </classPath>
+                                <jre>
+                                  <minVersion>1.8.0</minVersion>
+                                </jre>
+                                <headerType>console</headerType>
+                                <priority>normal</priority>
+                                <stayAlive>false</stayAlive>
+                                <singleInstance>
+                                  <mutexName>OpenEstate-ImmoServer-Console</mutexName>
+                                  <windowTitle>OpenEstate-ImmoServer-Console</windowTitle>
+                                </singleInstance>
+                                <downloadUrl>https://www.java.com/de/download/manual.jsp</downloadUrl>
+                                <supportUrl>http://openestate.org</supportUrl>
+                                <versionInfo>
+                                  <copyright>OpenEstate.org</copyright>
+                                  <productName>OpenEstate-ImmoServer-Console</productName>
+                                  <internalName>ImmoServer-Console</internalName>
+                                  <originalFilename>ManagerConsole.exe</originalFilename>
+                                  <fileDescription>OpenEstate-ImmoServer-Console</fileDescription>
+                                  <fileVersion>${project.launch4jVersion}</fileVersion>
+                                  <txtFileVersion>${project.buildVersion}</txtFileVersion>
+                                  <productVersion>${project.launch4jVersion}</productVersion>
+                                  <txtProductVersion>${project.buildVersion}</txtProductVersion>
+                                </versionInfo>
+                              </configuration>
+                            </execution>
+                            -->
+
+                            <!-- ManagerTool.exe -->
+                            <!--
+                            <execution>
+                              <id>launch4j-ManagerTool</id>
+                              <phase>prepare-package</phase>
+                              <goals>
+                                <goal>launch4j</goal>
+                              </goals>
+                              <configuration>
+                                <outfile>${project.build.directory}/launch4j/ManagerTool.exe</outfile>
+                                <icon>${project.basedir}/src/icons/ImmoServer-GUI.ico</icon>
+                                <dontWrapJar>true</dontWrapJar>
+                                <jar>.</jar>
+                                <chdir>..</chdir>
+                                <cmdLine></cmdLine>
+                                <classPath>
+                                  <mainClass>org.hsqldb.util.DatabaseManagerSwing</mainClass>
+                                  <addDependencies>false</addDependencies>
+                                  <preCp>etc\;lib\*.jar</preCp>
+                                </classPath>
+                                <jre>
+                                  <minVersion>1.8.0</minVersion>
+                                </jre>
+                                <headerType>gui</headerType>
+                                <priority>normal</priority>
+                                <stayAlive>false</stayAlive>
+                                <singleInstance>
+                                  <mutexName>OpenEstate-ImmoServer-Manager</mutexName>
+                                  <windowTitle>OpenEstate-ImmoServer-Manager</windowTitle>
+                                </singleInstance>
+                                <downloadUrl>https://www.java.com/de/download/manual.jsp</downloadUrl>
+                                <supportUrl>http://openestate.org</supportUrl>
+                                <versionInfo>
+                                  <copyright>OpenEstate.org</copyright>
+                                  <productName>OpenEstate-ImmoServer-Manager</productName>
+                                  <internalName>ImmoServer-Manager</internalName>
+                                  <originalFilename>ManagerTool.exe</originalFilename>
+                                  <fileDescription>OpenEstate-ImmoServer-Manager</fileDescription>
+                                  <fileVersion>${project.launch4jVersion}</fileVersion>
+                                  <txtFileVersion>${project.buildVersion}</txtFileVersion>
+                                  <productVersion>${project.launch4jVersion}</productVersion>
+                                  <txtProductVersion>${project.buildVersion}</txtProductVersion>
+                                </versionInfo>
+                              </configuration>
+                            </execution>
+                            -->
+
+                            <!-- SslInit.exe -->
+                            <execution>
+                                <id>launch4j-SslInit</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>launch4j</goal>
+                                </goals>
+                                <configuration>
+                                    <outfile>${project.build.directory}/launch4j/SslInit.exe</outfile>
+                                    <icon>${project.basedir}/src/icons/ImmoServer-Console.ico</icon>
+                                    <dontWrapJar>true</dontWrapJar>
+                                    <jar>.</jar>
+                                    <chdir>..</chdir>
+                                    <cmdLine></cmdLine>
+                                    <classPath>
+                                        <mainClass>org.openestate.tool.server.utils.SslGenerator</mainClass>
+                                        <addDependencies>false</addDependencies>
+                                        <preCp>etc\;lib\*.jar</preCp>
+                                    </classPath>
+                                    <jre>
+                                        <minVersion>1.8.0</minVersion>
+                                    </jre>
+                                    <headerType>console</headerType>
+                                    <priority>normal</priority>
+                                    <stayAlive>false</stayAlive>
+                                    <singleInstance>
+                                        <mutexName>OpenEstate-ImmoServer-SSL-Init</mutexName>
+                                        <windowTitle>OpenEstate-ImmoServer-SSL-Init</windowTitle>
+                                    </singleInstance>
+                                    <downloadUrl>https://www.java.com/de/download/manual.jsp</downloadUrl>
+                                    <supportUrl>http://openestate.org</supportUrl>
+                                    <versionInfo>
+                                        <copyright>OpenEstate.org</copyright>
+                                        <productName>OpenEstate-ImmoServer-SSL-Init</productName>
+                                        <internalName>SSL-Init</internalName>
+                                        <originalFilename>SslInit.exe</originalFilename>
+                                        <fileDescription>OpenEstate-ImmoServer-SSL-Init</fileDescription>
+                                        <fileVersion>${project.launch4jVersion}</fileVersion>
+                                        <txtFileVersion>${project.buildVersion}</txtFileVersion>
+                                        <productVersion>${project.launch4jVersion}</productVersion>
+                                        <txtProductVersion>${project.buildVersion}</txtProductVersion>
+                                    </versionInfo>
+                                </configuration>
+                            </execution>
+
+                        </executions>
+                    </plugin>
+
+                    <!-- signing -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <keyname>${gpg.keyname}</keyname>
+                                    <passphraseServerId>${gpg.passphrase}</passphraseServerId>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- assembly -->
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>assemble-linux64</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <finalName>linux64</finalName>
+                                    <outputDirectory>${project.packageDir}</outputDirectory>
+                                    <tarLongFileMode>posix</tarLongFileMode>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                    <attach>false</attach>
+                                    <descriptors>
+                                        <descriptor>${project.basedir}/src/assembly/linux64.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>assemble-windows32</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <finalName>windows32</finalName>
+                                    <outputDirectory>${project.packageDir}</outputDirectory>
+                                    <tarLongFileMode>posix</tarLongFileMode>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                    <attach>false</attach>
+                                    <descriptors>
+                                        <descriptor>${project.basedir}/src/assembly/windows32.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>assemble-windows64</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <finalName>windows64</finalName>
+                                    <outputDirectory>${project.packageDir}</outputDirectory>
+                                    <tarLongFileMode>posix</tarLongFileMode>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                    <attach>false</attach>
+                                    <descriptors>
+                                        <descriptor>${project.basedir}/src/assembly/windows64.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
 </project>
