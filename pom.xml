@@ -80,6 +80,7 @@
             <artifactId>commons-daemon</artifactId>
             <version>${commons-daemon.version}</version>
             <scope>runtime</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
