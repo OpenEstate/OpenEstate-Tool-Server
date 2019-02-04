@@ -45,6 +45,7 @@ public final class MigrationUtils {
     private static final I18n I18N = I18nFactory.getI18n(MigrationUtils.class);
 
     private MigrationUtils() {
+        super();
     }
 
     /**
@@ -76,6 +77,7 @@ public final class MigrationUtils {
 
             File dbScriptFileNew = new File(dbDir, dbScriptFile.getName() + ".new");
             File dbScriptFileOld = new File(dbDir, dbScriptFile.getName() + ".old");
+            //noinspection RegExpRedundantEscape
             Pattern pattern = Pattern.compile(
                     "SELECT ([\\w]*) INTO ([\\w]*) FROM ([\\w\\.]*) WHERE ([\\w]*)\\s?=\\s?CURRENT VALUE FOR ([\\w\\.]*);");
 

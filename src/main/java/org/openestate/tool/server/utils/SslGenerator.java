@@ -67,7 +67,7 @@ import org.xnap.commons.i18n.I18nFactory;
 public class SslGenerator {
     private static final Logger LOGGER = LoggerFactory.getLogger(SslGenerator.class);
     private static final I18n I18N = I18nFactory.getI18n(SslGenerator.class);
-    private static final String ALIAS = "OpenEstate-ImmoServer";
+    private static final String ALIAS = Server.TITLE;
     private static final String PROVIDER = "BC";
     private static final String KEY_ALGORITHM = "RSA";
     private static final int KEY_LENGTH = 4096;
@@ -91,7 +91,9 @@ public class SslGenerator {
     /**
      * Start SSL initialization.
      *
-     * @param args command line arguments
+     * @param args command line arguments,
+     *             the first argument might contain the common name,
+     *             the second argument might contain the keystore password
      */
     @SuppressWarnings("Duplicates")
     public static void main(String[] args) {
@@ -135,7 +137,7 @@ public class SslGenerator {
             console.writer().flush();
             char[] password2 = console.readPassword();
             if (!StringUtils.equals(String.valueOf(password), String.valueOf(password2))) {
-                console.writer().println(I18N.tr("Error!"));
+                console.writer().println(StringUtils.capitalize(I18N.tr("error")) + "!");
                 console.writer().println(I18N.tr("The provided passwords do not match."));
                 System.exit(1);
             }
@@ -173,12 +175,14 @@ public class SslGenerator {
         final KeyPair pair = keyGen.generateKeyPair();
 
         // export private key
-        final PrivateKey priv = pair.getPrivate();
-        final File privFile = new File(sslDir, "private.key");
-        FileUtils.deleteQuietly(privFile);
-        console.writer().println(I18N.tr("Writing private key to {0}.", "'" + privFile.getAbsolutePath() + "'"));
-        try (PemWriter pemWriter = new PemWriter(new FileWriterWithEncoding(privFile, "UTF-8"))) {
-            pemWriter.writeObject(new PemObject("OpenEstate-ImmoServer / Private Key", priv.getEncoded()));
+        final PrivateKey privateKey = pair.getPrivate();
+        final File privateKeyFile = new File(sslDir, "private.key");
+        FileUtils.deleteQuietly(privateKeyFile);
+        console.writer().println(I18N.tr("Writing private key to {0}.", "'" + privateKeyFile.getAbsolutePath() + "'"));
+        try (PemWriter pemWriter = new PemWriter(new FileWriterWithEncoding(privateKeyFile, "UTF-8"))) {
+            pemWriter.writeObject(new PemObject(
+                    ALIAS + " / Private Key",
+                    privateKey.getEncoded()));
             pemWriter.flush();
         } catch (Exception ex) {
             LOGGER.error("Can't export private key!");
@@ -188,12 +192,14 @@ public class SslGenerator {
         }
 
         // export public key
-        final PublicKey pub = pair.getPublic();
-        final File pubFile = new File(sslDir, "public.key");
-        FileUtils.deleteQuietly(pubFile);
-        console.writer().println(I18N.tr("Writing public key to {0}.", "'" + pubFile.getAbsolutePath() + "'"));
-        try (PemWriter pemWriter = new PemWriter(new FileWriterWithEncoding(pubFile, "UTF-8"))) {
-            pemWriter.writeObject(new PemObject("OpenEstate-ImmoServer / Public Key", pub.getEncoded()));
+        final PublicKey publicKey = pair.getPublic();
+        final File publicKeyFile = new File(sslDir, "public.key");
+        FileUtils.deleteQuietly(publicKeyFile);
+        console.writer().println(I18N.tr("Writing public key to {0}.", "'" + publicKeyFile.getAbsolutePath() + "'"));
+        try (PemWriter pemWriter = new PemWriter(new FileWriterWithEncoding(publicKeyFile, "UTF-8"))) {
+            pemWriter.writeObject(new PemObject(
+                    ALIAS + " / Public Key",
+                    publicKey.getEncoded()));
             pemWriter.flush();
         } catch (Exception ex) {
             LOGGER.error("Can't export public key!");
@@ -208,11 +214,11 @@ public class SslGenerator {
             Date startDate = new Date();
             Date expiryDate = DateUtils.addYears(startDate, 10);
             X500Name subject = new X500Name("CN=" + commonName);
-            SubjectPublicKeyInfo publicKeyInfo = SubjectPublicKeyInfo.getInstance(pub.getEncoded());
+            SubjectPublicKeyInfo publicKeyInfo = SubjectPublicKeyInfo.getInstance(publicKey.getEncoded());
             BigInteger serial = BigInteger.valueOf(random.nextLong()).abs();
 
             //X509v1CertificateBuilder builder = new X509v1CertificateBuilder( subject, serial, startDate, expiryDate, subject, publicKeyInfo );
-            //X509CertificateHolder holder = builder.build( createSigner( priv ) );
+            //X509CertificateHolder holder = builder.build( createSigner( privateKey ) );
             //cert = new JcaX509CertificateConverter().getCertificate( holder );
 
             X509v3CertificateBuilder builder = new X509v3CertificateBuilder(subject, serial, startDate, expiryDate, subject, publicKeyInfo);
@@ -221,7 +227,7 @@ public class SslGenerator {
                     new BcDigestCalculatorProvider().get(new AlgorithmIdentifier(OIWObjectIdentifiers.idSHA1)));
             builder.addExtension(Extension.subjectKeyIdentifier, false, x509ExtensionUtils.createSubjectKeyIdentifier(publicKeyInfo));
 
-            X509CertificateHolder holder = builder.build(createSigner(priv));
+            X509CertificateHolder holder = builder.build(createSigner(privateKey));
             cert = new JcaX509CertificateConverter().getCertificate(holder);
 
             // export certificate
@@ -229,7 +235,9 @@ public class SslGenerator {
             FileUtils.deleteQuietly(f);
             console.writer().println(I18N.tr("Writing certificate to {0}.", "'" + f.getAbsolutePath() + "'"));
             try (PemWriter pemWriter = new PemWriter(new FileWriterWithEncoding(f, "UTF-8"))) {
-                pemWriter.writeObject(new PemObject("OpenEstate-ImmoServer / Certificate", cert.getEncoded()));
+                pemWriter.writeObject(new PemObject(
+                        ALIAS + " / Certificate",
+                        cert.getEncoded()));
                 pemWriter.flush();
             }
         } catch (Exception ex) {
@@ -243,7 +251,7 @@ public class SslGenerator {
         try {
             KeyStore store = KeyStore.getInstance("jks");
             store.load(null, password);
-            store.setKeyEntry(ALIAS, priv, password, new Certificate[]{cert});
+            store.setKeyEntry(ALIAS, privateKey, password, new Certificate[]{cert});
 
             File f = new File(sslDir, "keystore.jks");
             FileUtils.deleteQuietly(f);
