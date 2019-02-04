@@ -112,6 +112,7 @@ public class Server extends org.hsqldb.Server {
 
     /**
      * Test, if the system tray icon is usable / enabled.
+     *
      * @return true, if the system tray icon is usable / enabled
      */
     public static boolean isSystemTrayEnabled() {
@@ -214,22 +215,30 @@ public class Server extends org.hsqldb.Server {
             switch (state) {
                 case ServerConstants.SERVER_STATE_ONLINE:
                     systemTrayIcon.displayMessage(
-                            TITLE, I18N.tr("{0} is available for incoming connections.", TITLE), TrayIcon.MessageType.INFO);
+                            TITLE,
+                            I18N.tr("{0} is available for incoming connections.", TITLE),
+                            TrayIcon.MessageType.INFO);
                     break;
 
                 case ServerConstants.SERVER_STATE_CLOSING:
                     systemTrayIcon.displayMessage(
-                            TITLE, I18N.tr("{0} is shutting down.", TITLE), TrayIcon.MessageType.INFO);
+                            TITLE,
+                            I18N.tr("{0} is shutting down.", TITLE),
+                            TrayIcon.MessageType.INFO);
                     break;
 
                 case ServerConstants.SERVER_STATE_OPENING:
                     systemTrayIcon.displayMessage(
-                            TITLE, I18N.tr("{0} is starting up.", TITLE), TrayIcon.MessageType.INFO);
+                            TITLE,
+                            I18N.tr("{0} is starting up.", TITLE),
+                            TrayIcon.MessageType.INFO);
                     break;
 
                 case ServerConstants.SERVER_STATE_SHUTDOWN:
                     systemTrayIcon.displayMessage(
-                            TITLE, I18N.tr("{0} has been closed and is not available anymore.", TITLE), TrayIcon.MessageType.INFO);
+                            TITLE,
+                            I18N.tr("{0} has been closed and is not available anymore.", TITLE),
+                            TrayIcon.MessageType.INFO);
                     break;
 
                 default:

@@ -29,11 +29,10 @@ JAVA_HEAP_MINIMUM="32m"
 JAVA_HEAP_MAXIMUM="512m"
 
 # Additional Java options for all operating systems
-JAVA_OPTIONS="-Dfile.encoding=UTF-8"
+JAVA_OPTIONS="-Dfile.encoding=UTF-8 -Dopenestate.server.systemTray=true"
 
 # Additional Java options for Linux
-JAVA_OPTIONS_LINUX=""
-#JAVA_OPTIONS_LINUX="-Dawt.useSystemAAFontSettings=gasp"
+JAVA_OPTIONS_LINUX="-Dawt.useSystemAAFontSettings=gasp"
 
 # Additional Java options for macOS
 JAVA_OPTIONS_MAC=""
