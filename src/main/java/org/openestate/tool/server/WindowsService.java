@@ -23,7 +23,7 @@ import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
 
 /**
- * Handler for Windows services.
+ * Handler for Windows services used by <a href="https://commons.apache.org/daemon/">commons-daemon</a>.
  *
  * @author Andreas Rudolph
  * @see <a href="https://stackoverflow.com/a/32352529">inspired by this example</a>
@@ -34,6 +34,11 @@ public class WindowsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(WindowsService.class);
     private static final I18n I18N = I18nFactory.getI18n(WindowsService.class);
 
+    /**
+     * Invoke service start.
+     *
+     * @param args command line arguments
+     */
     public static void start(final String[] args) {
         LOGGER.info("Starting Windows service...");
         if (!ArrayUtils.isEmpty(args))
@@ -46,6 +51,11 @@ public class WindowsService {
         }
     }
 
+    /**
+     * Invoke service stop
+     *
+     * @param args command line arguments
+     */
     public static void stop(final String[] args) {
         LOGGER.info("Stopping Windows service...");
         if (!ArrayUtils.isEmpty(args)) {

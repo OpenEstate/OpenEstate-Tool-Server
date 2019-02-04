@@ -33,7 +33,7 @@ import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
 
 /**
- * MigrationUtils.
+ * Helper methods for database migration.
  *
  * @author Andreas Rudolph
  * @since 1.0
@@ -47,6 +47,13 @@ public final class MigrationUtils {
     private MigrationUtils() {
     }
 
+    /**
+     * Migrate from an older database version.
+     *
+     * @param dbDir database directory
+     * @param name  database name
+     * @throws IOException if migration failed
+     */
     public static void migrateFromOldDatabase(File dbDir, String name) throws IOException {
         if (dbDir == null || !dbDir.isDirectory()) return;
 

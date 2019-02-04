@@ -59,7 +59,7 @@ import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
 
 /**
- * SslGenerator.
+ * Generate a key pair and certificate for SSL encrypted connections.
  *
  * @author Andreas Rudolph
  * @since 1.0
@@ -88,6 +88,11 @@ public class SslGenerator {
         }
     }
 
+    /**
+     * Start SSL initialization.
+     *
+     * @param args command line arguments
+     */
     @SuppressWarnings("Duplicates")
     public static void main(String[] args) {
         final Console console = System.console();

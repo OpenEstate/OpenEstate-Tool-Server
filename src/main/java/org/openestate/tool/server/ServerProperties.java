@@ -25,7 +25,7 @@ import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
 
 /**
- * ServerProperties.
+ * Properties for the HSQLDB Server.
  *
  * @author Andreas Rudolph
  * @since 1.0
@@ -37,10 +37,24 @@ public class ServerProperties extends org.hsqldb.server.ServerProperties {
     @SuppressWarnings("unused")
     private static final I18n I18N = I18nFactory.getI18n(ServerProperties.class);
 
+    /**
+     * Create server properties instance.
+     *
+     * @param protocol type of server ({@link org.hsqldb.server.ServerConstants#SC_PROTOCOL_HTTP}, {@link org.hsqldb.server.ServerConstants#SC_PROTOCOL_HSQL} or {@link org.hsqldb.server.ServerConstants#SC_PROTOCOL_BER})
+     * @param file     server properties file
+     * @throws IOException if properties are not readable
+     */
     public ServerProperties(int protocol, File file) throws IOException {
         super(protocol, file);
     }
 
+    /**
+     * Create server properties instance from an {@link InputStream}.
+     *
+     * @param protocol type of server ({@link org.hsqldb.server.ServerConstants#SC_PROTOCOL_HTTP}, {@link org.hsqldb.server.ServerConstants#SC_PROTOCOL_HSQL} or {@link org.hsqldb.server.ServerConstants#SC_PROTOCOL_BER})
+     * @param props    server properties
+     * @throws IOException if properties are not readable
+     */
     public static ServerProperties create(int protocol, InputStream props) throws IOException {
         File tempFile = File.createTempFile("openestate-immoserver-", ".properties");
         try {

@@ -50,14 +50,25 @@ public class Server extends org.hsqldb.Server {
     private static Server server = null;
     private static TrayIcon systemTrayIcon = null;
 
+    /**
+     * Create server instance.
+     */
     protected Server() {
         super();
     }
 
+    /**
+     * Get current server instance.
+     *
+     * @return server instance
+     */
     public static Server get() {
         return server;
     }
 
+    /**
+     * Load system tray icon for the server instance.
+     */
     private static void initSystemTray() {
         //LOGGER.debug( "init system tray" );
         if (!isSystemTrayEnabled()) {
@@ -99,6 +110,10 @@ public class Server extends org.hsqldb.Server {
         }
     }
 
+    /**
+     * Test, if the system tray icon is usable / enabled.
+     * @return true, if the system tray icon is usable / enabled
+     */
     public static boolean isSystemTrayEnabled() {
         final String property = StringUtils.trimToNull(StringUtils.lowerCase(
                 System.getProperty(SYSTEM_TRAY_PROPERTY, "false")));
@@ -106,6 +121,11 @@ public class Server extends org.hsqldb.Server {
         return "1".equals(property) || "true".equals(property);
     }
 
+    /**
+     * Create and start the server instance.
+     *
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         //org.hsqldb.Server.main( args );
 
@@ -184,11 +204,6 @@ public class Server extends org.hsqldb.Server {
     protected void printStackTrace(Throwable t) {
         //super.printStackTrace( t );
         LOGGER.error(t.getLocalizedMessage(), t);
-    }
-
-    @Override
-    protected void printWithThread(String msg) {
-        super.printWithThread(msg);
     }
 
     @Override

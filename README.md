@@ -42,12 +42,6 @@ License
 This library is licensed under the terms of [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html). Take a look at [`LICENSE.txt`](https://github.com/OpenEstate/OpenEstate-Tool-Server/blob/develop/LICENSE.txt) for the license text.
 
 
-Todo
-----
-
--   improve javadoc comments
-
-
 Further information
 -------------------
 
