@@ -184,6 +184,22 @@ public class Server extends org.hsqldb.Server {
             }
         }
 
+        // properly shutdown the server
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            if (Server.server == null) return;
+
+            final int state = Server.server.getState();
+            switch (state) {
+                case ServerConstants.SERVER_STATE_ONLINE:
+                case ServerConstants.SERVER_STATE_OPENING:
+                case ServerConstants.SERVER_STATE_CLOSING:
+                    LOGGER.info("Starting shutdown sequence.");
+                    Server.server.setProperties();
+                    Server.server.shutdown();
+                    Server.server = null;
+            }
+        }));
+
         // start the database server
         server.start();
     }

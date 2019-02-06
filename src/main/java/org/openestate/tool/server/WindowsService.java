@@ -72,7 +72,7 @@ public class WindowsService {
         synchronized (WindowsService.class) {
             Server server = Server.get();
             if (server != null) {
-                server.stop();
+                server.shutdown();
             }
         }
     }
