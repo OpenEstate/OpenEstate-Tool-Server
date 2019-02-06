@@ -25,4 +25,4 @@ LAUNCHER="$RESOURCES_DIR/bin/SslInit.sh"
 # load configuration files outside of the application bundle
 export SERVER_ETC_DIR="$HOME/OpenEstate-ImmoServer/etc"
 
-exec "$LAUNCHER"
+exec "$LAUNCHER" "$@"

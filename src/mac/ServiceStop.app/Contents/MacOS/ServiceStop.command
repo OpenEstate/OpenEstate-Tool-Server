@@ -21,4 +21,4 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 RESOURCES_DIR="$( cd "$( dirname "$DIR" )/Resources" && pwd )"
 LAUNCHER="$RESOURCES_DIR/bin/ServiceStop.sh"
-exec "$LAUNCHER"
+exec "$LAUNCHER" "$@"

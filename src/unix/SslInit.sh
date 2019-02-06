@@ -159,4 +159,4 @@ exec "$JAVA_COMMAND" \
     -Dopenestate.server.etcDir="$SERVER_ETC_DIR" \
     -Dopenestate.server.logDir="$SERVER_LOG_DIR" \
     -Dopenestate.server.varDir="$SERVER_VAR_DIR" \
-    org.openestate.tool.server.utils.SslGenerator ${@}
+    org.openestate.tool.server.utils.SslGenerator "$@"

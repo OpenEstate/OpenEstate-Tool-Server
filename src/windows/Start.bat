@@ -77,7 +77,7 @@ if "%SERVER_VAR_DIR%"=="" (
 "%JAVA_COMMAND%" ^
     -Xms%JAVA_HEAP_MINIMUM% ^
     -Xmx%JAVA_HEAP_MAXIMUM% ^
-    -classpath "etc;lib\*" ^
+    -classpath "lib\*" ^
     %JAVA_OPTIONS% ^
     -Dopenestate.server.app=server ^
     -Dopenestate.server.etcDir="%SERVER_ETC_DIR%" ^

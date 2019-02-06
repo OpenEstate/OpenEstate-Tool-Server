@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
 # OpenEstate-ImmoServer ${project.version}
-# generate RSA key pair and certificate for SSL encryption
+# generate certificate for SSL encryption in a separate Terminal window
 # Copyright (C) 2009-2019 OpenEstate.org
 # ----------------------------------------------------------------------------
 #
