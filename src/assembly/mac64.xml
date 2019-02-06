@@ -67,6 +67,144 @@
             </includes>
         </fileSet>
 
+        <!-- ServiceInstall-Launcher for Mac OS X -->
+        <fileSet>
+            <directory>${project.basedir}/src/mac/ServiceInstall.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/ServiceInstall.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <filtered>false</filtered>
+            <excludes>
+                <exclude>**/MacOS/*</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/mac/ServiceInstall.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/ServiceInstall.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0755</fileMode>
+            <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
+            <includes>
+                <include>**/MacOS/*</include>
+            </includes>
+        </fileSet>
+
+        <!-- ServiceUninstall-Launcher for Mac OS X -->
+        <fileSet>
+            <directory>${project.basedir}/src/mac/ServiceUninstall.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/ServiceUninstall.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <filtered>false</filtered>
+            <excludes>
+                <exclude>**/MacOS/*</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/mac/ServiceUninstall.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/ServiceUninstall.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0755</fileMode>
+            <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
+            <includes>
+                <include>**/MacOS/*</include>
+            </includes>
+        </fileSet>
+
+        <!-- ServiceStart-Launcher for Mac OS X -->
+        <fileSet>
+            <directory>${project.basedir}/src/mac/ServiceStart.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/ServiceStart.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <filtered>false</filtered>
+            <excludes>
+                <exclude>**/MacOS/*</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/mac/ServiceStart.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/ServiceStart.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0755</fileMode>
+            <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
+            <includes>
+                <include>**/MacOS/*</include>
+            </includes>
+        </fileSet>
+
+        <!-- ServiceStop-Launcher for Mac OS X -->
+        <fileSet>
+            <directory>${project.basedir}/src/mac/ServiceStop.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/ServiceStop.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <filtered>false</filtered>
+            <excludes>
+                <exclude>**/MacOS/*</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/mac/ServiceStop.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/ServiceStop.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0755</fileMode>
+            <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
+            <includes>
+                <include>**/MacOS/*</include>
+            </includes>
+        </fileSet>
+
+        <!-- ServiceStatus-Launcher for Mac OS X -->
+        <fileSet>
+            <directory>${project.basedir}/src/mac/ServiceStatus.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/ServiceStatus.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <filtered>false</filtered>
+            <excludes>
+                <exclude>**/MacOS/*</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/mac/ServiceStatus.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/ServiceStatus.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0755</fileMode>
+            <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
+            <includes>
+                <include>**/MacOS/*</include>
+            </includes>
+        </fileSet>
+
+        <!-- SslInit-Launcher for Mac OS X -->
+        <fileSet>
+            <directory>${project.basedir}/src/mac/SslInit.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/SslInit.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <filtered>false</filtered>
+            <excludes>
+                <exclude>**/MacOS/*</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/mac/SslInit.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/SslInit.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0755</fileMode>
+            <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
+            <includes>
+                <include>**/MacOS/*</include>
+            </includes>
+        </fileSet>
+
         <!-- Resources -->
         <fileSet>
             <directory>${project.basedir}/src/unix</directory>

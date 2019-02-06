@@ -18,34 +18,7 @@
 # limitations under the License.
 #
 
-SERVICE_NAME="org.openestate.tool.server.service"
-
-
-#
-# Start execution...
-#
-
-echo ""
-echo "----------------------------------------------------------------------"
-echo " Stopping service for OpenEstate-ImmoServer..."
-echo "----------------------------------------------------------------------"
-echo ""
-
-UNIT="/Library/LaunchDaemons/$SERVICE_NAME.plist"
-
-if [[ ! -f "$UNIT" ]] ; then
-    echo "It seems, that the service was not installed yet."
-    exit 1
-fi
-
-sudo launchctl stop "$SERVICE_NAME"
-if [[ $? -ne 0 ]] ; then
-    echo "ERROR: Can't stop the service."
-    exit 1
-fi
-
-echo ""
-echo "----------------------------------------------------------------------"
-echo " The service was successfully stopped."
-echo "----------------------------------------------------------------------"
-echo ""
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+RESOURCES_DIR="$( cd "$( dirname "$DIR" )/Resources" && pwd )"
+LAUNCHER="$RESOURCES_DIR/bin/ServiceStop.sh"
+exec "$LAUNCHER"

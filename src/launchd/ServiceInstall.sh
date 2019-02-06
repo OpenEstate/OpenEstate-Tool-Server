@@ -25,6 +25,12 @@ SERVICE_NAME="org.openestate.tool.server.service"
 # Start execution...
 #
 
+echo ""
+echo "----------------------------------------------------------------------"
+echo " Installing service for OpenEstate-ImmoServer..."
+echo "----------------------------------------------------------------------"
+echo ""
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ETC_DIR="$( cd "$( dirname "$DIR" )" && pwd )/etc"
 TEMPLATE="$ETC_DIR/launchd/org.openestate.tool.server.service.plist"

@@ -25,6 +25,12 @@ SERVICE_NAME="org.openestate.tool.server.service"
 # Start execution...
 #
 
+echo ""
+echo "----------------------------------------------------------------------"
+echo " Starting service for OpenEstate-ImmoServer..."
+echo "----------------------------------------------------------------------"
+echo ""
+
 UNIT="/Library/LaunchDaemons/$SERVICE_NAME.plist"
 
 if [[ ! -f "$UNIT" ]] ; then

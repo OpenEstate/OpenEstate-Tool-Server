@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+
+    <key>CFBundleIdentifier</key>
+    <string>org.openstate.tool.server.sslinit</string>
+
+    <key>CFBundleName</key>
+    <string>Initialize SSL</string>
+
+    <key>CFBundleDisplayName</key>
+    <string>Initialize SSL for OpenEstate-ImmoServer</string>
+
+    <key>CFBundleVersion</key>
+    <string>1.0.0</string>
+
+    <key>CFBundleShortVersionString</key>
+    <string>1.0.0</string>
+
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+
+    <key>CFBundleSignature</key>
+    <string>????</string>
+
+    <key>CFBundleExecutable</key>
+    <string>SslInit.sh</string>
+
+    <key>CFBundleIconFile</key>
+    <string>share/icons/Console.icns</string>
+
+    <key>LSApplicationCategoryType</key>
+    <string>public.app-category.business</string>
+
+    <key>NSHumanReadableCopyright</key>
+    <string>(C) 2009-2019 OpenEstate.org</string>
+
+    <key>NSHighResolutionCapable</key>
+    <true/>
+  </dict>
+</plist>

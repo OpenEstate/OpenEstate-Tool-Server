@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
 # OpenEstate-ImmoServer ${project.version}
-# fetch status of the launchd daemon
+# start launchd daemon
 # Copyright (C) 2009-2019 OpenEstate.org
 # ----------------------------------------------------------------------------
 #
@@ -18,24 +18,7 @@
 # limitations under the License.
 #
 
-SERVICE_NAME="org.openestate.tool.server.service"
-
-
-#
-# Start execution...
-#
-
-echo ""
-echo "----------------------------------------------------------------------"
-echo " Show status of the OpenEstate-ImmoServer service..."
-echo "----------------------------------------------------------------------"
-echo ""
-
-UNIT="/Library/LaunchDaemons/$SERVICE_NAME.plist"
-
-if [[ ! -f "$UNIT" ]] ; then
-    echo "It seems, that the service was not installed yet."
-    exit 1
-fi
-
-sudo launchctl list "$SERVICE_NAME"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+RESOURCES_DIR="$( cd "$( dirname "$DIR" )/Resources" && pwd )"
+LAUNCHER="$RESOURCES_DIR/bin/ServiceStart.sh"
+exec "$LAUNCHER"
