@@ -22,7 +22,7 @@ import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.io.File;
-import java.io.InputStream;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -36,19 +36,31 @@ import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
 
 /**
- * Implementation of OpenEstate-Server.
+ * Implementation of OpenEstate-ImmoServer.
  *
  * @author Andreas Rudolph
  * @since 1.0
  */
-@SuppressWarnings("WeakerAccess")
 public class Server extends org.hsqldb.Server {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Server.class);
+    @SuppressWarnings("unused")
+    private static final Logger LOGGER;
+    @SuppressWarnings("unused")
     private static final I18n I18N = I18nFactory.getI18n(Server.class);
-    public static final String TITLE = "OpenEstate-ImmoServer";
-    private static final String SYSTEM_TRAY_PROPERTY = "openestate.server.systemTray";
+
+    /**
+     * Current server instance.
+     */
     private static Server server = null;
+
+    /**
+     * System tray icon used by the server instance.
+     */
     private static TrayIcon systemTrayIcon = null;
+
+    static {
+        ServerUtils.init();
+        LOGGER = LoggerFactory.getLogger(Server.class);
+    }
 
     /**
      * Create server instance.
@@ -71,7 +83,7 @@ public class Server extends org.hsqldb.Server {
      */
     private static void initSystemTray() {
         //LOGGER.debug( "init system tray" );
-        if (!isSystemTrayEnabled()) {
+        if (!ServerUtils.isSystemTrayEnabled()) {
             //LOGGER.debug( "The system tray is disabled." );
             return;
         }
@@ -82,8 +94,7 @@ public class Server extends org.hsqldb.Server {
 
         final Image trayIconImage;
         try {
-            trayIconImage = ImageIO.read(Server.class.getResourceAsStream(
-                    "/org/openestate/tool/server/resources/ImmoServer.png"));
+            trayIconImage = ImageIO.read(ServerUtils.getResource("ImmoServer.png"));
         } catch (Exception ex) {
             LOGGER.error("Can't load icon for system tray!");
             LOGGER.error("> " + ex.getLocalizedMessage(), ex);
@@ -91,14 +102,14 @@ public class Server extends org.hsqldb.Server {
         }
 
         final PopupMenu popup = new PopupMenu();
-        final MenuItem stopItem = new MenuItem(I18N.tr("shutdown {0}", TITLE));
+        final MenuItem stopItem = new MenuItem(I18N.tr("shutdown {0}", ServerUtils.TITLE));
         stopItem.addActionListener(e -> {
             stopItem.setEnabled(false);
             server.stop();
         });
         popup.add(stopItem);
 
-        systemTrayIcon = new TrayIcon(trayIconImage, TITLE, popup);
+        systemTrayIcon = new TrayIcon(trayIconImage, ServerUtils.TITLE, popup);
         systemTrayIcon.setImageAutoSize(true);
 
         final SystemTray tray = SystemTray.getSystemTray();
@@ -108,18 +119,6 @@ public class Server extends org.hsqldb.Server {
             LOGGER.error("Can't add icon to system tray!");
             LOGGER.error("> " + ex.getLocalizedMessage(), ex);
         }
-    }
-
-    /**
-     * Test, if the system tray icon is usable / enabled.
-     *
-     * @return true, if the system tray icon is usable / enabled
-     */
-    public static boolean isSystemTrayEnabled() {
-        final String property = StringUtils.trimToNull(StringUtils.lowerCase(
-                System.getProperty(SYSTEM_TRAY_PROPERTY, "false")));
-
-        return "1".equals(property) || "true".equals(property);
     }
 
     /**
@@ -135,35 +134,35 @@ public class Server extends org.hsqldb.Server {
         }
 
         // load server configuration
-        final ServerProperties props;
+        final ServerProperties serverProperties;
         try {
-            InputStream propsStream = Server.class.getResourceAsStream("/server.properties");
-            if (propsStream == null) {
-                LOGGER.error("Can't find server configuration!");
-                return;
+            final File propertiesFile = new File(ServerUtils.getEtcDir(), "server.properties");
+            if (!propertiesFile.isFile()) {
+                throw new IOException("Can't find server configuration at '" + propertiesFile.getPath() + "'!");
             }
-            props = ServerProperties.create(ServerConstants.SC_PROTOCOL_HSQL, propsStream);
-        } catch (Exception ex) {
+            serverProperties = new ServerProperties(ServerConstants.SC_PROTOCOL_HSQL, propertiesFile);
+        } catch (IOException ex) {
             LOGGER.error("Can't load server configuration!");
             LOGGER.error("> " + ex.getLocalizedMessage(), ex);
+            System.exit(1);
             return;
         }
 
-        ServerConfiguration.translateDefaultDatabaseProperty(props);
+        ServerConfiguration.translateDefaultDatabaseProperty(serverProperties);
 
         // Standard behaviour when started from the command line
         // is to halt the VM when the server shuts down. This may, of
         // course, be overridden by whatever, if any, security policy
         // is in place.
-        ServerConfiguration.translateDefaultNoSystemExitProperty(props);
-        ServerConfiguration.translateAddressProperty(props);
+        ServerConfiguration.translateDefaultNoSystemExitProperty(serverProperties);
+        ServerConfiguration.translateAddressProperty(serverProperties);
 
         // create the database server
         server = new Server();
         try {
-            server.setProperties(props);
+            server.setProperties(serverProperties);
         } catch (Exception ex) {
-            server.printError("Failed to set properties!");
+            server.printError("Failed to set server properties!");
             server.printStackTrace(ex);
             return;
         }
@@ -215,29 +214,29 @@ public class Server extends org.hsqldb.Server {
             switch (state) {
                 case ServerConstants.SERVER_STATE_ONLINE:
                     systemTrayIcon.displayMessage(
-                            TITLE,
-                            I18N.tr("{0} is available for incoming connections.", TITLE),
+                            ServerUtils.TITLE,
+                            I18N.tr("{0} is available for incoming connections.", ServerUtils.TITLE),
                             TrayIcon.MessageType.INFO);
                     break;
 
                 case ServerConstants.SERVER_STATE_CLOSING:
                     systemTrayIcon.displayMessage(
-                            TITLE,
-                            I18N.tr("{0} is shutting down.", TITLE),
+                            ServerUtils.TITLE,
+                            I18N.tr("{0} is shutting down.", ServerUtils.TITLE),
                             TrayIcon.MessageType.INFO);
                     break;
 
                 case ServerConstants.SERVER_STATE_OPENING:
                     systemTrayIcon.displayMessage(
-                            TITLE,
-                            I18N.tr("{0} is starting up.", TITLE),
+                            ServerUtils.TITLE,
+                            I18N.tr("{0} is starting up.", ServerUtils.TITLE),
                             TrayIcon.MessageType.INFO);
                     break;
 
                 case ServerConstants.SERVER_STATE_SHUTDOWN:
                     systemTrayIcon.displayMessage(
-                            TITLE,
-                            I18N.tr("{0} has been closed and is not available anymore.", TITLE),
+                            ServerUtils.TITLE,
+                            I18N.tr("{0} has been closed and is not available anymore.", ServerUtils.TITLE),
                             TrayIcon.MessageType.INFO);
                     break;
 

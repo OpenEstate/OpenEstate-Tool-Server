@@ -21,5 +21,9 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 RESOURCES_DIR="$( cd "$( dirname "$DIR" )/Resources" && pwd )"
 LAUNCHER="$RESOURCES_DIR/bin/Start.sh"
+
+# load configuration files outside of the application bundle
+export SERVER_ETC_DIR="$HOME/OpenEstate-ImmoServer/etc"
+
 echo "launching $LAUNCHER"
 exec "$LAUNCHER"

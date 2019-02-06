@@ -18,7 +18,9 @@ package org.openestate.tool.server;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Enumeration;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.text.StringSubstitutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
@@ -46,6 +48,7 @@ public class ServerProperties extends org.hsqldb.server.ServerProperties {
      */
     public ServerProperties(int protocol, File file) throws IOException {
         super(protocol, file);
+        this.init();
     }
 
     /**
@@ -62,6 +65,20 @@ public class ServerProperties extends org.hsqldb.server.ServerProperties {
             return new ServerProperties(protocol, tempFile);
         } finally {
             FileUtils.deleteQuietly(tempFile);
+        }
+    }
+
+    /**
+     * Replace system properties in server configuration.
+     */
+    private void init() {
+        Enumeration e = this.stringProps.keys();
+        while (e.hasMoreElements()) {
+            String key = (String) e.nextElement();
+            String value = this.stringProps.getProperty(key);
+            if (value.contains("${")) {
+                this.stringProps.setProperty(key, StringSubstitutor.replaceSystemProperties(value));
+            }
         }
     }
 }

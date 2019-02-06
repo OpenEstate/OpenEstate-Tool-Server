@@ -17,6 +17,7 @@
 @REM limitations under the License.
 @REM
 @echo off
+setlocal
 
 :: Use a specific command to launch the Java Runtime Environment
 set "JAVA_COMMAND="
@@ -28,6 +29,15 @@ set "JAVA_HEAP_MAXIMUM=128m"
 :: Additional options for the Java Runtime Environment
 set "JAVA_OPTIONS=-Dfile.encoding=UTF-8"
 
+:: Path to the folder, where the server configuration files are stored.
+set "SERVER_ETC_DIR="
+
+:: Path to the folder, where the server log files are stored.
+set "SERVER_LOG_DIR="
+
+:: Path to the folder, where the server data files are stored.
+set "SERVER_VAR_DIR="
+
 
 ::
 :: Start execution...
@@ -37,6 +47,10 @@ set "SCRIPT=%~nx0"
 set "SCRIPT_DIR=%~dp0"
 set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
 set "BASE_DIR=%SCRIPT_DIR%\..\"
+
+pushd "%BASE_DIR%"
+set "BASE_DIR=%CD%"
+
 if "%JAVA_COMMAND%"=="" (
     if exist "%BASE_DIR%\jre\" (
         set "JAVA_COMMAND=%BASE_DIR%\jre\bin\java.exe"
@@ -45,12 +59,29 @@ if "%JAVA_COMMAND%"=="" (
     )
 )
 
-pushd %BASE_DIR%
-set "BASE_DIR=%CD%"
-%JAVA_COMMAND% ^
+:: Set default path to the etc folder.
+if "%SERVER_ETC_DIR%"=="" (
+    set "SERVER_ETC_DIR=%BASE_DIR%\etc"
+)
+
+:: Set default path to the log folder.
+if "%SERVER_LOG_DIR%"=="" (
+    set "SERVER_LOG_DIR=%USERPROFILE%\OpenEstate-ImmoServer\log"
+)
+
+:: Set default path to the var folder.
+if "%SERVER_VAR_DIR%"=="" (
+    set "SERVER_VAR_DIR=%USERPROFILE%\OpenEstate-ImmoServer"
+)
+
+"%JAVA_COMMAND%" ^
     -Xms%JAVA_HEAP_MINIMUM% ^
     -Xmx%JAVA_HEAP_MAXIMUM% ^
     -classpath "etc;lib\*" ^
     %JAVA_OPTIONS% ^
+    -Dopenestate.server.app=ssl-init ^
+    -Dopenestate.server.etcDir="%SERVER_ETC_DIR%" ^
+    -Dopenestate.server.logDir="%SERVER_LOG_DIR%" ^
+    -Dopenestate.server.varDir="%SERVER_VAR_DIR%" ^
     org.openestate.tool.server.utils.SslGenerator %*
 popd

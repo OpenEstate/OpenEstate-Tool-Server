@@ -34,6 +34,20 @@
             <fileMode>0644</fileMode>
             <filtered>true</filtered>
             <lineEnding>windows</lineEnding>
+            <excludes>
+                <exclude>*.ini</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/windows</directory>
+            <outputDirectory>bin</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <filtered>false</filtered>
+            <lineEnding>windows</lineEnding>
+            <includes>
+                <include>*.ini</include>
+            </includes>
         </fileSet>
         <fileSet>
             <directory>${project.build.directory}/launch4j</directory>

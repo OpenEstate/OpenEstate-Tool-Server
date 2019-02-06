@@ -18,6 +18,7 @@ package org.openestate.tool.server.utils;
 import java.io.Console;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigInteger;
 import java.security.KeyPair;
@@ -52,7 +53,7 @@ import org.bouncycastle.operator.bc.BcDigestCalculatorProvider;
 import org.bouncycastle.operator.bc.BcRSAContentSignerBuilder;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemWriter;
-import org.openestate.tool.server.Server;
+import org.openestate.tool.server.ServerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
@@ -65,15 +66,23 @@ import org.xnap.commons.i18n.I18nFactory;
  * @since 1.0
  */
 public class SslGenerator {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SslGenerator.class);
+    @SuppressWarnings("unused")
+    private static final Logger LOGGER;
+    @SuppressWarnings("unused")
     private static final I18n I18N = I18nFactory.getI18n(SslGenerator.class);
-    private static final String ALIAS = Server.TITLE;
+    private static final String ALIAS = ServerUtils.TITLE;
     private static final String PROVIDER = "BC";
     private static final String KEY_ALGORITHM = "RSA";
     private static final int KEY_LENGTH = 4096;
     private static final String SIGNATURE_ALGORITHM = "SHA256withRSA";
 
+    static {
+        ServerUtils.init();
+        LOGGER = LoggerFactory.getLogger(SslGenerator.class);
+    }
+
     private SslGenerator() {
+        super();
     }
 
     private static ContentSigner createSigner(PrivateKey privateKey) {
@@ -84,7 +93,7 @@ public class SslGenerator {
             return new BcRSAContentSignerBuilder(sigAlgId, digAlgId)
                     .build(PrivateKeyFactory.createKey(privateKey.getEncoded()));
         } catch (Exception ex) {
-            throw new RuntimeException("Could not create content signer.", ex);
+            throw new RuntimeException("Can't create content signer.", ex);
         }
     }
 
@@ -149,7 +158,16 @@ public class SslGenerator {
         console.writer().println(line);
         console.writer().println(StringUtils.EMPTY);
 
-        final File sslDir = new File(new File("etc"), "ssl");
+        final File etcDir;
+        final File sslDir;
+        try {
+            etcDir = ServerUtils.getEtcDir();
+            sslDir = new File(etcDir, "ssl");
+        } catch (IOException ex) {
+            LOGGER.error("Can't locate ssl directory!");
+            System.exit(1);
+            return;
+        }
         if (!sslDir.exists() && !sslDir.mkdirs()) {
             LOGGER.error("Can't create ssl directory at '" + sslDir.getAbsolutePath() + "'!");
             System.exit(1);
@@ -277,15 +295,15 @@ public class SslGenerator {
         console.writer().println(StringUtils.EMPTY);
         console.writer().println("(1) " + I18N.tr("Open the following configuration file with a text editor:"));
         console.writer().println(StringUtils.EMPTY);
-        console.writer().println(new File("etc", "server.properties").getAbsolutePath());
+        console.writer().println(new File(etcDir, "server.properties").getAbsolutePath());
         console.writer().println(StringUtils.EMPTY);
         console.writer().println("(2) " + I18N.tr("Change the following values in the configuration file:"));
         console.writer().println(StringUtils.EMPTY);
         console.writer().println("server.tls=true");
-        console.writer().println("system.javax.net.ssl.keyStore=./etc/ssl/keystore.jks");
+        //console.writer().println("system.javax.net.ssl.keyStore=./etc/ssl/keystore.jks");
         console.writer().println("system.javax.net.ssl.keyStorePassword=" + String.valueOf(password));
         console.writer().println(StringUtils.EMPTY);
-        console.writer().println("(3) " + I18N.tr("Restart {0}.", Server.TITLE));
+        console.writer().println("(3) " + I18N.tr("Restart {0}.", ServerUtils.TITLE));
         console.writer().println(StringUtils.EMPTY);
         console.writer().println(line);
         console.writer().println(StringUtils.EMPTY);

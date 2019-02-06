@@ -17,18 +17,23 @@
 @REM limitations under the License.
 @REM
 @echo off
+setlocal
+
+::
+:: Start execution...
+::
 
 set "SCRIPT=%~nx0"
 set "SCRIPT_DIR=%~dp0"
 set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
 set "BASE_DIR=%SCRIPT_DIR%\..\"
 
-pushd %BASE_DIR%
+pushd "%BASE_DIR%"
 set "BASE_DIR=%CD%"
 popd
 
 set "SERVICE_COMMAND=%SCRIPT_DIR%\service\Service.exe"
-%SERVICE_COMMAND% //DS//OpenEstate-ImmoServer
+"%SERVICE_COMMAND%" //DS//OpenEstate-ImmoServer
 
 IF %ERRORLEVEL% NEQ 0 (
     echo The service was NOT uninstalled! ^(error %ERRORLEVEL%^)

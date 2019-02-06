@@ -41,6 +41,15 @@ JAVA_OPTIONS_MAC=""
 # Additional Java options for other systems
 JAVA_OPTIONS_OTHER=""
 
+# Path to the folder, where the server configuration files are stored.
+#SERVER_ETC_DIR=""
+
+# Path to the folder, where the server log files are stored.
+#SERVER_LOG_DIR=""
+
+# Path to the folder, where the server data files are stored.
+#SERVER_VAR_DIR=""
+
 
 #
 # Start execution...
@@ -123,11 +132,30 @@ if [[ ! -x "$JAVA_COMMAND" ]] ; then
     exit 1
 fi
 
+# Set default path to the etc folder.
+if [[ -z "$SERVER_ETC_DIR" ]] ; then
+    SERVER_ETC_DIR="$BASE_DIR/etc"
+fi
+
+# Set default path to the log folder.
+if [[ -z "$SERVER_LOG_DIR" ]] ; then
+    SERVER_LOG_DIR="$HOME/OpenEstate-ImmoServer/log"
+fi
+
+# Set default path to the var folder.
+if [[ -z "$SERVER_VAR_DIR" ]] ; then
+    SERVER_VAR_DIR="$HOME/OpenEstate-ImmoServer"
+fi
+
 # Launch application.
 cd "$BASE_DIR"
 exec "$JAVA_COMMAND" \
     "-Xms$JAVA_HEAP_MINIMUM" \
     "-Xmx$JAVA_HEAP_MAXIMUM" \
-    -classpath "./etc:./lib/*" \
+    -classpath "./lib/*" \
     ${JAVA_OPTIONS} \
+    -Dopenestate.server.app="server" \
+    -Dopenestate.server.etcDir="$SERVER_ETC_DIR" \
+    -Dopenestate.server.logDir="$SERVER_LOG_DIR" \
+    -Dopenestate.server.varDir="$SERVER_VAR_DIR" \
     org.openestate.tool.server.Server ${@}

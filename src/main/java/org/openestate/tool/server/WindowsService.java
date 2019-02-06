@@ -31,8 +31,15 @@ import org.xnap.commons.i18n.I18nFactory;
  */
 @SuppressWarnings("unused")
 public class WindowsService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(WindowsService.class);
+    @SuppressWarnings("unused")
+    private static final Logger LOGGER;
+    @SuppressWarnings("unused")
     private static final I18n I18N = I18nFactory.getI18n(WindowsService.class);
+
+    static {
+        ServerUtils.init();
+        LOGGER = LoggerFactory.getLogger(WindowsService.class);
+    }
 
     /**
      * Invoke service start.
