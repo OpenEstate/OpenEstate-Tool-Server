@@ -363,6 +363,48 @@
                                             <arg value="-s"/>
                                             <arg value="../../../../Resources"/>
                                         </exec>
+
+                                        <echo message="Creating softlink in ServiceInstall.app..." level="info"/>
+                                        <mkdir dir="${mac64.launcherDir}/ServiceInstall.app/Contents"/>
+                                        <exec executable="ln" dir="${mac64.launcherDir}/ServiceInstall.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+
+                                        <echo message="Creating softlink in ServiceUninstall.app..." level="info"/>
+                                        <mkdir dir="${mac64.launcherDir}/ServiceUninstall.app/Contents"/>
+                                        <exec executable="ln" dir="${mac64.launcherDir}/ServiceUninstall.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+
+                                        <echo message="Creating softlink in ServiceStart.app..." level="info"/>
+                                        <mkdir dir="${mac64.launcherDir}/ServiceStart.app/Contents"/>
+                                        <exec executable="ln" dir="${mac64.launcherDir}/ServiceStart.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+
+                                        <echo message="Creating softlink in ServiceStop.app..." level="info"/>
+                                        <mkdir dir="${mac64.launcherDir}/ServiceStop.app/Contents"/>
+                                        <exec executable="ln" dir="${mac64.launcherDir}/ServiceStop.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+
+                                        <echo message="Creating softlink in ServiceStatus.app..." level="info"/>
+                                        <mkdir dir="${mac64.launcherDir}/ServiceStatus.app/Contents"/>
+                                        <exec executable="ln" dir="${mac64.launcherDir}/ServiceStatus.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+
+                                        <echo message="Creating softlink in SslInit.app..." level="info"/>
+                                        <mkdir dir="${mac64.launcherDir}/SslInit.app/Contents"/>
+                                        <exec executable="ln" dir="${mac64.launcherDir}/SslInit.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
                                     </target>
                                 </configuration>
                             </execution>
