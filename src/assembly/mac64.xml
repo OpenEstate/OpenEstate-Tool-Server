@@ -77,12 +77,34 @@
             <lineEnding>unix</lineEnding>
         </fileSet>
         <fileSet>
+            <directory>${project.basedir}/src/launchd</directory>
+            <outputDirectory>Contents/Resources/bin</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0755</fileMode>
+            <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
+            <includes>
+                <include>*.sh</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>${project.basedir}/src/etc</directory>
             <outputDirectory>Contents/Resources/etc</outputDirectory>
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
             <lineEnding>unix</lineEnding>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/launchd</directory>
+            <outputDirectory>Contents/Resources/etc/launchd</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <filtered>false</filtered>
+            <lineEnding>unix</lineEnding>
+            <excludes>
+                <exclude>*.sh</exclude>
+            </excludes>
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/src/licenses</directory>
