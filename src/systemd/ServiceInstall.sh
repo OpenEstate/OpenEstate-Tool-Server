@@ -27,7 +27,7 @@ SERVICE_NAME="openestate-immoserver"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ETC_DIR="$( cd "$( dirname "$DIR" )" && pwd )/etc"
-TEMPLATE="$ETC_DIR/openestate-immoserver.service"
+TEMPLATE="$ETC_DIR/systemd/openestate-immoserver.service"
 UNIT="/etc/systemd/system/$SERVICE_NAME.service"
 
 SYSTEMCTL="$(which systemctl)"
@@ -108,8 +108,12 @@ UNIT_TEMP="$(mktemp)"
 # Move temporary unit into the service folder.
 if [[ $EUID -eq 0 ]] ; then
     mv "$UNIT_TEMP" "$UNIT"
+    chown root:root "$UNIT"
+    chmod o-w "$UNIT"
 else
     "$SUDO" mv "$UNIT_TEMP" "$UNIT"
+    "$SUDO" chown root:root "$UNIT"
+    "$SUDO" chmod o-w "$UNIT"
 fi
 
 # Make sure, that the unit file is available.
@@ -136,14 +140,14 @@ echo " The service will start automatically with the next system boot."
 echo "----------------------------------------------------------------------"
 echo " You can start the service manually via:"
 echo ""
-echo " systemctl start $SERVICE_NAME"
+echo " sudo systemctl start $SERVICE_NAME"
 echo "----------------------------------------------------------------------"
 echo " You can stop the service manually via:"
 echo ""
-echo " systemctl stop $SERVICE_NAME"
+echo " sudo systemctl stop $SERVICE_NAME"
 echo "----------------------------------------------------------------------"
 echo " You can check the service status via:"
 echo ""
-echo " systemctl status $SERVICE_NAME"
+echo " sudo systemctl status $SERVICE_NAME"
 echo "----------------------------------------------------------------------"
 echo ""

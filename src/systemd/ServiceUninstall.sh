@@ -64,7 +64,7 @@ else
 fi
 
 if [[ -f "$UNIT" ]] ; then
-    echo "The service file was not properly removed."
+    echo "ERROR: The service file was not properly removed."
     exit 1
 fi
 

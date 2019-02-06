@@ -50,7 +50,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/src/systemd</directory>
-            <outputDirectory>etc</outputDirectory>
+            <outputDirectory>etc/systemd</outputDirectory>
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>

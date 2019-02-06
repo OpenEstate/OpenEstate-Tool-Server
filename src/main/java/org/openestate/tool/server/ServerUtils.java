@@ -266,6 +266,7 @@ public class ServerUtils {
             for (File defaultEtcFile : ObjectUtils.defaultIfNull(defaultEtcDir.listFiles(), new File[]{})) {
                 File etcFile = new File(etcDir, defaultEtcFile.getName());
                 if (etcFile.isFile()) continue;
+                if (!defaultEtcFile.isFile()) continue;
                 FileUtils.copyFile(defaultEtcFile, etcFile);
             }
         } catch (IOException ex) {
