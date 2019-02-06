@@ -525,14 +525,14 @@
                                         <path>..\jre</path>
                                         <minVersion>1.8.0</minVersion>
                                     </jre>
-                                    <!--<manifest></manifest>-->
+                                    <manifest>${project.basedir}/src/windows/SslInit.manifest</manifest>
                                     <headerType>console</headerType>
                                     <priority>normal</priority>
                                     <!--<customProcName>false</customProcName>-->
                                     <stayAlive>false</stayAlive>
                                     <singleInstance>
-                                        <mutexName>OpenEstate-ImmoServer-SSL-Init</mutexName>
-                                        <windowTitle>OpenEstate-ImmoServer-SSL-Init</windowTitle>
+                                        <mutexName>OpenEstate-ImmoServer-SslInit</mutexName>
+                                        <windowTitle>OpenEstate-ImmoServer-SslInit</windowTitle>
                                     </singleInstance>
                                     <downloadUrl>https://openestate.org/downloads/openestate-immoserver</downloadUrl>
                                     <supportUrl>https://openestate.org/support/tickets</supportUrl>

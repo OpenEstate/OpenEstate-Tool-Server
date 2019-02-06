@@ -57,6 +57,21 @@ pushd "%BASE_DIR%"
 set "BASE_DIR=%CD%"
 popd
 
+IF "%1"=="/q" (
+    set "QUIET=1"
+) else (
+    set "QUIET=0"
+)
+
+reg query "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\OpenEstate-ImmoServer" >nul 2>&1
+IF %ERRORLEVEL% EQU 0 (
+    if "%QUIET%"=="0" (
+        echo The service is already installed!
+        pause
+    )
+    exit /b 1
+)
+
 if exist "%BASE_DIR%\jre\" (
     set "JVM_DLL=%BASE_DIR%\jre\bin\server\jvm.dll"
 ) else (
@@ -118,18 +133,24 @@ set "SERVICE_COMMAND=%SCRIPT_DIR%\service\Service.exe"
     --LogPrefix="service"
 
 IF %ERRORLEVEL% NEQ 0 (
-    echo The service was NOT installed! ^(error %ERRORLEVEL%^)
-    echo Please make sure, that the service is not already installed.
-    pause
-    exit 1
+    if "%QUIET%"=="0" (
+        echo The service was NOT installed! ^(error %ERRORLEVEL%^)
+        echo Please make sure, that the service is not already installed.
+        pause
+    )
+    exit /b 1
 )
 
-echo The service was installed successfully.
-echo Opening the service dialog for further configuration...
-"%SCRIPT_DIR%\service\OpenEstate-ImmoServer.exe"
+if "%QUIET%"=="0" (
+    echo The service was installed successfully.
+    echo Opening the service dialog for further configuration...
+    "%SCRIPT_DIR%\service\OpenEstate-ImmoServer.exe"
+)
 
 IF %ERRORLEVEL% NEQ 0 (
-    echo Can't open the service dialog. ^(error %ERRORLEVEL%^)
-    pause
-    exit 1
+    if "%QUIET%"=="0" (
+        echo Can't open the service dialog. ^(error %ERRORLEVEL%^)
+        pause
+    )
+    exit /b 1
 )

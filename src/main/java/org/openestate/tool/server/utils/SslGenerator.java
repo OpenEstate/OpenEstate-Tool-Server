@@ -307,5 +307,11 @@ public class SslGenerator {
         console.writer().println(StringUtils.EMPTY);
         console.writer().println(line);
         console.writer().println(StringUtils.EMPTY);
+
+        console.writer().println(I18N.tr("Press ENTER to exit this application."));
+        try {
+            console.readLine();
+        } catch (Exception ignored) {
+        }
     }
 }

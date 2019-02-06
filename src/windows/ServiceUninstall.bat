@@ -26,20 +26,35 @@ setlocal
 set "SCRIPT=%~nx0"
 set "SCRIPT_DIR=%~dp0"
 set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
-set "BASE_DIR=%SCRIPT_DIR%\..\"
 
-pushd "%BASE_DIR%"
-set "BASE_DIR=%CD%"
-popd
+IF "%1"=="/q" (
+    set "QUIET=1"
+) else (
+    set "QUIET=0"
+)
+
+reg query "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\OpenEstate-ImmoServer" >nul 2>&1
+IF %ERRORLEVEL% NEQ 0 (
+    if "%QUIET%"=="0" (
+        echo The service is not installed!
+        pause
+    )
+    exit /b 1
+)
 
 set "SERVICE_COMMAND=%SCRIPT_DIR%\service\Service.exe"
 "%SERVICE_COMMAND%" //DS//OpenEstate-ImmoServer
 
 IF %ERRORLEVEL% NEQ 0 (
-    echo The service was NOT uninstalled! ^(error %ERRORLEVEL%^)
-    echo Please make sure, that the service was previously installed.
+    if "%QUIET%"=="0" (
+        echo The service was NOT uninstalled! ^(error %ERRORLEVEL%^)
+        echo Please make sure, that the service was previously installed.
+        pause
+    )
+    exit /b 1
 ) else (
-    echo The service was uninstalled successfully.
+    if "%QUIET%"=="0" (
+        echo The service was uninstalled successfully.
+        pause
+    )
 )
-
-pause

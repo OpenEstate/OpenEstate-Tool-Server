@@ -36,6 +36,7 @@
             <lineEnding>windows</lineEnding>
             <excludes>
                 <exclude>*.ini</exclude>
+                <exclude>*.manifest</exclude>
             </excludes>
         </fileSet>
         <fileSet>
@@ -65,7 +66,19 @@
             <excludes>
                 <exclude>Service32.exe</exclude>
                 <exclude>Service64.exe</exclude>
+                <exclude>*.txt</exclude>
             </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}/commons-daemon</directory>
+            <outputDirectory>bin/service</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <filtered>false</filtered>
+            <lineEnding>windows</lineEnding>
+            <includes>
+                <include>*.txt</include>
+            </includes>
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/src/etc</directory>

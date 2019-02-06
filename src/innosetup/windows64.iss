@@ -31,10 +31,10 @@ AllowNoIcons=yes
 SetupMutex=OpenEstateImmoServerSetup,Global\OpenEstateImmoServerSetup
 
 
-[Tasks]
-Name: "desktopicon"; \
-    Description: "{cm:CreateDesktopIcon}"; \
-    GroupDescription: "{cm:AdditionalIcons}"
+; [Tasks]
+; Name: "desktopicon"; \
+;     Description: "{cm:CreateDesktopIcon}"; \
+;     GroupDescription: "{cm:AdditionalIcons}"
 
 
 [Files]
@@ -44,8 +44,10 @@ Source: "{#Package}\*"; \
 
 
 [Icons]
-Name: "{group}\ImmoServer"; \
+Name: "{group}\{cm:StartImmoServer}"; \
     Filename: "{app}\bin\Start.exe"
+Name: "{group}\{cm:Management}\{cm:ManagementSslInit}"; \
+    Filename: "{app}\bin\SslInit.exe"
 Name: "{group}\{cm:Service}\{cm:ServiceInstall}"; \
     Filename: "{app}\bin\ServiceInstall.bat"
 Name: "{group}\{cm:Service}\{cm:ServiceUninstall}"; \
@@ -56,12 +58,30 @@ Name: "{group}\{cm:Service}\{cm:ServiceStop}"; \
     Filename: "{app}\bin\ServiceStop.bat"
 Name: "{group}\{cm:Service}\{cm:ServiceManage}"; \
     Filename: "{app}\bin\service\OpenEstate-ImmoServer.exe"
-Name: "{group}\{cm:UninstallProgram,ImmoTool}"; \
+Name: "{group}\{cm:UninstallProgram,ImmoServer}"; \
     Filename: "{uninstallexe}"; \
     WorkingDir: "{app}"
-Name: "{commondesktop}\OpenEstate-ImmoServer"; \
-    Filename: "{app}\bin\Start.exe"; \
-    Tasks: desktopicon
+; Name: "{commondesktop}\OpenEstate-ImmoServer"; \
+;     Filename: "{app}\bin\Start.exe"; \
+;     Tasks: desktopicon
+
+
+[UninstallDelete]
+Type: filesandordirs; \
+    Name: "{app}\etc\ssl"
+
+
+[UninstallRun]
+Filename: "{app}\bin\ServiceStop.bat"; \
+    Parameters: "/q"; \
+    WorkingDir: "{app}\bin"; \
+    RunOnceId: "StopService"; \
+    Flags: runascurrentuser runhidden
+Filename: "{app}\bin\ServiceUninstall.bat"; \
+    Parameters: "/q"; \
+    WorkingDir: "{app}\bin"; \
+    RunOnceId: "UninstallService"; \
+    Flags: runascurrentuser runhidden
 
 
 [Languages]
@@ -72,16 +92,22 @@ Name: "de"; \
 
 
 [CustomMessages]
-Service=Dienst
-ServiceInstall=Install service
-ServiceUninstall=Uninstall service
-ServiceStart=Start service
-ServiceStop=Stop service
-ServiceManage=Manage service
+StartImmoServer=Start ImmoServer in foreground
+Management=Management
+ManagementSslInit=Create SSL certificate
+Service=ImmoServer as a service
+ServiceInstall=Install ImmoServer service
+ServiceUninstall=Uninstall ImmoServer service
+ServiceStart=Start ImmoServer service
+ServiceStop=Stop ImmoServer service
+ServiceManage=Manage ImmoServer service
 
-de.Service=Dienst
-de.ServiceInstall=Dienst installieren
-de.ServiceUninstall=Dienst deinstallieren
-de.ServiceStart=Dienst starten
-de.ServiceStop=Dienst stoppen
-de.ServiceManage=Dienst verwalten
+de.StartImmoServer=ImmoServer im Vordergrund starten
+de.Management=Verwaltung
+de.ManagementSslInit=SSL-Zertifikat erzeugen
+de.Service=ImmoServer als Dienst
+de.ServiceInstall=ImmoServer-Dienst installieren
+de.ServiceUninstall=ImmoServer-Dienst deinstallieren
+de.ServiceStart=ImmoServer-Dienst starten
+de.ServiceStop=ImmoServer-Dienst stoppen
+de.ServiceManage=ImmoServer-Dienst verwalten
