@@ -35,8 +35,7 @@ JAVA_OPTIONS="-Dfile.encoding=UTF-8 -Dopenestate.server.systemTray=true"
 JAVA_OPTIONS_LINUX="-Dawt.useSystemAAFontSettings=gasp"
 
 # Additional Java options for macOS
-JAVA_OPTIONS_MAC=""
-#JAVA_OPTIONS_MAC="-Dapple.laf.useScreenMenuBar=true -Xdock:name=$APP -Xdock:icon=./share/$APP.icns"
+JAVA_OPTIONS_MAC="-Dapple.laf.useScreenMenuBar=true -Xdock:name=ImmoServer -Xdock:icon=./share/icons/ImmoServer.icns"
 
 # Additional Java options for other systems
 JAVA_OPTIONS_OTHER=""

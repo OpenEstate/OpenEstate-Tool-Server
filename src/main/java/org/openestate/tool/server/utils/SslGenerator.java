@@ -109,6 +109,7 @@ public class SslGenerator {
         final Console console = System.console();
         final String line = StringUtils.repeat("-", 75);
 
+        console.writer().println(StringUtils.EMPTY);
         console.writer().println(line);
         console.writer().println(I18N.tr("Generate RSA key pair and certificate for SSL encryption."));
         console.writer().println(line);

@@ -12,7 +12,7 @@
     <string>OpenEstate-ImmoServer</string>
 
     <key>CFBundleDisplayName</key>
-    <string>ImmoServer</string>
+    <string>Start OpenEstate-ImmoServer</string>
 
     <key>CFBundleVersion</key>
     <string>1.0.0</string>

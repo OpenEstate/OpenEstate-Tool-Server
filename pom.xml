@@ -511,7 +511,7 @@
                                 </goals>
                                 <configuration>
                                     <outfile>${project.build.directory}/launch4j/SslInit.exe</outfile>
-                                    <icon>${project.basedir}/src/icons/ImmoServer-Console.ico</icon>
+                                    <icon>${project.basedir}/src/icons/Console.ico</icon>
                                     <dontWrapJar>true</dontWrapJar>
                                     <jar>.</jar>
                                     <chdir>..</chdir>

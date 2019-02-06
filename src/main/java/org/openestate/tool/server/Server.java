@@ -194,7 +194,6 @@ public class Server extends org.hsqldb.Server {
                 case ServerConstants.SERVER_STATE_OPENING:
                 case ServerConstants.SERVER_STATE_CLOSING:
                     LOGGER.info("Starting shutdown sequence.");
-                    Server.server.setProperties();
                     Server.server.shutdown();
                     Server.server = null;
             }
