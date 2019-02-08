@@ -1,6 +1,6 @@
 @REM ----------------------------------------------------------------------------
-@REM OpenEstate-ImmoServer ${project.version}
-@REM start Windows service for OpenEstate-ImmoServer
+@REM ${project.baseName} ${project.version}
+@REM start Windows service for ${project.baseName}
 @REM Copyright (C) 2009-2019 OpenEstate.org
 @REM ----------------------------------------------------------------------------
 @REM
@@ -33,7 +33,7 @@ IF "%1"=="/q" (
     set "QUIET=0"
 )
 
-reg query "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\OpenEstate-ImmoServer" >nul 2>&1
+reg query "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\${project.baseName}" >nul 2>&1
 IF %ERRORLEVEL% NEQ 0 (
     if "%QUIET%"=="0" (
         echo The service is not installed!
@@ -43,7 +43,7 @@ IF %ERRORLEVEL% NEQ 0 (
 )
 
 set "SERVICE_COMMAND=%SCRIPT_DIR%\service\Service.exe"
-"%SERVICE_COMMAND%" //ES//OpenEstate-ImmoServer
+"%SERVICE_COMMAND%" //ES//${project.baseName}
 
 IF %ERRORLEVEL% NEQ 0 (
     if "%QUIET%"=="0" (

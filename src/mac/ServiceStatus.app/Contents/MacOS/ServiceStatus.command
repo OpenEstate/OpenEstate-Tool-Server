@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
-# OpenEstate-ImmoServer ${project.version}
+# ${project.baseName} ${project.version}
 # fetch status of the launchd daemon
 # Copyright (C) 2009-2019 OpenEstate.org
 # ----------------------------------------------------------------------------

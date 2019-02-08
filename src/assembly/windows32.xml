@@ -3,8 +3,8 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
 
-    <id>OpenEstate-ImmoServer</id>
-    <baseDirectory>OpenEstate-ImmoServer</baseDirectory>
+    <id>${project.baseName}</id>
+    <baseDirectory>${project.baseName}</baseDirectory>
     <includeBaseDirectory>true</includeBaseDirectory>
     <formats>
         <format>dir</format>
@@ -13,7 +13,7 @@
     <files>
         <file>
             <source>${project.basedir}/LICENSE.txt</source>
-            <destName>share/licenses/OpenEstate-ImmoServer.license.txt</destName>
+            <destName>share/licenses/${project.baseName}.license.txt</destName>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
             <lineEnding>windows</lineEnding>
@@ -85,7 +85,7 @@
             <outputDirectory>etc</outputDirectory>
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
-            <filtered>false</filtered>
+            <filtered>true</filtered>
             <lineEnding>windows</lineEnding>
         </fileSet>
         <fileSet>

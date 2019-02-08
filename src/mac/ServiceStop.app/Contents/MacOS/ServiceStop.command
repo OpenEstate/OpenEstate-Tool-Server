@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
-# OpenEstate-ImmoServer ${project.version}
+# ${project.baseName} ${project.version}
 # stop launchd daemon
 # Copyright (C) 2009-2019 OpenEstate.org
 # ----------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
-# OpenEstate-ImmoServer ${project.version}
+# ${project.baseName} ${project.version}
 # start a console tool for database management in a separate Terminal window
 # Copyright (C) 2009-2019 OpenEstate.org
 # ----------------------------------------------------------------------------

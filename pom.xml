@@ -37,8 +37,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.buildVersion>${project.version}</project.buildVersion>
-        <project.launch4jVersion>1.0.0.0</project.launch4jVersion>
+        <project.buildVersion>1.0.0</project.buildVersion>
         <project.baseName>OpenEstate-ImmoServer</project.baseName>
         <project.javadocDir>${project.basedir}/javadoc</project.javadocDir>
         <project.packageDir>${project.basedir}/package</project.packageDir>
@@ -80,6 +79,7 @@
             <artifactId>commons-cli</artifactId>
             <version>1.4</version>
             <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>commons-daemon</groupId>
@@ -563,10 +563,10 @@
                                         <internalName>ImmoServer</internalName>
                                         <originalFilename>Start.exe</originalFilename>
                                         <fileDescription>start OpenEstate-ImmoServer in foreground</fileDescription>
-                                        <fileVersion>${project.launch4jVersion}</fileVersion>
-                                        <txtFileVersion>${project.buildVersion}</txtFileVersion>
-                                        <productVersion>${project.launch4jVersion}</productVersion>
-                                        <txtProductVersion>${project.buildVersion}</txtProductVersion>
+                                        <fileVersion>${project.buildVersion}.0</fileVersion>
+                                        <txtFileVersion>${project.version}</txtFileVersion>
+                                        <productVersion>${project.buildVersion}.0</productVersion>
+                                        <txtProductVersion>${project.version}</txtProductVersion>
                                     </versionInfo>
                                 </configuration>
                             </execution>
@@ -611,10 +611,10 @@
                                         <internalName>SslInit</internalName>
                                         <originalFilename>SslInit.exe</originalFilename>
                                         <fileDescription>generate RSA key pair and certificate for SSL encryption</fileDescription>
-                                        <fileVersion>${project.launch4jVersion}</fileVersion>
-                                        <txtFileVersion>${project.buildVersion}</txtFileVersion>
-                                        <productVersion>${project.launch4jVersion}</productVersion>
-                                        <txtProductVersion>${project.buildVersion}</txtProductVersion>
+                                        <fileVersion>${project.buildVersion}.0</fileVersion>
+                                        <txtFileVersion>${project.version}</txtFileVersion>
+                                        <productVersion>${project.buildVersion}.0</productVersion>
+                                        <txtProductVersion>${project.version}</txtProductVersion>
                                     </versionInfo>
                                 </configuration>
                             </execution>
@@ -659,10 +659,10 @@
                                         <internalName>ManagerBackup</internalName>
                                         <originalFilename>ManagerBackup.exe</originalFilename>
                                         <fileDescription>backup databases of the currently running HSQLDB server</fileDescription>
-                                        <fileVersion>${project.launch4jVersion}</fileVersion>
-                                        <txtFileVersion>${project.buildVersion}</txtFileVersion>
-                                        <productVersion>${project.launch4jVersion}</productVersion>
-                                        <txtProductVersion>${project.buildVersion}</txtProductVersion>
+                                        <fileVersion>${project.buildVersion}.0</fileVersion>
+                                        <txtFileVersion>${project.version}</txtFileVersion>
+                                        <productVersion>${project.buildVersion}.0</productVersion>
+                                        <txtProductVersion>${project.version}</txtProductVersion>
                                     </versionInfo>
                                 </configuration>
                             </execution>
@@ -707,10 +707,10 @@
                                         <internalName>ManagerConsole</internalName>
                                         <originalFilename>ManagerConsole.exe</originalFilename>
                                         <fileDescription>a console tool for database management</fileDescription>
-                                        <fileVersion>${project.launch4jVersion}</fileVersion>
-                                        <txtFileVersion>${project.buildVersion}</txtFileVersion>
-                                        <productVersion>${project.launch4jVersion}</productVersion>
-                                        <txtProductVersion>${project.buildVersion}</txtProductVersion>
+                                        <fileVersion>${project.buildVersion}.0</fileVersion>
+                                        <txtFileVersion>${project.version}</txtFileVersion>
+                                        <productVersion>${project.buildVersion}.0</productVersion>
+                                        <txtProductVersion>${project.version}</txtProductVersion>
                                     </versionInfo>
                                 </configuration>
                             </execution>
@@ -755,10 +755,10 @@
                                         <internalName>ManagerTool</internalName>
                                         <originalFilename>Start.exe</originalFilename>
                                         <fileDescription>a graphical tool for database management</fileDescription>
-                                        <fileVersion>${project.launch4jVersion}</fileVersion>
-                                        <txtFileVersion>${project.buildVersion}</txtFileVersion>
-                                        <productVersion>${project.launch4jVersion}</productVersion>
-                                        <txtProductVersion>${project.buildVersion}</txtProductVersion>
+                                        <fileVersion>${project.buildVersion}.0</fileVersion>
+                                        <txtFileVersion>${project.version}</txtFileVersion>
+                                        <productVersion>${project.buildVersion}.0</productVersion>
+                                        <txtProductVersion>${project.version}</txtProductVersion>
                                     </versionInfo>
                                 </configuration>
                             </execution>

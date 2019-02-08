@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
-# OpenEstate-ImmoServer ${project.version}
+# ${project.baseName} ${project.version}
 # install as a launchd daemon
 # Copyright (C) 2009-2019 OpenEstate.org
 # ----------------------------------------------------------------------------
@@ -27,7 +27,7 @@ SERVICE_NAME="org.openestate.tool.server.service"
 
 echo ""
 echo "----------------------------------------------------------------------"
-echo " Installing service for OpenEstate-ImmoServer..."
+echo " Installing service for ${project.baseName}..."
 echo "----------------------------------------------------------------------"
 echo ""
 
@@ -72,7 +72,7 @@ if [[ $? -ne 0 ]] ; then
 fi
 
 # Set etc directory for the service.
-UNIT_ETC_DIRECTORY="/Users/$UNIT_USER/OpenEstate-ImmoServer/etc"
+UNIT_ETC_DIRECTORY="/Users/$UNIT_USER/${project.baseName}/etc"
 
 # Create temporary unit file.
 UNIT_TEMP="$(mktemp)"

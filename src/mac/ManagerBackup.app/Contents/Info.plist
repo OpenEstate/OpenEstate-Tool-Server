@@ -6,25 +6,22 @@
     <string>6.0</string>
 
     <key>CFBundleIdentifier</key>
-    <string>org.openstate.tool.server.manager.backup</string>
+    <string>org.openestate.tool.server.manager.backup</string>
 
     <key>CFBundleName</key>
     <string>Management Backup</string>
 
     <key>CFBundleDisplayName</key>
-    <string>Create backups of OpenEstate-ImmoServer</string>
+    <string>Create backups of ${project.baseName}</string>
 
     <key>CFBundleVersion</key>
-    <string>1.0.0</string>
+    <string>${project.buildVersion}</string>
 
     <key>CFBundleShortVersionString</key>
-    <string>1.0.0</string>
+    <string>${project.buildVersion}</string>
 
     <key>CFBundlePackageType</key>
     <string>APPL</string>
-
-    <key>CFBundleSignature</key>
-    <string>????</string>
 
     <key>CFBundleExecutable</key>
     <string>ManagerBackup.sh</string>
@@ -37,8 +34,5 @@
 
     <key>NSHumanReadableCopyright</key>
     <string>(C) 2009-2019 OpenEstate.org</string>
-
-    <key>NSHighResolutionCapable</key>
-    <true/>
   </dict>
 </plist>

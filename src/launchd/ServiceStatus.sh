@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
-# OpenEstate-ImmoServer ${project.version}
+# ${project.baseName} ${project.version}
 # fetch status of the launchd daemon
 # Copyright (C) 2009-2019 OpenEstate.org
 # ----------------------------------------------------------------------------
@@ -27,7 +27,7 @@ SERVICE_NAME="org.openestate.tool.server.service"
 
 echo ""
 echo "----------------------------------------------------------------------"
-echo " Show status of the OpenEstate-ImmoServer service..."
+echo " Show status of the ${project.baseName} service..."
 echo "----------------------------------------------------------------------"
 echo ""
 

@@ -1,5 +1,5 @@
 @REM ----------------------------------------------------------------------------
-@REM OpenEstate-ImmoServer ${project.version}
+@REM ${project.baseName} ${project.version}
 @REM start a console tool for database management
 @REM Copyright (C) 2009-2019 OpenEstate.org
 @REM ----------------------------------------------------------------------------
@@ -66,12 +66,12 @@ if "%SERVER_ETC_DIR%"=="" (
 
 :: Set default path to the log folder.
 if "%SERVER_LOG_DIR%"=="" (
-    set "SERVER_LOG_DIR=%USERPROFILE%\OpenEstate-ImmoServer\log"
+    set "SERVER_LOG_DIR=%USERPROFILE%\${project.baseName}\log"
 )
 
 :: Set default path to the var folder.
 if "%SERVER_VAR_DIR%"=="" (
-    set "SERVER_VAR_DIR=%USERPROFILE%\OpenEstate-ImmoServer"
+    set "SERVER_VAR_DIR=%USERPROFILE%\${project.baseName}"
 )
 
 "%JAVA_COMMAND%" ^

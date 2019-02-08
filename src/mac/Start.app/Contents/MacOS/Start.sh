@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
-# OpenEstate-ImmoServer ${project.version}
-# start OpenEstate-ImmoServer in foreground
+# ${project.baseName} ${project.version}
+# start ${project.baseName} in foreground
 # Copyright (C) 2009-2019 OpenEstate.org
 # ----------------------------------------------------------------------------
 #
@@ -23,6 +23,6 @@ RESOURCES_DIR="$( cd "$( dirname "$DIR" )/Resources" && pwd )"
 LAUNCHER="$RESOURCES_DIR/bin/Start.sh"
 
 # load configuration files outside of the application bundle
-export SERVER_ETC_DIR="$HOME/OpenEstate-ImmoServer/etc"
+export SERVER_ETC_DIR="$HOME/${project.baseName}/etc"
 
 exec "$LAUNCHER" "$@"

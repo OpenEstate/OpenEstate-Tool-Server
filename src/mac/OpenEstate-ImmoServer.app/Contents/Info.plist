@@ -6,25 +6,22 @@
     <string>6.0</string>
 
     <key>CFBundleIdentifier</key>
-    <string>org.openstate.tool.server.launcher</string>
+    <string>org.openestate.tool.server.launcher</string>
 
     <key>CFBundleName</key>
-    <string>OpenEstate-ImmoServer</string>
+    <string>${project.baseName}</string>
 
     <key>CFBundleDisplayName</key>
     <string>ImmoServer</string>
 
     <key>CFBundleVersion</key>
-    <string>1.0.0</string>
+    <string>${project.buildVersion}</string>
 
     <key>CFBundleShortVersionString</key>
-    <string>1.0.0</string>
+    <string>${project.buildVersion}</string>
 
     <key>CFBundlePackageType</key>
     <string>APPL</string>
-
-    <key>CFBundleSignature</key>
-    <string>????</string>
 
     <key>CFBundleExecutable</key>
     <string>OpenEstate-ImmoServer.sh</string>
@@ -37,8 +34,5 @@
 
     <key>NSHumanReadableCopyright</key>
     <string>(C) 2009-2019 OpenEstate.org</string>
-
-    <key>NSHighResolutionCapable</key>
-    <true/>
   </dict>
 </plist>

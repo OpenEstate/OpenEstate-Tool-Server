@@ -1,6 +1,6 @@
 @REM ----------------------------------------------------------------------------
-@REM OpenEstate-ImmoServer ${project.version}
-@REM install Windows service for OpenEstate-ImmoServer
+@REM ${project.baseName} ${project.version}
+@REM install Windows service for ${project.baseName}
 @REM Copyright (C) 2009-2019 OpenEstate.org
 @REM ----------------------------------------------------------------------------
 @REM
@@ -63,7 +63,7 @@ IF "%1"=="/q" (
     set "QUIET=0"
 )
 
-reg query "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\OpenEstate-ImmoServer" >nul 2>&1
+reg query "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\${project.baseName}" >nul 2>&1
 IF %ERRORLEVEL% EQU 0 (
     if "%QUIET%"=="0" (
         echo The service is already installed!
@@ -90,12 +90,12 @@ if "%SERVER_ETC_DIR%"=="" (
 
 :: Set default path to the log folder.
 if "%SERVER_LOG_DIR%"=="" (
-    set "SERVER_LOG_DIR=%USERPROFILE%\OpenEstate-ImmoServer\log"
+    set "SERVER_LOG_DIR=%USERPROFILE%\${project.baseName}\log"
 )
 
 :: Set default path to the var folder.
 if "%SERVER_VAR_DIR%"=="" (
-    set "SERVER_VAR_DIR=%USERPROFILE%\OpenEstate-ImmoServer"
+    set "SERVER_VAR_DIR=%USERPROFILE%\${project.baseName}"
 )
 
 :: Create log directory.
@@ -103,8 +103,8 @@ mkdir "%SERVER_LOG_DIR%"
 
 :: Install the service.
 set "SERVICE_COMMAND=%SCRIPT_DIR%\service\Service.exe"
-"%SERVICE_COMMAND%" //IS//OpenEstate-ImmoServer ^
-    --DisplayName="OpenEstate-ImmoServer" ^
+"%SERVICE_COMMAND%" //IS//${project.baseName} ^
+    --DisplayName="${project.baseName}" ^
     --Description="Server for OpenEstate-ImmoTool" ^
     --Install="%SERVICE_COMMAND%" ^
     --Startup=auto ^
@@ -144,7 +144,7 @@ IF %ERRORLEVEL% NEQ 0 (
 if "%QUIET%"=="0" (
     echo The service was installed successfully.
     echo Opening the service dialog for further configuration...
-    "%SCRIPT_DIR%\service\OpenEstate-ImmoServer.exe"
+    "%SCRIPT_DIR%\service\${project.baseName}.exe"
 )
 
 IF %ERRORLEVEL% NEQ 0 (

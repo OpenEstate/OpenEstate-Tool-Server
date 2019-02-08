@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
-# OpenEstate-ImmoServer ${project.version}
+# ${project.baseName} ${project.version}
 # Show available applications in Finder.
 # Copyright (C) 2009-2019 OpenEstate.org
 # ----------------------------------------------------------------------------
@@ -19,4 +19,4 @@
 #
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-open "$DIR/OpenEstate-ImmoServer"
+open "$DIR/${project.baseName}"

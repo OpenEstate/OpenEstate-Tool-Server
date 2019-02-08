@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
-# OpenEstate-ImmoServer ${project.version}
-# start OpenEstate-ImmoServer in foreground
+# ${project.baseName} ${project.version}
+# start ${project.baseName} in foreground
 # Copyright (C) 2009-2019 OpenEstate.org
 # ----------------------------------------------------------------------------
 #
@@ -138,12 +138,12 @@ fi
 
 # Set default path to the log folder.
 if [[ -z "$SERVER_LOG_DIR" ]] ; then
-    SERVER_LOG_DIR="$HOME/OpenEstate-ImmoServer/log"
+    SERVER_LOG_DIR="$HOME/${project.baseName}/log"
 fi
 
 # Set default path to the var folder.
 if [[ -z "$SERVER_VAR_DIR" ]] ; then
-    SERVER_VAR_DIR="$HOME/OpenEstate-ImmoServer"
+    SERVER_VAR_DIR="$HOME/${project.baseName}"
 fi
 
 # Launch application.

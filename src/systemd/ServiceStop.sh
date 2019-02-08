@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
-# OpenEstate-ImmoServer ${project.version}
+# ${project.baseName} ${project.version}
 # stop systemd service
 # Copyright (C) 2009-2019 OpenEstate.org
 # ----------------------------------------------------------------------------
@@ -25,11 +25,11 @@ SERVICE_NAME="openestate-immoserver"
 # Start execution...
 #
 
-UNIT="/etc/systemd/system/$SERVICE_NAME.service"
+SERVER_UNIT="/etc/systemd/system/$SERVICE_NAME.service"
 SYSTEMCTL="$(which systemctl)"
 SUDO="$(which sudo)"
 
-if [[ ! -f "$UNIT" ]] ; then
+if [[ ! -f "$SERVER_UNIT" ]] ; then
     echo "It seems, that the service was not installed yet."
     exit 1
 fi

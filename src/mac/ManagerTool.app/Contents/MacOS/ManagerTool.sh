@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
-# OpenEstate-ImmoServer ${project.version}
+# ${project.baseName} ${project.version}
 # start a graphical tool for database management
 # Copyright (C) 2009-2019 OpenEstate.org
 # ----------------------------------------------------------------------------
@@ -23,6 +23,6 @@ RESOURCES_DIR="$( cd "$( dirname "$DIR" )/Resources" && pwd )"
 LAUNCHER="$RESOURCES_DIR/bin/ManagerTool.sh"
 
 # load configuration files outside of the application bundle
-export SERVER_ETC_DIR="$HOME/OpenEstate-ImmoServer/etc"
+export SERVER_ETC_DIR="$HOME/${project.baseName}/etc"
 
 exec "$LAUNCHER" "$@"

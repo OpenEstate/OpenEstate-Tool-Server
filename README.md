@@ -21,6 +21,7 @@ Dependencies
 -   [Bouncy Castle 1.59](https://bouncycastle.org/) 
     (optional; only required by [`SslGenerator.java`](src/main/java/org/openestate/tool/server/utils/SslGenerator.java))
 -   [commons-cli 1.4](https://commons.apache.org/cli/)
+    (optional; used for [management applications](src/main/java/org/openestate/tool/server/manager))
 -   [commons-daemon 1.1.0](https://commons.apache.org/daemon/)
     (optional; used for installing a *Windows* service)
 -   [commons-io 2.6](https://commons.apache.org/io/)

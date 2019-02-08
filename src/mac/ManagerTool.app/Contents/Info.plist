@@ -6,25 +6,22 @@
     <string>6.0</string>
 
     <key>CFBundleIdentifier</key>
-    <string>org.openstate.tool.server.manager.tool</string>
+    <string>org.openestate.tool.server.manager.tool</string>
 
     <key>CFBundleName</key>
     <string>Management Tool</string>
 
     <key>CFBundleDisplayName</key>
-    <string>Management Tool for OpenEstate-ImmoServer</string>
+    <string>Management Tool for ${project.baseName}</string>
 
     <key>CFBundleVersion</key>
-    <string>1.0.0</string>
+    <string>${project.buildVersion}</string>
 
     <key>CFBundleShortVersionString</key>
-    <string>1.0.0</string>
+    <string>${project.buildVersion}</string>
 
     <key>CFBundlePackageType</key>
     <string>APPL</string>
-
-    <key>CFBundleSignature</key>
-    <string>????</string>
 
     <key>CFBundleExecutable</key>
     <string>ManagerTool.sh</string>
