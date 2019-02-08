@@ -71,6 +71,7 @@ public class ManagerBackup {
     private static final String DIR_OPTION = "dir";
     private static final String LIMIT_OPTION = "limit";
     private static final String DUMP_OPTION = "dump";
+    private static final String DELAY_OPTION = "delay";
 
     static {
         ServerUtils.init();
@@ -189,6 +190,14 @@ public class ManagerBackup {
                                 .longOpt("dump")
                                 .desc("Create a database dump instead of copying the raw database files.")
                                 .build()
+                )
+                .addOption(
+                        Option.builder(DELAY_OPTION)
+                                .longOpt("delay")
+                                .hasArg()
+                                .argName("seconds")
+                                .desc("Delay execution for the specified amount of seconds.")
+                                .build()
                 );
 
         final CommandLine commandLine;
@@ -207,6 +216,27 @@ public class ManagerBackup {
             printHelp(options);
             System.exit(0);
             return;
+        }
+
+        // detect delay
+        if (commandLine.hasOption(DELAY_OPTION)) {
+            final int delay;
+            try {
+                delay = Integer.parseInt(StringUtils.trimToEmpty(commandLine.getOptionValue(DELAY_OPTION)));
+            } catch (NumberFormatException ex) {
+                System.err.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
+                System.err.println("The provided delay is invalid!");
+                System.exit(1);
+                return;
+            }
+            if (delay > 0) {
+                LOGGER.info("Waiting for " + delay + " seconds...");
+                try {
+                    Thread.sleep(delay * 1000);
+                } catch (InterruptedException ex) {
+                    LOGGER.warn("Sleep was interrupted!", ex);
+                }
+            }
         }
 
         // detect connection configuration

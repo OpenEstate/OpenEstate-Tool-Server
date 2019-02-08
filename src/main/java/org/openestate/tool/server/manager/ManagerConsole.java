@@ -57,6 +57,7 @@ public class ManagerConsole extends SqlTool {
     private static final String DEBUG_OPTION = "debug";
     private static final String SQL_OPTION = "sql";
     private static final String SET_OPTION = "set";
+    private static final String DELAY_OPTION = "delay";
 
     static {
         ServerUtils.init();
@@ -159,6 +160,14 @@ public class ManagerConsole extends SqlTool {
                                 .argName("KEY=VALUE")
                                 .desc("Assign PL variables. You may add multiple key-value pairs after this switch separated by a space - e.g.:" + System.lineSeparator() + "-set \"KEY1=value1\" \"KEY2=value2\"")
                                 .build()
+                )
+                .addOption(
+                        Option.builder(DELAY_OPTION)
+                                .longOpt("delay")
+                                .hasArg()
+                                .argName("seconds")
+                                .desc("Delay execution for the specified amount of seconds.")
+                                .build()
                 );
 
         final CommandLine commandLine;
@@ -177,6 +186,27 @@ public class ManagerConsole extends SqlTool {
             printHelp(options);
             System.exit(0);
             return;
+        }
+
+        // detect delay
+        if (commandLine.hasOption(DELAY_OPTION)) {
+            final int delay;
+            try {
+                delay = Integer.parseInt(StringUtils.trimToEmpty(commandLine.getOptionValue(DELAY_OPTION)));
+            } catch (NumberFormatException ex) {
+                System.err.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
+                System.err.println("The provided delay is invalid!");
+                System.exit(1);
+                return;
+            }
+            if (delay > 0) {
+                LOGGER.info("Waiting for " + delay + " seconds...");
+                try {
+                    Thread.sleep(delay * 1000);
+                } catch (InterruptedException ex) {
+                    LOGGER.warn("Sleep was interrupted!", ex);
+                }
+            }
         }
 
         final List<String> arguments = new ArrayList<>();
