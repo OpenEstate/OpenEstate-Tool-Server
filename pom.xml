@@ -412,6 +412,13 @@
                                             <arg value="../../../../Resources"/>
                                         </exec>
 
+                                        <echo message="Creating softlink in ManagerBackup.app..." level="info"/>
+                                        <mkdir dir="${mac64.launcherDir}/ManagerBackup.app/Contents"/>
+                                        <exec executable="ln" dir="${mac64.launcherDir}/ManagerBackup.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+
                                         <echo message="Creating softlink in ManagerConsole.app..." level="info"/>
                                         <mkdir dir="${mac64.launcherDir}/ManagerConsole.app/Contents"/>
                                         <exec executable="ln" dir="${mac64.launcherDir}/ManagerConsole.app/Contents">
@@ -604,6 +611,54 @@
                                         <internalName>SslInit</internalName>
                                         <originalFilename>SslInit.exe</originalFilename>
                                         <fileDescription>generate RSA key pair and certificate for SSL encryption</fileDescription>
+                                        <fileVersion>${project.launch4jVersion}</fileVersion>
+                                        <txtFileVersion>${project.buildVersion}</txtFileVersion>
+                                        <productVersion>${project.launch4jVersion}</productVersion>
+                                        <txtProductVersion>${project.buildVersion}</txtProductVersion>
+                                    </versionInfo>
+                                </configuration>
+                            </execution>
+
+                            <!-- ManagerBackup.exe -->
+                            <execution>
+                                <id>launch4j-ManagerBackup</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>launch4j</goal>
+                                </goals>
+                                <configuration>
+                                    <outfile>${project.build.directory}/launch4j/ManagerBackup.exe</outfile>
+                                    <icon>${project.basedir}/src/icons/Manager.ico</icon>
+                                    <dontWrapJar>true</dontWrapJar>
+                                    <jar>.</jar>
+                                    <chdir>..</chdir>
+                                    <cmdLine></cmdLine>
+                                    <classPath>
+                                        <mainClass>org.openestate.tool.server.manager.ManagerBackup</mainClass>
+                                        <addDependencies>false</addDependencies>
+                                        <preCp>lib\*.jar</preCp>
+                                    </classPath>
+                                    <jre>
+                                        <path>..\jre</path>
+                                        <minVersion>1.8.0</minVersion>
+                                    </jre>
+                                    <!--<manifest></manifest>-->
+                                    <headerType>console</headerType>
+                                    <priority>normal</priority>
+                                    <!--<customProcName>false</customProcName>-->
+                                    <stayAlive>false</stayAlive>
+                                    <singleInstance>
+                                        <mutexName>OpenEstate-ImmoServer-ManagerBackup</mutexName>
+                                        <windowTitle>OpenEstate-ImmoServer-ManagerBackup</windowTitle>
+                                    </singleInstance>
+                                    <downloadUrl>https://openestate.org/downloads/openestate-immoserver</downloadUrl>
+                                    <supportUrl>https://openestate.org/support/tickets</supportUrl>
+                                    <versionInfo>
+                                        <copyright>OpenEstate.org</copyright>
+                                        <productName>OpenEstate-ImmoServer-ManagerBackup</productName>
+                                        <internalName>ManagerBackup</internalName>
+                                        <originalFilename>ManagerBackup.exe</originalFilename>
+                                        <fileDescription>backup databases of the currently running HSQLDB server</fileDescription>
                                         <fileVersion>${project.launch4jVersion}</fileVersion>
                                         <txtFileVersion>${project.buildVersion}</txtFileVersion>
                                         <productVersion>${project.launch4jVersion}</productVersion>

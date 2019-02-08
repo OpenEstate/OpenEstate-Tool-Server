@@ -205,6 +205,29 @@
             </includes>
         </fileSet>
 
+        <!-- ManagerBackup-Launcher for Mac OS X -->
+        <fileSet>
+            <directory>${project.basedir}/src/mac/ManagerBackup.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/ManagerBackup.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <filtered>false</filtered>
+            <excludes>
+                <exclude>**/MacOS/*</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/mac/ManagerBackup.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/ManagerBackup.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0755</fileMode>
+            <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
+            <includes>
+                <include>**/MacOS/*</include>
+            </includes>
+        </fileSet>
+
         <!-- ManagerConsole-Launcher for Mac OS X -->
         <fileSet>
             <directory>${project.basedir}/src/mac/ManagerConsole.app</directory>
