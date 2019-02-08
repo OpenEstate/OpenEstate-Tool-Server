@@ -37,6 +37,9 @@ import org.xnap.commons.i18n.I18nFactory;
 
 /**
  * Graphical tool for management of a HSQLDB database.
+ * <p>
+ * This application basically starts {@link DatabaseManagerSwing} provided by HSQLDB.
+ * It uses custom command line arguments for a better integration into the server environment.
  *
  * @author Andreas Rudolph
  * @since 1.0
@@ -56,6 +59,11 @@ public class ManagerTool extends DatabaseManagerSwing {
         LOGGER = LoggerFactory.getLogger(ManagerTool.class);
     }
 
+    /**
+     * Start graphical application for database management.
+     *
+     * @param args command line arguments
+     */
     @SuppressWarnings("Duplicates")
     public static void main(String[] args) {
 
@@ -94,7 +102,7 @@ public class ManagerTool extends DatabaseManagerSwing {
                                 .longOpt("urlid")
                                 .hasArg()
                                 .argName("urlid")
-                                .desc("The connection ID from the provided configuration file. By default the first connection from the configuration file is used.")
+                                .desc("The connection ID defined in the provided configuration file. By default the first connection from the configuration file is used.")
                                 .build()
                 )
                 .addOption(
@@ -206,11 +214,16 @@ public class ManagerTool extends DatabaseManagerSwing {
             arguments.add(scriptFile.getAbsolutePath());
         }
 
-        LOGGER.info("Launching DatabaseManagerSwing with '{}'...",
+        LOGGER.debug("Launching DatabaseManagerSwing with '{}'...",
                 StringUtils.join(arguments, StringUtils.SPACE));
         DatabaseManagerSwing.main(arguments.toArray(new String[]{}));
     }
 
+    /**
+     * Print usage information to System.out.
+     *
+     * @param options command line options
+     */
     private static void printHelp(Options options) {
         final String commandLine;
         if (SystemUtils.IS_OS_WINDOWS)

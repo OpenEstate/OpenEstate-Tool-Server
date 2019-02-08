@@ -33,11 +33,9 @@ JAVA_OPTIONS="-Dfile.encoding=UTF-8"
 
 # Additional Java options for Linux
 JAVA_OPTIONS_LINUX=""
-#JAVA_OPTIONS_LINUX="-Dawt.useSystemAAFontSettings=gasp"
 
 # Additional Java options for macOS
 JAVA_OPTIONS_MAC=""
-#JAVA_OPTIONS_MAC="-Dapple.laf.useScreenMenuBar=true -Xdock:name=$APP -Xdock:icon=./share/$APP.icns"
 
 # Additional Java options for other systems
 JAVA_OPTIONS_OTHER=""

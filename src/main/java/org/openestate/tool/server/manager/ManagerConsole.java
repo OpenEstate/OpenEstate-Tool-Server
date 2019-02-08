@@ -37,6 +37,9 @@ import org.xnap.commons.i18n.I18nFactory;
 
 /**
  * Console tool for management of a HSQLDB database.
+ * <p>
+ * This application basically starts {@link SqlTool} provided by HSQLDB.
+ * It uses custom command line arguments for a better integration into the server environment.
  *
  * @author Andreas Rudolph
  * @since 1.0
@@ -60,6 +63,11 @@ public class ManagerConsole extends SqlTool {
         LOGGER = LoggerFactory.getLogger(ManagerConsole.class);
     }
 
+    /**
+     * Start console application for database management.
+     *
+     * @param args command line arguments
+     */
     @SuppressWarnings("Duplicates")
     public static void main(String[] args) {
 
@@ -115,7 +123,7 @@ public class ManagerConsole extends SqlTool {
                                 .longOpt("urlid")
                                 .hasArg()
                                 .argName("urlid")
-                                .desc("The connection ID from the provided configuration file. By default the first connection from the configuration file is used.")
+                                .desc("The connection ID defined in the provided configuration file. By default the first connection from the configuration file is used.")
                                 .build()
                 )
                 .addOption(
@@ -283,11 +291,16 @@ public class ManagerConsole extends SqlTool {
             arguments.add(f.getAbsolutePath());
         }
 
-        LOGGER.info("Launching SqlTool with '{}'...",
+        LOGGER.debug("Launching SqlTool with '{}'...",
                 StringUtils.join(arguments, StringUtils.SPACE));
         SqlTool.main(arguments.toArray(new String[]{}));
     }
 
+    /**
+     * Print usage information to System.out.
+     *
+     * @param options command line options
+     */
     private static void printHelp(Options options) {
         final String commandLine;
         if (SystemUtils.IS_OS_WINDOWS)

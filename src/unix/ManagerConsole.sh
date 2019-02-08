@@ -32,10 +32,10 @@ JAVA_HEAP_MAXIMUM="256m"
 JAVA_OPTIONS="-Dfile.encoding=UTF-8"
 
 # Additional Java options for Linux
-JAVA_OPTIONS_LINUX="-Dawt.useSystemAAFontSettings=gasp"
+JAVA_OPTIONS_LINUX=""
 
 # Additional Java options for macOS
-JAVA_OPTIONS_MAC="-Dapple.laf.useScreenMenuBar=true -Xdock:name=ManagerConsole -Xdock:icon=./share/icons/Manager.icns"
+JAVA_OPTIONS_MAC=""
 
 # Additional Java options for other systems
 JAVA_OPTIONS_OTHER=""
