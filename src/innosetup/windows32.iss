@@ -1,4 +1,4 @@
-[Setup]
+﻿[Setup]
 AppId=OpenEstateImmoServer
 AppName=OpenEstate-ImmoServer
 AppPublisher=OpenEstate.org
@@ -44,6 +44,15 @@ Source: "{#Package}\*"; \
 [Icons]
 Name: "{group}\{cm:StartImmoServer}"; \
     Filename: "{app}\bin\Start.exe"
+Name: "{group}\{cm:Management}\{cm:ManagementSslInit}"; \
+    Filename: "{app}\bin\SslInit.exe"
+Name: "{group}\{cm:Management}\{cm:ManagementConsole}"; \
+    Filename: "{app}\bin\ManagerConsole.exe"
+Name: "{group}\{cm:Management}\{cm:ManagementTool}"; \
+    Filename: "{app}\bin\ManagerTool.exe"
+Name: "{group}\{cm:Management}\{cm:ManagementBackup}"; \
+    Filename: "{app}\bin\ManagerBackup.exe"; \
+    Parameters: "-wait"
 Name: "{group}\{cm:Service}\{cm:ServiceInstall}"; \
     Filename: "{app}\bin\ServiceInstall.bat"
 Name: "{group}\{cm:Service}\{cm:ServiceUninstall}"; \
@@ -88,7 +97,12 @@ Name: "de"; \
 
 
 [CustomMessages]
-StartImmoServer=Start ImmoServer in foreground
+StartImmoServer=Start ImmoServer manually
+Management=Management
+ManagementSslInit=Create SSL certificate
+ManagementConsole=Open database console
+ManagementTool=Open database tool
+ManagementBackup=Create database backup
 Service=ImmoServer as a service
 ServiceInstall=Install ImmoServer service
 ServiceUninstall=Uninstall ImmoServer service
@@ -96,8 +110,13 @@ ServiceStart=Start ImmoServer service
 ServiceStop=Stop ImmoServer service
 ServiceManage=Manage ImmoServer service
 
-de.StartImmoServer=ImmoServer im Vordergrund starten
-de.Service=ImmoServer als Dienst
+de.StartImmoServer=ImmoServer manuell starten
+de.Management=Verwaltung
+de.ManagementSslInit=SSL-Zertifikat erzeugen
+de.ManagementConsole=Datenbank-Konsole öffnen
+de.ManagementTool=Datenbank-Tool öffnen
+de.ManagementBackup=Datenbank sichern
+de.Service=Dienst
 de.ServiceInstall=ImmoServer-Dienst installieren
 de.ServiceUninstall=ImmoServer-Dienst deinstallieren
 de.ServiceStart=ImmoServer-Dienst starten
