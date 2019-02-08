@@ -31,18 +31,18 @@ echo " Uninstalling service for ${project.baseName}..."
 echo "----------------------------------------------------------------------"
 echo ""
 
-UNIT="/Library/LaunchDaemons/$SERVICE_NAME.plist"
+SERVER_UNIT="/Library/LaunchDaemons/$SERVICE_NAME.plist"
 
-if [[ ! -f "$UNIT" ]] ; then
+if [[ ! -f "$SERVER_UNIT" ]] ; then
     echo "It seems, that the service was not installed yet."
     exit 1
 fi
 
 sudo launchctl stop "$SERVICE_NAME"
-sudo launchctl unload "$UNIT"
-sudo rm -f "$UNIT"
+sudo launchctl unload "$SERVER_UNIT"
+sudo rm -f "$SERVER_UNIT"
 
-if [[ -f "$UNIT" ]] ; then
+if [[ -f "$SERVER_UNIT" ]] ; then
     echo "ERROR: The service file was not properly removed."
     exit 1
 fi

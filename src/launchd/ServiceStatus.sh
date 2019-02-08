@@ -31,9 +31,9 @@ echo " Show status of the ${project.baseName} service..."
 echo "----------------------------------------------------------------------"
 echo ""
 
-UNIT="/Library/LaunchDaemons/$SERVICE_NAME.plist"
+SERVER_UNIT="/Library/LaunchDaemons/$SERVICE_NAME.plist"
 
-if [[ ! -f "$UNIT" ]] ; then
+if [[ ! -f "$SERVER_UNIT" ]] ; then
     echo "It seems, that the service was not installed yet."
     exit 1
 fi

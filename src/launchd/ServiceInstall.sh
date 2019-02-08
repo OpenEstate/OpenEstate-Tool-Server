@@ -33,10 +33,10 @@ echo ""
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ETC_DIR="$( cd "$( dirname "$DIR" )" && pwd )/etc"
-TEMPLATE="$ETC_DIR/launchd/org.openestate.tool.server.service.plist"
-UNIT="/Library/LaunchDaemons/$SERVICE_NAME.plist"
+SERVER_UNIT="/Library/LaunchDaemons/$SERVICE_NAME.plist"
+SERVER_UNIT_TEMPLATE="$ETC_DIR/launchd/org.openestate.tool.server.service.plist"
 
-if [[ -f "$UNIT" ]] ; then
+if [[ -f "$SERVER_UNIT" ]] ; then
     echo "It seems, that the service was already installed."
     exit 1
 fi
@@ -82,22 +82,22 @@ sed \
     -e "s|\${EtcDirectory}|$UNIT_ETC_DIRECTORY|g" \
     -e "s|\${UserName}|$UNIT_USER|g" \
     -e "s|\${GroupName}|$UNIT_GROUP|g" \
-    "$TEMPLATE" > "$UNIT_TEMP"
+    "$SERVER_UNIT_TEMPLATE" > "$UNIT_TEMP"
 
 # Move temporary unit into the service folder.
-sudo mv "$UNIT_TEMP" "$UNIT"
-sudo chown root:wheel "$UNIT"
-sudo chmod go-w "$UNIT"
-sudo chmod ugo+r "$UNIT"
+sudo mv "$UNIT_TEMP" "$SERVER_UNIT"
+sudo chown root:wheel "$SERVER_UNIT"
+sudo chmod go-w "$SERVER_UNIT"
+sudo chmod ugo+r "$SERVER_UNIT"
 
 # Make sure, that the unit file is available.
-if [[ ! -f "$UNIT" ]] ; then
+if [[ ! -f "$SERVER_UNIT" ]] ; then
     echo "ERROR: Can't copy the service file."
     exit 1
 fi
 
 # Update launchd.
-sudo launchctl load "$UNIT"
+sudo launchctl load "$SERVER_UNIT"
 if [[ $? -ne 0 ]] ; then
     echo "ERROR: Can't enable the service."
     exit 1
@@ -107,7 +107,7 @@ echo ""
 echo "----------------------------------------------------------------------"
 echo " The service was successfully registered as a launchd daemon at:"
 echo ""
-echo " $UNIT"
+echo " $SERVER_UNIT"
 echo ""
 echo " The service will start automatically with the next system boot."
 echo "----------------------------------------------------------------------"
