@@ -19,6 +19,7 @@
 #
 
 SERVICE_NAME="org.openestate.tool.server.service"
+BACKUP_NAME="org.openestate.tool.server.backup"
 
 
 #
@@ -32,6 +33,7 @@ echo "----------------------------------------------------------------------"
 echo ""
 
 SERVER_UNIT="/Library/LaunchDaemons/$SERVICE_NAME.plist"
+BACKUP_UNIT="/Library/LaunchDaemons/$BACKUP_NAME.plist"
 
 if [[ ! -f "$SERVER_UNIT" ]] ; then
     echo "It seems, that the service was not installed yet."
@@ -45,6 +47,16 @@ sudo rm -f "$SERVER_UNIT"
 if [[ -f "$SERVER_UNIT" ]] ; then
     echo "ERROR: The service file was not properly removed."
     exit 1
+fi
+
+if [[ -f "$BACKUP_UNIT" ]] ; then
+    sudo launchctl stop "$BACKUP_NAME"
+    sudo launchctl unload "$BACKUP_UNIT"
+    sudo rm -f "$BACKUP_UNIT"
+fi
+
+if [[ -f "$BACKUP_UNIT" ]] ; then
+    echo "WARNING: The backup service file was not properly removed."
 fi
 
 echo ""

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>org.openestate.tool.server.backup</string>
+
+        <key>Program</key>
+        <string>${Program}</string>
+
+        <key>ProgramArguments</key>
+        <array>
+            <!--
+                Wait for 100 seconds before the backup is actually created.
+                This should make sure, that the server is running when backup
+                creation is triggered on system startup.
+            -->
+            <string>-delay</string>
+            <string>100</string>
+
+            <!--
+                Keep five backups at maximum.
+            -->
+            <string>-limit</string>
+            <string>5</string>
+
+            <!--
+                Create a database dump instead of copying database files.
+            -->
+            <!--
+            <string>-dump</string>
+            -->
+
+            <!--
+                Save backups into a custom directory.
+            -->
+            <!--
+            <string>-dir</string>
+            <string>/Path/To/Target/Directory</string>
+            -->
+        </array>
+
+        <key>WorkingDirectory</key>
+        <string>${WorkingDirectory}</string>
+
+        <key>EnvironmentVariables</key>
+        <dict>
+            <key>SERVER_ETC_DIR</key>
+            <string>${EtcDirectory}</string>
+        </dict>
+
+        <key>UserName</key>
+        <string>${UserName}</string>
+
+        <key>GroupName</key>
+        <string>${GroupName}</string>
+
+        <key>StandardOutPath</key>
+        <string>/dev/null</string>
+
+        <key>StandardErrorPath</key>
+        <string>/dev/null</string>
+
+        <!--
+            Create backups if the the system is booted.
+        -->
+        <key>RunAtLoad</key>
+        <true/>
+
+        <!--
+            Create backups once per day while the system is running.
+            (86400 seconds equals one day)
+        -->
+        <key>StartInterval</key>
+        <integer>86400</integer>
+
+        <key>Disabled</key>
+        <false/>
+    </dict>
+</plist>
