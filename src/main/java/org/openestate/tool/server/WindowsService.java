@@ -73,6 +73,8 @@ public class WindowsService {
             Server server = Server.get();
             if (server != null) {
                 server.shutdown();
+            } else {
+                System.exit(0);
             }
         }
     }

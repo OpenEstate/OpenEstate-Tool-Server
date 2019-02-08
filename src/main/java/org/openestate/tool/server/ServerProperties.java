@@ -72,8 +72,6 @@ public class ServerProperties extends org.hsqldb.server.ServerProperties {
      * Replace system properties in server configuration.
      */
     private void init() {
-        this.stringProps.setProperty("server.no_system_exit", "true");
-
         Enumeration e = this.stringProps.keys();
         while (e.hasMoreElements()) {
             String key = (String) e.nextElement();

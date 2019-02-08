@@ -57,6 +57,12 @@ public class Server extends org.hsqldb.Server {
      */
     private static TrayIcon systemTrayIcon = null;
 
+    /**
+     * This variable is set to true,
+     * if the shutdown hook for this server was triggered.
+     */
+    private static boolean shutdownHookTriggered = false;
+
     static {
         ServerUtils.init();
         LOGGER = LoggerFactory.getLogger(Server.class);
@@ -105,7 +111,7 @@ public class Server extends org.hsqldb.Server {
         final MenuItem stopItem = new MenuItem(I18N.tr("shutdown {0}", ServerUtils.TITLE));
         stopItem.addActionListener(e -> {
             stopItem.setEnabled(false);
-            server.stop();
+            server.shutdown();
         });
         popup.add(stopItem);
 
@@ -119,6 +125,11 @@ public class Server extends org.hsqldb.Server {
             LOGGER.error("Can't add icon to system tray!");
             LOGGER.error("> " + ex.getLocalizedMessage(), ex);
         }
+    }
+
+    @Override
+    public boolean isNoSystemExit() {
+        return shutdownHookTriggered || super.isNoSystemExit();
     }
 
     /**
@@ -186,6 +197,8 @@ public class Server extends org.hsqldb.Server {
 
         // properly shutdown the server
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            if (shutdownHookTriggered) return;
+            shutdownHookTriggered = true;
             if (Server.server == null) return;
 
             final int state = Server.server.getState();
