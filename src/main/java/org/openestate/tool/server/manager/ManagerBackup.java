@@ -72,6 +72,7 @@ public class ManagerBackup {
     private static final String LIMIT_OPTION = "limit";
     private static final String DUMP_OPTION = "dump";
     private static final String DELAY_OPTION = "delay";
+    private static final String WAIT_OPTION = "wait";
 
     static {
         ServerUtils.init();
@@ -198,6 +199,12 @@ public class ManagerBackup {
                                 .argName("seconds")
                                 .desc("Delay execution for the specified amount of seconds.")
                                 .build()
+                )
+                .addOption(
+                        Option.builder(WAIT_OPTION)
+                                .longOpt("wait")
+                                .desc("Wait for user input before application shutdown.")
+                                .build()
                 );
 
         final CommandLine commandLine;
@@ -212,8 +219,12 @@ public class ManagerBackup {
             return;
         }
 
+        // detect wait
+        final boolean wait = commandLine.hasOption(WAIT_OPTION);
+
         if (commandLine.hasOption(HELP_OPTION)) {
             printHelp(options);
+            if (wait) waitForEnter(false);
             System.exit(0);
             return;
         }
@@ -226,6 +237,7 @@ public class ManagerBackup {
             } catch (NumberFormatException ex) {
                 System.err.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
                 System.err.println("The provided delay is invalid!");
+                if (wait) waitForEnter(true);
                 System.exit(1);
                 return;
             }
@@ -247,6 +259,7 @@ public class ManagerBackup {
             if (!rcFile.isFile()) {
                 System.err.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
                 System.err.println("The provided configuration file was not found!");
+                if (wait) waitForEnter(true);
                 System.exit(1);
                 return;
             }
@@ -258,6 +271,7 @@ public class ManagerBackup {
                 System.err.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
                 System.err.println("Can't find the default configuration file!");
                 System.err.println(ex.getLocalizedMessage());
+                if (wait) waitForEnter(true);
                 System.exit(1);
                 return;
             }
@@ -271,12 +285,14 @@ public class ManagerBackup {
             System.err.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
             System.err.println("The configuration file is not readable!");
             System.err.println(ex.getLocalizedMessage());
+            if (wait) waitForEnter(true);
             System.exit(1);
             return;
         }
         if (urlIds.isEmpty()) {
             System.err.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
             System.err.println("The configuration file does not contain any connections!");
+            if (wait) waitForEnter(true);
             System.exit(1);
             return;
         }
@@ -289,6 +305,7 @@ public class ManagerBackup {
             if (path == null) {
                 System.err.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
                 System.err.println("No target directory was specified!");
+                if (wait) waitForEnter(true);
                 System.exit(1);
                 return;
             }
@@ -296,6 +313,7 @@ public class ManagerBackup {
             if (!targetDir.isDirectory()) {
                 System.err.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
                 System.err.println("The provided target directory does not exist!");
+                if (wait) waitForEnter(true);
                 System.exit(1);
                 return;
             }
@@ -307,6 +325,7 @@ public class ManagerBackup {
                 System.err.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
                 System.err.println("Can't find the default backup directory!");
                 System.err.println(ex.getLocalizedMessage());
+                if (wait) waitForEnter(true);
                 System.exit(1);
                 return;
             }
@@ -330,6 +349,7 @@ public class ManagerBackup {
         if (urlIdsToBackup.isEmpty()) {
             System.err.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
             System.err.println("No databases were found for backup!");
+            if (wait) waitForEnter(true);
             System.exit(1);
             return;
         }
@@ -342,6 +362,7 @@ public class ManagerBackup {
             } catch (NumberFormatException ex) {
                 System.err.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
                 System.err.println("The provided limit is invalid!");
+                if (wait) waitForEnter(true);
                 System.exit(1);
                 return;
             }
@@ -368,6 +389,7 @@ public class ManagerBackup {
                 LOGGER.error("Can't read connection configuration!", ex);
                 System.err.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
                 System.err.println("Can't read connection configuration (" + ex.getLocalizedMessage() + ")!");
+                if (wait) waitForEnter(true);
                 System.exit(1);
                 return;
             }
@@ -378,6 +400,7 @@ public class ManagerBackup {
                 LOGGER.error("Can't create backup directory at '{}'!", backupDir.getAbsolutePath());
                 System.err.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
                 System.err.println("Can't create backup directory at '" + backupDir.getAbsolutePath() + "'!");
+                if (wait) waitForEnter(true);
                 System.exit(1);
                 return;
             }
@@ -385,6 +408,7 @@ public class ManagerBackup {
                 LOGGER.error("Invalid backup directory at '{}'!", backupDir.getAbsolutePath());
                 System.err.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
                 System.err.println("Invalid backup directory at '" + backupDir.getAbsolutePath() + "'!");
+                if (wait) waitForEnter(true);
                 System.exit(1);
                 return;
             }
@@ -401,6 +425,7 @@ public class ManagerBackup {
                 LOGGER.error("Backup failed for '" + urlId + "' database!", ex);
                 System.err.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
                 System.err.println("Backup failed for '" + urlId + "' (" + ex.getLocalizedMessage() + ")!");
+                if (wait) waitForEnter(true);
                 System.exit(1);
             }
 
@@ -429,6 +454,8 @@ public class ManagerBackup {
             LOGGER.info("One backup was saved at '" + targetDir.getAbsolutePath() + "'.");
         else
             LOGGER.info(count + " backups were saved at '" + targetDir.getAbsolutePath() + "'.");
+
+        if (wait) waitForEnter(true);
     }
 
     /**
@@ -451,5 +478,18 @@ public class ManagerBackup {
                 StringUtils.SPACE + System.lineSeparator() + "See https://manual.openestate.org for more information."
         );
         System.out.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
+    }
+
+    /**
+     * Wait for the user to press ENTER before continue.
+     *
+     * @param printSeparator print a separator before the message shown to the user
+     */
+    private static void waitForEnter(boolean printSeparator) {
+        if (printSeparator) {
+            System.out.println(StringUtils.repeat('-', HelpFormatter.DEFAULT_WIDTH));
+        }
+        System.out.println("Press ENTER to close this application.");
+        System.console().readLine();
     }
 }
