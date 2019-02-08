@@ -205,6 +205,52 @@
             </includes>
         </fileSet>
 
+        <!-- ManagerConsole-Launcher for Mac OS X -->
+        <fileSet>
+            <directory>${project.basedir}/src/mac/ManagerConsole.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/ManagerConsole.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <filtered>false</filtered>
+            <excludes>
+                <exclude>**/MacOS/*</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/mac/ManagerConsole.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/ManagerConsole.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0755</fileMode>
+            <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
+            <includes>
+                <include>**/MacOS/*</include>
+            </includes>
+        </fileSet>
+
+        <!-- ManagerTool-Launcher for Mac OS X -->
+        <fileSet>
+            <directory>${project.basedir}/src/mac/ManagerTool.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/ManagerTool.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <filtered>false</filtered>
+            <excludes>
+                <exclude>**/MacOS/*</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/mac/ManagerTool.app</directory>
+            <outputDirectory>Contents/MacOS/OpenEstate-ImmoServer/ManagerTool.app</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0755</fileMode>
+            <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
+            <includes>
+                <include>**/MacOS/*</include>
+            </includes>
+        </fileSet>
+
         <!-- Resources -->
         <fileSet>
             <directory>${project.basedir}/src/unix</directory>

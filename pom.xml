@@ -76,6 +76,12 @@
             <optional>true</optional>
         </dependency>
         <dependency>
+            <groupId>commons-cli</groupId>
+            <artifactId>commons-cli</artifactId>
+            <version>1.4</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>commons-daemon</groupId>
             <artifactId>commons-daemon</artifactId>
             <version>${commons-daemon.version}</version>
@@ -405,6 +411,20 @@
                                             <arg value="-s"/>
                                             <arg value="../../../../Resources"/>
                                         </exec>
+
+                                        <echo message="Creating softlink in ManagerConsole.app..." level="info"/>
+                                        <mkdir dir="${mac64.launcherDir}/ManagerConsole.app/Contents"/>
+                                        <exec executable="ln" dir="${mac64.launcherDir}/ManagerConsole.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+
+                                        <echo message="Creating softlink in ManagerTool.app..." level="info"/>
+                                        <mkdir dir="${mac64.launcherDir}/ManagerTool.app/Contents"/>
+                                        <exec executable="ln" dir="${mac64.launcherDir}/ManagerTool.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
                                     </target>
                                 </configuration>
                             </execution>
@@ -513,7 +533,7 @@
                                     <classPath>
                                         <mainClass>org.openestate.tool.server.Server</mainClass>
                                         <addDependencies>false</addDependencies>
-                                        <preCp>etc\;lib\*.jar</preCp>
+                                        <preCp>lib\*.jar</preCp>
                                     </classPath>
                                     <jre>
                                         <path>..\jre</path>
@@ -535,7 +555,7 @@
                                         <productName>OpenEstate-ImmoServer</productName>
                                         <internalName>ImmoServer</internalName>
                                         <originalFilename>Start.exe</originalFilename>
-                                        <fileDescription>OpenEstate-ImmoServer</fileDescription>
+                                        <fileDescription>start OpenEstate-ImmoServer in foreground</fileDescription>
                                         <fileVersion>${project.launch4jVersion}</fileVersion>
                                         <txtFileVersion>${project.buildVersion}</txtFileVersion>
                                         <productVersion>${project.launch4jVersion}</productVersion>
@@ -561,7 +581,7 @@
                                     <classPath>
                                         <mainClass>org.openestate.tool.server.utils.SslGenerator</mainClass>
                                         <addDependencies>false</addDependencies>
-                                        <preCp>etc\;lib\*.jar</preCp>
+                                        <preCp>lib\*.jar</preCp>
                                     </classPath>
                                     <jre>
                                         <path>..\jre</path>
@@ -583,7 +603,103 @@
                                         <productName>OpenEstate-ImmoServer-SslInit</productName>
                                         <internalName>SslInit</internalName>
                                         <originalFilename>SslInit.exe</originalFilename>
-                                        <fileDescription>OpenEstate-ImmoServer-SslInit</fileDescription>
+                                        <fileDescription>generate RSA key pair and certificate for SSL encryption</fileDescription>
+                                        <fileVersion>${project.launch4jVersion}</fileVersion>
+                                        <txtFileVersion>${project.buildVersion}</txtFileVersion>
+                                        <productVersion>${project.launch4jVersion}</productVersion>
+                                        <txtProductVersion>${project.buildVersion}</txtProductVersion>
+                                    </versionInfo>
+                                </configuration>
+                            </execution>
+
+                            <!-- ManagerConsole.exe -->
+                            <execution>
+                                <id>launch4j-ManagerConsole</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>launch4j</goal>
+                                </goals>
+                                <configuration>
+                                    <outfile>${project.build.directory}/launch4j/ManagerConsole.exe</outfile>
+                                    <icon>${project.basedir}/src/icons/Manager.ico</icon>
+                                    <dontWrapJar>true</dontWrapJar>
+                                    <jar>.</jar>
+                                    <chdir>..</chdir>
+                                    <cmdLine></cmdLine>
+                                    <classPath>
+                                        <mainClass>org.openestate.tool.server.manager.ManagerConsole</mainClass>
+                                        <addDependencies>false</addDependencies>
+                                        <preCp>lib\*.jar</preCp>
+                                    </classPath>
+                                    <jre>
+                                        <path>..\jre</path>
+                                        <minVersion>1.8.0</minVersion>
+                                    </jre>
+                                    <!--<manifest></manifest>-->
+                                    <headerType>console</headerType>
+                                    <priority>normal</priority>
+                                    <!--<customProcName>false</customProcName>-->
+                                    <stayAlive>false</stayAlive>
+                                    <singleInstance>
+                                        <mutexName>OpenEstate-ImmoServer-ManagerConsole</mutexName>
+                                        <windowTitle>OpenEstate-ImmoServer-ManagerConsole</windowTitle>
+                                    </singleInstance>
+                                    <downloadUrl>https://openestate.org/downloads/openestate-immoserver</downloadUrl>
+                                    <supportUrl>https://openestate.org/support/tickets</supportUrl>
+                                    <versionInfo>
+                                        <copyright>OpenEstate.org</copyright>
+                                        <productName>OpenEstate-ImmoServer-ManagerConsole</productName>
+                                        <internalName>ManagerConsole</internalName>
+                                        <originalFilename>ManagerConsole.exe</originalFilename>
+                                        <fileDescription>a console tool for database management</fileDescription>
+                                        <fileVersion>${project.launch4jVersion}</fileVersion>
+                                        <txtFileVersion>${project.buildVersion}</txtFileVersion>
+                                        <productVersion>${project.launch4jVersion}</productVersion>
+                                        <txtProductVersion>${project.buildVersion}</txtProductVersion>
+                                    </versionInfo>
+                                </configuration>
+                            </execution>
+
+                            <!-- ManagerTool.exe -->
+                            <execution>
+                                <id>launch4j-ManagerTool</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>launch4j</goal>
+                                </goals>
+                                <configuration>
+                                    <outfile>${project.build.directory}/launch4j/ManagerTool.exe</outfile>
+                                    <icon>${project.basedir}/src/icons/Manager.ico</icon>
+                                    <dontWrapJar>true</dontWrapJar>
+                                    <jar>.</jar>
+                                    <chdir>..</chdir>
+                                    <cmdLine></cmdLine>
+                                    <classPath>
+                                        <mainClass>org.openestate.tool.server.manager.ManagerTool</mainClass>
+                                        <addDependencies>false</addDependencies>
+                                        <preCp>lib\*.jar</preCp>
+                                    </classPath>
+                                    <jre>
+                                        <path>..\jre</path>
+                                        <minVersion>1.8.0</minVersion>
+                                    </jre>
+                                    <!--<manifest></manifest>-->
+                                    <headerType>gui</headerType>
+                                    <priority>normal</priority>
+                                    <!--<customProcName>false</customProcName>-->
+                                    <stayAlive>false</stayAlive>
+                                    <singleInstance>
+                                        <mutexName>OpenEstate-ImmoServer-ManagerTool</mutexName>
+                                        <windowTitle>OpenEstate-ImmoServer-ManagerTool</windowTitle>
+                                    </singleInstance>
+                                    <downloadUrl>https://openestate.org/downloads/openestate-immoserver</downloadUrl>
+                                    <supportUrl>https://openestate.org/support/tickets</supportUrl>
+                                    <versionInfo>
+                                        <copyright>OpenEstate.org</copyright>
+                                        <productName>OpenEstate-ImmoServer-ManagerTool</productName>
+                                        <internalName>ManagerTool</internalName>
+                                        <originalFilename>Start.exe</originalFilename>
+                                        <fileDescription>a graphical tool for database management</fileDescription>
                                         <fileVersion>${project.launch4jVersion}</fileVersion>
                                         <txtFileVersion>${project.buildVersion}</txtFileVersion>
                                         <productVersion>${project.launch4jVersion}</productVersion>

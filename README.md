@@ -7,10 +7,11 @@ This project
 
 -   extends the default [*HSQLDB* server](http://hsqldb.org/) with some features.
 -   provides several startup scripts / executables / application bundles for *Windows*, *macOS* and *Linux*.
--   bundles [*commons-daemon*](https://commons.apache.org/daemon/) in order to run the database as a *Windows* service.
+-   bundles [*commons-daemon*](https://commons.apache.org/daemon/) to run the database as a *Windows* service.
 -   provides scripts to run the database as a [*systemd*](https://en.wikipedia.org/wiki/Systemd) service on *Linux* systems.
 -   provides scripts to run the database as a [*launchd*](https://en.wikipedia.org/wiki/Launchd) agent on *macOS* systems.
 -   provides an application to create a keystore for *SSL* encrypted database access.
+-   provides a GUI & console application for database administration.
 
 
 Dependencies
@@ -19,6 +20,7 @@ Dependencies
 -   Java 8 or newer
 -   [Bouncy Castle 1.59](https://bouncycastle.org/) 
     (optional; only required by [`SslGenerator.java`](src/main/java/org/openestate/tool/server/utils/SslGenerator.java))
+-   [commons-cli 1.4](https://commons.apache.org/cli/)
 -   [commons-daemon 1.1.0](https://commons.apache.org/daemon/)
     (optional; used for installing a *Windows* service)
 -   [commons-io 2.6](https://commons.apache.org/io/)
