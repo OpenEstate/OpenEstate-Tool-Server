@@ -1,6 +1,7 @@
 [Unit]
 Description=Server for OpenEstate-ImmoTool
 After=network-online.target
+Wants=openestate-immoserver-backup.timer
 
 [Service]
 ExecStart=${ExecStart}

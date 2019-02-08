@@ -1,0 +1,11 @@
+[Unit]
+Description=Create backup for OpenEstate-ImmoServer
+Requires=openestate-immoserver.service
+After=openestate-immoserver.service
+
+[Service]
+Type=oneshot
+ExecStart=${ExecStart}
+WorkingDirectory=${WorkingDirectory}
+User=${User}
+Group=${Group}

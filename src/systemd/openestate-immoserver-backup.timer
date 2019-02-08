@@ -1,0 +1,12 @@
+[Unit]
+Description=Timed automatic backups for OpenEstate-ImmoServer
+BindsTo=openestate-immoserver.service
+After=openestate-immoserver.service
+StopWhenUnneeded=yes
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=timers.target

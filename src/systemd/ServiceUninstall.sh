@@ -19,17 +19,20 @@
 #
 
 SERVICE_NAME="openestate-immoserver"
+BACKUP_NAME="openestate-immoserver-backup"
 
 
 #
 # Start execution...
 #
 
-UNIT="/etc/systemd/system/$SERVICE_NAME.service"
+SERVER_UNIT="/etc/systemd/system/$SERVICE_NAME.service"
+BACKUP_TIMER="/etc/systemd/system/$BACKUP_NAME.timer"
+BACKUP_UNIT="/etc/systemd/system/$BACKUP_NAME.service"
 SYSTEMCTL="$(which systemctl)"
 SUDO="$(which sudo)"
 
-if [[ ! -f "$UNIT" ]] ; then
+if [[ ! -f "$SERVER_UNIT" ]] ; then
     echo "It seems, that the service was not installed yet."
     exit 1
 fi
@@ -56,14 +59,24 @@ ${SYSTEMCTL_COMMAND} stop "$SERVICE_NAME"
 # Disable the service.
 ${SYSTEMCTL_COMMAND} disable "$SERVICE_NAME"
 
-# Remove service file.
-if [[ $EUID -ne 0 ]] ; then
-    "$SUDO" rm -f "$UNIT"
-else
-    rm -f "$UNIT"
+# Disable backup timer.
+if [[ -f "$BACKUP_TIMER" ]] ; then
+    ${SYSTEMCTL_COMMAND} stop "$(basename "$BACKUP_TIMER")"
+    ${SYSTEMCTL_COMMAND} disable "$(basename "$BACKUP_TIMER")"
 fi
 
-if [[ -f "$UNIT" ]] ; then
+# Remove service files.
+if [[ $EUID -ne 0 ]] ; then
+    "$SUDO" rm -f "$SERVER_UNIT"
+    "$SUDO" rm -f "$BACKUP_TIMER"
+    "$SUDO" rm -f "$BACKUP_UNIT"
+else
+    rm -f "$SERVER_UNIT"
+    rm -f "$BACKUP_TIMER"
+    rm -f "$BACKUP_UNIT"
+fi
+
+if [[ -f "$SERVER_UNIT" ]] ; then
     echo "ERROR: The service file was not properly removed."
     exit 1
 fi
