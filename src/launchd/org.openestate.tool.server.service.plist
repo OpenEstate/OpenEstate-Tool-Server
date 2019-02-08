@@ -35,12 +35,13 @@
         <key>RunAtLoad</key>
         <true/>
 
-        <!--
         <key>KeepAlive</key>
         <dict>
-            <key>SuccessfulExit</key>
+            <key>Crashed</key>
             <true/>
         </dict>
-        -->
+
+        <key>Disabled</key>
+        <false/>
     </dict>
 </plist>

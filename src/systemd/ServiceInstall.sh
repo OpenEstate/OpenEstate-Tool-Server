@@ -104,7 +104,7 @@ fi
 # Ask for installation of a backup timer.
 read -p "Do you want to install a timer for automatic daily backups (yes/no)? [default is yes]: " BACKUP
 BACKUP="$( echo ${BACKUP} | sed -e 's/^[ \t]*//' )"
-BACKUP="$( echo ${BACKUP} | sed -e 's/\(.*\)/\L\1/' )"
+BACKUP="$( echo ${BACKUP} | tr '[:upper:]' '[:lower:]' )"
 
 # Create temporary unit file.
 UNIT_TEMP="$(mktemp)"
