@@ -104,7 +104,6 @@
             <filtered>false</filtered>
             <includes>
                 <include>*.ico</include>
-                <include>*.png</include>
             </includes>
         </fileSet>
         <fileSet>
