@@ -13,6 +13,8 @@ Changelog for OpenEstate-Tool-Server
 -   Provide a signed application bundle for *macOS*.
 -   Provide a signed DMG installer for *macOS*.
 -   Provide an EXE installer for *Windows* (32bit & 64bit).
+-   Provide a DEB package for *Debian* based operating systems (amd64).
+-   Improved mechanism for live database backups.
 -   Require Java 8 at minimum.
 
 
