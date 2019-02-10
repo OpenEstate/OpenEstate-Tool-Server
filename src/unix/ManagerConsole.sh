@@ -18,6 +18,11 @@
 # limitations under the License.
 #
 
+# load default settings
+if [[ -f "/etc/default/OpenEstate-ImmoServer" ]] ; then
+    source "/etc/default/OpenEstate-ImmoServer"
+fi
+
 # Use a specific command to launch the Java Runtime Environment
 #JAVA_COMMAND=""
 
