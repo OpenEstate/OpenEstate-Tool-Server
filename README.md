@@ -28,7 +28,7 @@ Dependencies
 -   [commons-lang 3.8.1](https://commons.apache.org/lang)
 -   [commons-text 1.6](https://commons.apache.org/text)
 -   [gettext-commons 0.9.8](https://code.google.com/archive/p/gettext-commons/)
--   [hsqldb 2.3.5](http://hsqldb.org/)
+-   [hsqldb 2.4.1](http://hsqldb.org/)
 -   [log4j 1.2.17](https://logging.apache.org/log4j/1.2/)
 -   [SLF4J 1.7.25](https://www.slf4j.org/)
 
