@@ -16,6 +16,7 @@ Compression=lzma2
 SolidCompression=no
 
 MinVersion=6.0
+SetupMutex=OpenEstateImmoServerSetup,Global\OpenEstateImmoServerSetup
 
 DefaultDirName={pf}\OpenEstate-ImmoServer
 DefaultGroupName=OpenEstate-ImmoServer
@@ -25,8 +26,8 @@ UninstallDisplayIcon={app}\share\icons\ImmoServer.ico
 
 DisableWelcomePage=no
 AllowNoIcons=yes
-
-SetupMutex=OpenEstateImmoServerSetup,Global\OpenEstateImmoServerSetup
+WizardSmallImageFile=logo-100.bmp,logo-125.bmp,logo-150.bmp,logo-175.bmp,logo-200.bmp,logo-225.bmp,logo-250.bmp
+WizardImageFile=sidebar-100.bmp,sidebar-125.bmp,sidebar-150.bmp,sidebar-175.bmp,sidebar-200.bmp,sidebar-225.bmp,sidebar-250.bmp
 
 
 ; [Tasks]
