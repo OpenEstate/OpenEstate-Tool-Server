@@ -6,7 +6,7 @@ Changelog for OpenEstate-Tool-Server
 ------------------------
 
 -   Updated *HSQLDB* libraries (`hsqldb` & `sqltool`) to version 2.4.1.
--   Updated *BouncyCastle* libraries (`bcprov-jdk15on` & `bcpkix-jdk15on`) to version 1.60.
+-   Updated *BouncyCastle* libraries (`bcprov-jdk15on` & `bcpkix-jdk15on`) to version 1.61.
 -   Updated `commons-io` library to version 2.6.
 -   Updated `commons-lang` library to version 3.8.1.
 -   Replace `YAJSW` with `commons-daemon` for providing a *Windows* service.
