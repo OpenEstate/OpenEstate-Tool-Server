@@ -16,8 +16,8 @@
 #
 
 # ----------------------------------------------------------------------------
-# NOTICE: This script has to be executed on a Debian system with the
-# required build tools available.
+# NOTICE: This script has to be executed on a Linux system with the
+# dpkg-deb build tool available.
 # ----------------------------------------------------------------------------
 
 VERSION="1.0.0"
@@ -35,20 +35,6 @@ fi
 
 # Writer version into control file.
 sed -i -e "s|\${PackageVersion}|$VERSION|g" "$SRC_DIR/DEBIAN/control"
-
-# Update systemd units.
-sed -i \
-    -e "s|\${ExecStart}|/opt/OpenEstate-ImmoServer/bin/Start.sh|g" \
-    -e "s|\${WorkingDirectory}|/opt/OpenEstate-ImmoServer/bin|g" \
-    -e "s|\${User}|openestate|g" \
-    -e "s|\${Group}|openestate|g" \
-    "$SRC_DIR/etc/systemd/system/openestate-immoserver.service"
-sed -i \
-    -e "s|\${ExecStart}|/opt/OpenEstate-ImmoServer/bin/ManagerBackup.sh|g" \
-    -e "s|\${WorkingDirectory}|/opt/OpenEstate-ImmoServer/bin|g" \
-    -e "s|\${User}|openestate|g" \
-    -e "s|\${Group}|openestate|g" \
-    "$SRC_DIR/etc/systemd/system/openestate-immoserver-backup.service"
 
 # Write package size into control file.
 ETC_SIZE=$(du -s -k "$SRC_DIR/etc" | cut -f1)

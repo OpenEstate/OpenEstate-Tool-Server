@@ -39,6 +39,7 @@ SYSTEMCTL="$(which systemctl)"
 SUDO="$(which sudo)"
 SED="$(which sed)"
 TEE="$(which tee)"
+SHELL="$(which bash)"
 
 if [[ -f "$SERVER_UNIT" ]] ; then
     echo "It seems, that the service was already installed."
@@ -52,6 +53,11 @@ fi
 
 if [[ ! -f "$SED" ]] || [[ ! -x "$SED" ]] ; then
     echo "It seems, that the \"sed\" command is not available on your operating system."
+    exit 1
+fi
+
+if [[ ! -f "$SHELL" ]] || [[ ! -x "$SHELL" ]] ; then
+    echo "It seems, that the \"bash\" command is not available on your operating system."
     exit 1
 fi
 
@@ -72,7 +78,7 @@ else
 fi
 
 # Set startup script for the service.
-UNIT_EXEC_START="$DIR/Start.sh"
+UNIT_EXEC_START="$SHELL $DIR/Start.sh"
 
 # Set working directory for the service.
 UNIT_WORKING_DIRECTORY="$DIR"
@@ -145,7 +151,7 @@ if [[ -z "$BACKUP" ]] || [[ "$BACKUP" == "y" ]] || [[ "$BACKUP" == "yes" ]] ; th
     BACKUP="1"
 
     # Set startup script for the backup timer.
-    UNIT_EXEC_BACKUP="$DIR/ManagerBackup.sh"
+    UNIT_EXEC_BACKUP="$SHELL $DIR/ManagerBackup.sh"
 
     # Create temporary unit file.
     UNIT_TEMP="$(mktemp)"

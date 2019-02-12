@@ -44,6 +44,21 @@ case "$1" in
         chown openestate:openestate /etc/default/OpenEstate-ImmoServer
         chmod 640 /etc/default/OpenEstate-ImmoServer
 
+        # Update systemd units.
+        SHELL=`which bash`
+        sed -i \
+            -e "s|\${ExecStart}|$SHELL /opt/OpenEstate-ImmoServer/bin/Start.sh|g" \
+            -e "s|\${WorkingDirectory}|/opt/OpenEstate-ImmoServer/bin|g" \
+            -e "s|\${User}|openestate|g" \
+            -e "s|\${Group}|openestate|g" \
+            "/etc/systemd/system/openestate-immoserver.service"
+        sed -i \
+            -e "s|\${ExecStart}|$SHELL /opt/OpenEstate-ImmoServer/bin/ManagerBackup.sh|g" \
+            -e "s|\${WorkingDirectory}|/opt/OpenEstate-ImmoServer/bin|g" \
+            -e "s|\${User}|openestate|g" \
+            -e "s|\${Group}|openestate|g" \
+            "/etc/systemd/system/openestate-immoserver-backup.service"
+
         # setup services
         systemctl daemon-reload
         systemctl enable openestate-immoserver || true
