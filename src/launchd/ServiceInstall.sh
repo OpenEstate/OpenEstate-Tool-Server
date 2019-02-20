@@ -172,7 +172,7 @@ if [[ "$BACKUP" == "1" ]] ; then
     echo " Daily automatic backups were enabled. Please make sure, that the"
     echo " connection settings for the databases to backup are properly set in:"
     echo ""
-    echo " $ETC_DIR/manager.conf"
+    echo " $UNIT_ETC_DIRECTORY/manager.conf"
     echo ""
     echo " Otherwise automatic backups will fail!"
     echo " See https://manual.openestate.org for more information."
