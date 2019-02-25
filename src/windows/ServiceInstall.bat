@@ -23,13 +23,6 @@ setlocal
 :: Start execution...
 ::
 
-:: The name of the account under which the service should run.
-:: Prepend .\ to the user name for local system users.
-set "SERVICE_USER_NAME="
-
-:: The password of the account under which the service should run.
-set "SERVICE_USER_PASSWORD="
-
 :: Path to the folder, where the server configuration files are stored.
 set "SERVER_ETC_DIR="
 
@@ -78,11 +71,6 @@ if exist "%BASE_DIR%\jre\" (
     set "JVM_DLL=auto"
 )
 
-:: Set default service user name.
-if "%SERVICE_USER_NAME%"=="" (
-    set "SERVICE_USER_NAME=.\%USERNAME%"
-)
-
 :: Set default path to the etc folder.
 if "%SERVER_ETC_DIR%"=="" (
     set "SERVER_ETC_DIR=%BASE_DIR%\etc"
@@ -108,8 +96,6 @@ set "SERVICE_COMMAND=%SCRIPT_DIR%\service\Service.exe"
     --Description="Server for OpenEstate-ImmoTool" ^
     --Install="%SERVICE_COMMAND%" ^
     --Startup=auto ^
-    --ServiceUser="%SERVICE_USER_NAME%" ^
-    --ServicePassword="%SERVICE_USER_PASSWORD%" ^
     --Jvm="%JVM_DLL%" ^
     --JvmMs="%JAVA_HEAP_MINIMUM%" ^
     --JvmMx="%JAVA_HEAP_MAXIMUM%" ^
@@ -118,7 +104,7 @@ set "SERVICE_COMMAND=%SCRIPT_DIR%\service\Service.exe"
     ++JvmOptions=-Dopenestate.server.etcDir="%SERVER_ETC_DIR%" ^
     ++JvmOptions=-Dopenestate.server.logDir="%SERVER_LOG_DIR%" ^
     ++JvmOptions=-Dopenestate.server.varDir="%SERVER_VAR_DIR%" ^
-    --Classpath="%BASE_DIR%\etc;%BASE_DIR%\lib\*" ^
+    --Classpath="%BASE_DIR%\lib\*" ^
     --StartMode=jvm ^
     --StartPath="%BASE_DIR%" ^
     --StartClass=org.openestate.tool.server.WindowsService ^
