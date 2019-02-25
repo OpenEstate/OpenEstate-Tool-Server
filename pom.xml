@@ -445,6 +445,9 @@
                                     <target>
                                         <echo message="Creating release packages..." level="info"/>
                                         <property name="packageDir" value="${project.basedir}/package"/>
+                                        <tstamp>
+                                            <format property="buildTime" pattern="yyyyMMddhhmmss"/>
+                                        </tstamp>
 
                                         <echo message="Creating Linux x86-64 bundle..." level="info"/>
                                         <exec executable="tar" dir="${packageDir}/linux-x86-64">
@@ -463,12 +466,14 @@
                                         <echo message="Creating Debian amd64 package..." level="info"/>
                                         <exec executable="bash" dir="${project.basedir}">
                                             <env key="BUILD_VERSION" value="${project.version}"/>
+                                            <env key="BUILD_TIME" value="${buildTime}"/>
                                             <arg value="build-installer-debian-amd64.sh"/>
                                         </exec>
 
                                         <echo message="Creating Debian armhf package..." level="info"/>
                                         <exec executable="bash" dir="${project.basedir}">
                                             <env key="BUILD_VERSION" value="${project.version}"/>
+                                            <env key="BUILD_TIME" value="${buildTime}"/>
                                             <arg value="build-installer-debian-armhf.sh"/>
                                         </exec>
 

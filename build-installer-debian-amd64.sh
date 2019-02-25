@@ -30,8 +30,12 @@ if [[ -n "$BUILD_VERSION" ]] ; then
     VERSION="$BUILD_VERSION"
 fi
 
+if [[ -z "$BUILD_TIME" ]] ; then
+    BUILD_TIME="$(date +%Y%m%d%H%M%S)"
+fi
+
 if [[ "$VERSION" == *"-SNAPSHOT" ]]; then
-    VERSION="$(echo "$VERSION" | cut -d'-' -f 1)+dev$(date +%s)"
+    VERSION="$(echo "$VERSION" | cut -d'-' -f 1)+dev$BUILD_TIME"
 fi
 
 # Write version into control file.
