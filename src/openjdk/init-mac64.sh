@@ -7,9 +7,6 @@
 #
 # Build a runtime environment for macOS 64-bit.
 #
-# OpenJDK for this target platform is taken from
-# https://adoptopenjdk.net/
-#
 # -----------------------------------------------------------------------
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -24,7 +21,7 @@ TEMP_DIR="$DIR/temp"
 
 set -e
 source "$DIR/init.sh"
-rm -Rf "$DIR/jmods/$TARGET"
+rm -Rf "$DIR/jmods"
 mkdir -p "$DIR/jmods"
 mkdir -p "$LOCAL_DIR"
 
@@ -67,9 +64,9 @@ cd "$TEMP_DIR"
 tar xfz "$DOWNLOADS_DIR/$(basename "$TARGET_JDK")"
 find "$(ls -1)" -type f -name "._*" -exec rm {} \;
 if [[ -d "$(ls -1)/Contents/Home" ]]; then
-    mv "$(ls -1)/Contents/Home/jmods" "$DIR/jmods/mac64"
+    mv "$(ls -1)/Contents/Home/jmods" "$DIR/jmods"
 else
-    mv "$(ls -1)/jmods" "$DIR/jmods/mac64"
+    mv "$(ls -1)/jmods" "$DIR/jmods"
 fi
 
 
@@ -102,7 +99,7 @@ mkdir -p "$DIR/runtime"
 
 echo "Building runtime environment for $TARGET..."
 "$JLINK" \
-    -p "$DIR/jmods/$TARGET" \
+    -p "$DIR/jmods" \
     --add-modules "$MODULES" \
     --output "$DIR/runtime/$TARGET" \
     --compress=1 \
@@ -117,3 +114,4 @@ echo "Building runtime environment for $TARGET..."
 
 cd "$DIR"
 rm -Rf "$TEMP_DIR"
+rm -Rf "$DIR/jmods"

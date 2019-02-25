@@ -34,10 +34,10 @@ if [[ "$VERSION" == *"-SNAPSHOT" ]]; then
     VERSION="$(echo "$VERSION" | cut -d'-' -f 1)+dev$(date +%s)"
 fi
 
-# Writer version into control file.
+# Write version into control file.
 sed -i -e "s|\${PackageVersion}|$VERSION|g" "$SRC_DIR/DEBIAN/control"
 
-# Writer architecture into control file.
+# Write architecture into control file.
 sed -i -e "s|\${Architecture}|$ARCHITECTURE|g" "$SRC_DIR/DEBIAN/control"
 
 # Write package size into control file.

@@ -7,9 +7,6 @@
 #
 # Build a runtime environment for Linux 32-bit arm (arm32).
 #
-# OpenJDK for this target platform is taken from
-# https://adoptopenjdk.net/
-#
 # -----------------------------------------------------------------------
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -24,7 +21,7 @@ TEMP_DIR="$DIR/temp"
 
 set -e
 source "$DIR/init.sh"
-rm -Rf "$DIR/jmods/$TARGET"
+rm -Rf "$DIR/jmods"
 mkdir -p "$DIR/jmods"
 mkdir -p "$LOCAL_DIR"
 
@@ -65,7 +62,7 @@ rm -Rf "$TEMP_DIR"
 mkdir -p "$TEMP_DIR"
 cd "$TEMP_DIR"
 tar xfz "$DOWNLOADS_DIR/$(basename "$TARGET_JDK")"
-mv "$(ls -1)/jmods" "$DIR/jmods/$TARGET"
+mv "$(ls -1)/jmods" "$DIR/jmods"
 
 
 #
@@ -92,7 +89,7 @@ mkdir -p "$DIR/runtime"
 
 echo "Building runtime environment for $TARGET..."
 "$JLINK" \
-    -p "$DIR/jmods/$TARGET" \
+    -p "$DIR/jmods" \
     --add-modules "$MODULES" \
     --output "$DIR/runtime/$TARGET" \
     --compress=1 \
@@ -107,3 +104,4 @@ echo "Building runtime environment for $TARGET..."
 
 cd "$DIR"
 rm -Rf "$TEMP_DIR"
+rm -Rf "$DIR/jmods"
