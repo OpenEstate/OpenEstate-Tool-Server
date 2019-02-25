@@ -5,7 +5,7 @@
 
 # -----------------------------------------------------------------------
 #
-# Build a runtime environment for Linux 64-bit x86 (amd64).
+# Build a runtime environment for Linux 32-bit arm (arm32).
 #
 # OpenJDK for this target platform is taken from
 # https://adoptopenjdk.net/
@@ -28,8 +28,8 @@ rm -Rf "$DIR/jmods/$TARGET"
 mkdir -p "$DIR/jmods"
 mkdir -p "$LOCAL_DIR"
 
-TARGET="linux64"
-TARGET_JDK="$LINUX64_JDK"
+TARGET="linux-arm32"
+TARGET_JDK="$LINUX_ARM32_JDK"
 
 
 #

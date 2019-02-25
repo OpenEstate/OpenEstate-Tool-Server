@@ -109,7 +109,7 @@
             </excludes>
         </fileSet>
         <fileSet>
-            <directory>${project.basedir}/src/openjdk/runtime/linux64</directory>
+            <directory>${project.basedir}/src/openjdk/runtime/linux-amd64</directory>
             <outputDirectory>opt/${project.baseName}/jre</outputDirectory>
             <filtered>false</filtered>
         </fileSet>

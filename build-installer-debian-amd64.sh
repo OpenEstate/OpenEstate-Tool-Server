@@ -21,8 +21,9 @@
 # ----------------------------------------------------------------------------
 
 VERSION="1.0.0"
+ARCHITECTURE="amd64"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-SRC_DIR="$DIR/package/debian64/OpenEstate-ImmoServer"
+SRC_DIR="$DIR/package/debian-${ARCHITECTURE}/OpenEstate-ImmoServer"
 set -e
 
 if [[ -n "$BUILD_VERSION" ]] ; then
@@ -35,6 +36,9 @@ fi
 
 # Writer version into control file.
 sed -i -e "s|\${PackageVersion}|$VERSION|g" "$SRC_DIR/DEBIAN/control"
+
+# Writer architecture into control file.
+sed -i -e "s|\${Architecture}|$ARCHITECTURE|g" "$SRC_DIR/DEBIAN/control"
 
 # Write package size into control file.
 ETC_SIZE=$(du -s -k "$SRC_DIR/etc" | cut -f1)
@@ -53,5 +57,5 @@ find etc opt -type f -exec md5sum {} >> "DEBIAN/md5sums" \;
 cd "$DIR/package"
 dpkg-deb \
     --root-owner-group \
-    --build "debian64/OpenEstate-ImmoServer" \
-    "openestate-immoserver_${VERSION}_amd64.deb"
+    --build "debian-${ARCHITECTURE}/OpenEstate-ImmoServer" \
+    "openestate-immoserver_${VERSION}_${ARCHITECTURE}.deb"

@@ -1,6 +1,6 @@
 Package: openestate-immoserver
 Version: ${PackageVersion}
-Architecture: amd64
+Architecture: ${Architecture}
 Maintainer: OpenEstate.org <info@openestate.org>
 Installed-Size: ${InstalledSize}
 Depends: systemd, bash

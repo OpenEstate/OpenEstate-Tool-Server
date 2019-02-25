@@ -446,17 +446,30 @@
                                         <echo message="Creating release packages..." level="info"/>
                                         <property name="packageDir" value="${project.basedir}/package"/>
 
-                                        <echo message="Creating Linux64 bundle..." level="info"/>
-                                        <exec executable="tar" dir="${packageDir}/linux64">
+                                        <echo message="Creating Linux amd64 bundle..." level="info"/>
+                                        <exec executable="tar" dir="${packageDir}/linux-amd64">
                                             <arg value="cfz"/>
-                                            <arg value="../OpenEstate-ImmoServer-${project.version}.linux64.tar.gz"/>
+                                            <arg value="../OpenEstate-ImmoServer-${project.version}.linux-amd64.tar.gz"/>
                                             <arg value="."/>
                                         </exec>
 
-                                        <echo message="Creating Debian64 installer..." level="info"/>
+                                        <echo message="Creating Linux arm32 bundle..." level="info"/>
+                                        <exec executable="tar" dir="${packageDir}/linux-arm32">
+                                            <arg value="cfz"/>
+                                            <arg value="../OpenEstate-ImmoServer-${project.version}.linux-arm32.tar.gz"/>
+                                            <arg value="."/>
+                                        </exec>
+
+                                        <echo message="Creating Debian amd64 installer..." level="info"/>
                                         <exec executable="bash" dir="${project.basedir}">
                                             <env key="BUILD_VERSION" value="${project.version}"/>
-                                            <arg value="build-installer-deb64.sh"/>
+                                            <arg value="build-installer-debian-amd64.sh"/>
+                                        </exec>
+
+                                        <echo message="Creating Debian armhf installer..." level="info"/>
+                                        <exec executable="bash" dir="${project.basedir}">
+                                            <env key="BUILD_VERSION" value="${project.version}"/>
+                                            <arg value="build-installer-debian-armhf.sh"/>
                                         </exec>
 
                                         <echo message="Creating Mac64 bundle..." level="info"/>
@@ -798,36 +811,70 @@
                         <version>3.1.0</version>
                         <executions>
                             <execution>
-                                <id>assemble-debian64</id>
+                                <id>assemble-debian-amd64</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>single</goal>
                                 </goals>
                                 <configuration>
-                                    <finalName>debian64</finalName>
+                                    <finalName>debian-amd64</finalName>
                                     <outputDirectory>${project.packageDir}</outputDirectory>
                                     <tarLongFileMode>posix</tarLongFileMode>
                                     <appendAssemblyId>false</appendAssemblyId>
                                     <attach>false</attach>
                                     <descriptors>
-                                        <descriptor>${project.basedir}/src/assembly/debian64.xml</descriptor>
+                                        <descriptor>${project.basedir}/src/assembly/debian-amd64.xml</descriptor>
                                     </descriptors>
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>assemble-linux64</id>
+                                <id>assemble-debian-armhf</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>single</goal>
                                 </goals>
                                 <configuration>
-                                    <finalName>linux64</finalName>
+                                    <finalName>debian-armhf</finalName>
                                     <outputDirectory>${project.packageDir}</outputDirectory>
                                     <tarLongFileMode>posix</tarLongFileMode>
                                     <appendAssemblyId>false</appendAssemblyId>
                                     <attach>false</attach>
                                     <descriptors>
-                                        <descriptor>${project.basedir}/src/assembly/linux64.xml</descriptor>
+                                        <descriptor>${project.basedir}/src/assembly/debian-armhf.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>assemble-linux-amd64</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <finalName>linux-amd64</finalName>
+                                    <outputDirectory>${project.packageDir}</outputDirectory>
+                                    <tarLongFileMode>posix</tarLongFileMode>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                    <attach>false</attach>
+                                    <descriptors>
+                                        <descriptor>${project.basedir}/src/assembly/linux-amd64.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>assemble-linux-arm32</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <finalName>linux-arm32</finalName>
+                                    <outputDirectory>${project.packageDir}</outputDirectory>
+                                    <tarLongFileMode>posix</tarLongFileMode>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                    <attach>false</attach>
+                                    <descriptors>
+                                        <descriptor>${project.basedir}/src/assembly/linux-arm32.xml</descriptor>
                                     </descriptors>
                                 </configuration>
                             </execution>

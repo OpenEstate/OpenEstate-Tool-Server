@@ -13,36 +13,57 @@
     <files>
         <file>
             <source>${project.basedir}/LICENSE.txt</source>
-            <destName>share/licenses/${project.baseName}.license.txt</destName>
+            <destName>opt/${project.baseName}/share/licenses/${project.baseName}.license.txt</destName>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
+            <lineEnding>unix</lineEnding>
+        </file>
+        <file>
+            <source>${project.basedir}/src/debian/defaults</source>
+            <destName>etc/default/${project.baseName}</destName>
+            <fileMode>0644</fileMode>
+            <filtered>true</filtered>
             <lineEnding>unix</lineEnding>
         </file>
     </files>
 
     <fileSets>
         <fileSet>
-            <directory>${project.basedir}/src/unix</directory>
-            <outputDirectory>bin</outputDirectory>
+            <directory>${project.basedir}/src/debian</directory>
+            <outputDirectory>DEBIAN</outputDirectory>
             <directoryMode>0755</directoryMode>
             <fileMode>0755</fileMode>
             <filtered>true</filtered>
             <lineEnding>unix</lineEnding>
+            <excludes>
+                <exclude>conffiles</exclude>
+                <exclude>control</exclude>
+                <exclude>defaults</exclude>
+            </excludes>
         </fileSet>
         <fileSet>
-            <directory>${project.basedir}/src/systemd</directory>
-            <outputDirectory>bin</outputDirectory>
+            <directory>${project.basedir}/src/debian</directory>
+            <outputDirectory>DEBIAN</outputDirectory>
             <directoryMode>0755</directoryMode>
-            <fileMode>0755</fileMode>
+            <fileMode>0644</fileMode>
             <filtered>true</filtered>
             <lineEnding>unix</lineEnding>
             <includes>
-                <include>*.sh</include>
+                <include>conffiles</include>
+                <include>control</include>
             </includes>
         </fileSet>
         <fileSet>
+            <directory>${project.basedir}/src/unix</directory>
+            <outputDirectory>opt/${project.baseName}/bin</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0755</fileMode>
+            <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
+        </fileSet>
+        <fileSet>
             <directory>${project.basedir}/src/etc</directory>
-            <outputDirectory>etc</outputDirectory>
+            <outputDirectory>etc/${project.baseName}</outputDirectory>
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <filtered>true</filtered>
@@ -50,7 +71,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/src/systemd</directory>
-            <outputDirectory>etc/systemd</outputDirectory>
+            <outputDirectory>etc/systemd/system</outputDirectory>
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
@@ -61,7 +82,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/src/licenses</directory>
-            <outputDirectory>share/licenses</outputDirectory>
+            <outputDirectory>opt/${project.baseName}/share/licenses</outputDirectory>
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
@@ -69,7 +90,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/src/icons</directory>
-            <outputDirectory>share/icons</outputDirectory>
+            <outputDirectory>opt/${project.baseName}/share/icons</outputDirectory>
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
@@ -79,7 +100,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.build.directory}/dependencies</directory>
-            <outputDirectory>share</outputDirectory>
+            <outputDirectory>opt/${project.baseName}/share</outputDirectory>
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <filtered>false</filtered>
@@ -88,15 +109,15 @@
             </excludes>
         </fileSet>
         <fileSet>
-            <directory>${project.basedir}/src/openjdk/runtime/linux64</directory>
-            <outputDirectory>jre</outputDirectory>
+            <directory>${project.basedir}/src/openjdk/runtime/linux-arm32</directory>
+            <outputDirectory>opt/${project.baseName}/jre</outputDirectory>
             <filtered>false</filtered>
         </fileSet>
     </fileSets>
 
     <dependencySets>
         <dependencySet>
-            <outputDirectory>lib</outputDirectory>
+            <outputDirectory>opt/${project.baseName}/lib</outputDirectory>
             <useProjectArtifact>true</useProjectArtifact>
             <useProjectAttachments>false</useProjectAttachments>
             <useTransitiveDependencies>true</useTransitiveDependencies>
@@ -109,7 +130,7 @@
             </excludes>
         </dependencySet>
         <dependencySet>
-            <outputDirectory>share/javadoc</outputDirectory>
+            <outputDirectory>opt/${project.baseName}/share/javadoc</outputDirectory>
             <useProjectArtifact>true</useProjectArtifact>
             <useProjectAttachments>true</useProjectAttachments>
             <includes>
@@ -117,7 +138,7 @@
             </includes>
         </dependencySet>
         <dependencySet>
-            <outputDirectory>share/sources</outputDirectory>
+            <outputDirectory>opt/${project.baseName}/share/sources</outputDirectory>
             <useProjectArtifact>true</useProjectArtifact>
             <useProjectAttachments>true</useProjectAttachments>
             <includes>
