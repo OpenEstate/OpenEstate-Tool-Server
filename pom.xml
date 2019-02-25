@@ -446,10 +446,10 @@
                                         <echo message="Creating release packages..." level="info"/>
                                         <property name="packageDir" value="${project.basedir}/package"/>
 
-                                        <echo message="Creating Linux amd64 bundle..." level="info"/>
-                                        <exec executable="tar" dir="${packageDir}/linux-amd64">
+                                        <echo message="Creating Linux x86-64 bundle..." level="info"/>
+                                        <exec executable="tar" dir="${packageDir}/linux-x86-64">
                                             <arg value="cfz"/>
-                                            <arg value="../OpenEstate-ImmoServer-${project.version}.linux-amd64.tar.gz"/>
+                                            <arg value="../OpenEstate-ImmoServer-${project.version}.linux-x86-64.tar.gz"/>
                                             <arg value="."/>
                                         </exec>
 
@@ -460,13 +460,13 @@
                                             <arg value="."/>
                                         </exec>
 
-                                        <echo message="Creating Debian amd64 installer..." level="info"/>
+                                        <echo message="Creating Debian amd64 package..." level="info"/>
                                         <exec executable="bash" dir="${project.basedir}">
                                             <env key="BUILD_VERSION" value="${project.version}"/>
                                             <arg value="build-installer-debian-amd64.sh"/>
                                         </exec>
 
-                                        <echo message="Creating Debian armhf installer..." level="info"/>
+                                        <echo message="Creating Debian armhf package..." level="info"/>
                                         <exec executable="bash" dir="${project.basedir}">
                                             <env key="BUILD_VERSION" value="${project.version}"/>
                                             <arg value="build-installer-debian-armhf.sh"/>
@@ -845,19 +845,19 @@
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>assemble-linux-amd64</id>
+                                <id>assemble-linux-x86-64</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>single</goal>
                                 </goals>
                                 <configuration>
-                                    <finalName>linux-amd64</finalName>
+                                    <finalName>linux-x86-64</finalName>
                                     <outputDirectory>${project.packageDir}</outputDirectory>
                                     <tarLongFileMode>posix</tarLongFileMode>
                                     <appendAssemblyId>false</appendAssemblyId>
                                     <attach>false</attach>
                                     <descriptors>
-                                        <descriptor>${project.basedir}/src/assembly/linux-amd64.xml</descriptor>
+                                        <descriptor>${project.basedir}/src/assembly/linux-x86-64.xml</descriptor>
                                     </descriptors>
                                 </configuration>
                             </execution>

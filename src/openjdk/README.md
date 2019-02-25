@@ -1,10 +1,5 @@
 This folder contains *OpenJDK* binaries for the supported target platforms.
 
-Launch `init-*.sh` in order to download the *OpenJDK* from [AdoptOpenJDK](https://adoptopenjdk.net/) 
-and [Azul Systems](https://www.azul.com/downloads/zulu/) for the different target platforms. After 
-downloading these scripts extract the required modules into the `jmods` folder.
+Launch `init-*.sh` in order to download the *OpenJDK* from [AdoptOpenJDK](https://adoptopenjdk.net/) and [BellSoft](https://www.bell-sw.com/java.html) for the different target platforms. 
 
-In the last step the `init-*.sh` scripts create a stripped down *OpenJDK* runtime environment for the 
-different target platforms in the `runtime` folder. These are used by the bundle scripts 
-(`bundle-linux.sh` / `bundle-mac.sh` / `bundle-windows.sh`) in order to create the application 
-bundles.
+The `init-*.sh` scripts create a stripped down *OpenJDK* runtime environment for the different target platforms in the `runtime` folder. These are used in the created application bundles during the build process.

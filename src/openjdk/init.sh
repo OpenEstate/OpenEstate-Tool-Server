@@ -14,7 +14,7 @@
 #
 # -----------------------------------------------------------------------
 
-LINUX_AMD64_JDK="https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.2%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.2_9.tar.gz"
+LINUX_X86_64_JDK="https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.2%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.2_9.tar.gz"
 LINUX_ARM32_JDK="https://github.com/bell-sw/Liberica/releases/download/11.0.2/bellsoft-jdk11.0.2-linux-arm32-vfp-hflt.tar.gz"
 MAC64_JDK="https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.2%2B9/OpenJDK11U-jdk_x64_mac_hotspot_11.0.2_9.tar.gz"
 WINDOWS32_JDK="https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.2%2B9/OpenJDK11U-jdk_x86-32_windows_hotspot_11.0.2_9.zip"
@@ -35,7 +35,7 @@ case "$SYSTEM" in
     case "$SYSTEM_ARCH" in
         x86_64)
           echo "Initializing Linux 64bit environment..."
-          SYSTEM_JDK="$LINUX_AMD64_JDK"
+          SYSTEM_JDK="$LINUX_X86_64_JDK"
           ;;
         *)
           echo "Unsupported Linux environment ($SYSTEM_ARCH)..."
