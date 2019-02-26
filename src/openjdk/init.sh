@@ -24,6 +24,7 @@
 #
 # -----------------------------------------------------------------------
 
+LINUX_X86_JDK="https://github.com/OpenIndex/openjdk-linux-x86/releases/download/jdk-11.0.2%2B9/jdk-11.0.2+9-linux-x86.tar.gz"
 LINUX_X86_64_JDK="https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.2%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.2_9.tar.gz"
 LINUX_ARM32_JDK="https://github.com/bell-sw/Liberica/releases/download/11.0.2/bellsoft-jdk11.0.2-linux-arm32-vfp-hflt.tar.gz"
 MAC64_JDK="https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.2%2B9/OpenJDK11U-jdk_x64_mac_hotspot_11.0.2_9.tar.gz"
@@ -43,8 +44,12 @@ case "$SYSTEM" in
 
   Linux)
     case "$SYSTEM_ARCH" in
+        i386 | i586 | i686)
+          echo "Initializing Linux x86 environment..."
+          SYSTEM_JDK="$LINUX_X86_JDK"
+          ;;
         x86_64)
-          echo "Initializing Linux 64bit environment..."
+          echo "Initializing Linux x86_64 environment..."
           SYSTEM_JDK="$LINUX_X86_64_JDK"
           ;;
         *)
