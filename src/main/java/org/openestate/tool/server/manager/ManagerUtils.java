@@ -35,6 +35,7 @@ import org.xnap.commons.i18n.I18nFactory;
  * @author Andreas Rudolph
  * @since 1.0
  */
+@SuppressWarnings("WeakerAccess")
 public class ManagerUtils {
     @SuppressWarnings("unused")
     private static final Logger LOGGER = LoggerFactory.getLogger(ManagerUtils.class);
