@@ -19,8 +19,9 @@
 #
 
 # load default settings
-if [[ -f "/etc/default/OpenEstate-ImmoServer" ]] ; then
-    source "/etc/default/OpenEstate-ImmoServer"
+DEFAULTS="/etc/default/OpenEstate-ImmoServer"
+if [[ -f "$DEFAULTS" ]] && [[ -r "$DEFAULTS" ]] ; then
+    source "$DEFAULTS"
 fi
 
 # Use a specific command to launch the Java Runtime Environment
