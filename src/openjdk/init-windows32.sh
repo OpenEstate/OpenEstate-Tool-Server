@@ -118,6 +118,8 @@ echo "Building runtime environment for $TARGET..."
     --no-header-files \
     --no-man-pages
 
+configure_runtime "$DIR/runtime/$TARGET"
+
 
 #
 # cleanup

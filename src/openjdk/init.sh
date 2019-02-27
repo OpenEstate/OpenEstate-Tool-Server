@@ -65,3 +65,33 @@ case "$SYSTEM" in
     ;;
 
 esac
+
+
+#
+# Configure generated runtime environment.
+#
+
+function configure_runtime {
+    echo "Configuring runtime environment..."
+
+    runtimeDir="$1"
+    if [[ ! -d "${runtimeDir}" ]]; then
+        echo "WARNING: Can't find runtime environment at: ${runtimeDir}"
+        exit 1
+    fi
+
+    securityConf="${runtimeDir}/conf/security/java.security"
+    if [[ ! -f "${securityConf}" ]]; then
+        echo "WARNING: Can't find security configuration at: ${securityConf}"
+        exit 1
+    fi
+
+    # Due to a bug in OpenJDK 11.0.2 we need to disable TLSv1.3.
+    # The bug was fixed in OpenJDK 12. And should be backported into OpenJDK 11.0.3.
+    #
+    # see https://sourceforge.net/p/hsqldb/bugs/1539/
+    # see https://bugs.openjdk.java.net/browse/JDK-8212885
+    # see https://bugs.openjdk.java.net/browse/JDK-8218093
+    echo "Disabling TLSv1.3..."
+    sed -i -e "s|^jdk.tls.disabledAlgorithms=|jdk.tls.disabledAlgorithms=TLSv1.3, |g" "${securityConf}"
+}
