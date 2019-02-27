@@ -46,6 +46,7 @@ import org.hsqldb.lib.tar.TarGenerator;
 import org.hsqldb.lib.tar.TarMalformatException;
 import org.openestate.tool.server.ServerUtils;
 import org.openestate.tool.server.utils.DumpUtils;
+import org.openestate.tool.server.utils.SslUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
@@ -372,6 +373,13 @@ public class ManagerBackup {
 
         // detect dump
         final boolean dump = commandLine.hasOption(DUMP_OPTION);
+
+        // trust all certificates
+        try {
+            SslUtils.installLooseSslSocketFactory();
+        } catch (Exception ex) {
+            LOGGER.warn("Can't setup SSL context!", ex);
+        }
 
         // process database backup
         int count = 0;

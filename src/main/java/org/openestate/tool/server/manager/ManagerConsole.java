@@ -30,6 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.hsqldb.cmdline.SqlTool;
 import org.openestate.tool.server.ServerUtils;
+import org.openestate.tool.server.utils.SslUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
@@ -315,6 +316,13 @@ public class ManagerConsole extends SqlTool {
                 System.exit(1);
             }
             arguments.add(f.getAbsolutePath());
+        }
+
+        // trust all certificates
+        try {
+            SslUtils.installLooseSslSocketFactory();
+        } catch (Exception ex) {
+            LOGGER.warn("Can't setup SSL context!", ex);
         }
 
         LOGGER.debug("Launching SqlTool with '{}'...",
