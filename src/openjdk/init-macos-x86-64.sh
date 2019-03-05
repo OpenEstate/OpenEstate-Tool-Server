@@ -32,7 +32,7 @@ mkdir -p "$LOCAL_DIR"
 rm -Rf "$TEMP_DIR"
 mkdir -p "$TEMP_DIR"
 
-TARGET="mac64"
+TARGET="macos-x86-64"
 TARGET_JDK="$MAC64_JDK"
 
 

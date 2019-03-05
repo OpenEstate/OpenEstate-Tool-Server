@@ -32,7 +32,7 @@ mkdir -p "$LOCAL_DIR"
 rm -Rf "$TEMP_DIR"
 mkdir -p "$TEMP_DIR"
 
-TARGET="windows32"
+TARGET="windows-x86"
 TARGET_JDK="$WINDOWS32_JDK"
 
 

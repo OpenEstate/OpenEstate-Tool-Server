@@ -11,11 +11,13 @@ AppCopyright=(C) 2009-2019 OpenEstate.org
 VersionInfoVersion={#VersionNumber}
 VersionInfoTextVersion={#Version}
 
-OutputBaseFilename=OpenEstate-ImmoServer-{#Version}.win32.setup
+OutputBaseFilename=OpenEstate-ImmoServer-{#Version}.windows-x86-64
 Compression=lzma2
 SolidCompression=no
 
 MinVersion=6.0
+ArchitecturesAllowed=x64
+ArchitecturesInstallIn64BitMode=x64
 SetupMutex=OpenEstateImmoServerSetup,Global\OpenEstateImmoServerSetup
 
 DefaultDirName={pf}\OpenEstate-ImmoServer

@@ -346,89 +346,89 @@
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>prepare-mac-package</id>
+                                <id>prepare-macos-package</id>
                                 <phase>prepare-package</phase>
                                 <goals>
                                     <goal>run</goal>
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <echo message="Preparing application bundle for MacOS..." level="info"/>
-                                        <property name="mac64.packageDir"
-                                                  value="${project.basedir}/package/mac64/OpenEstate-ImmoServer.app"/>
-                                        <property name="mac64.resourcesDir"
-                                                  value="${mac64.packageDir}/Contents/Resources"/>
-                                        <property name="mac64.launcherDir"
-                                                  value="${mac64.packageDir}/Contents/MacOS/OpenEstate-ImmoServer"/>
-                                        <mkdir dir="${mac64.resourcesDir}"/>
-                                        <mkdir dir="${mac64.launcherDir}"/>
+                                        <echo message="Preparing application bundle for macOS..." level="info"/>
+                                        <property name="macOS.packageDir"
+                                                  value="${project.basedir}/package/macos-x86-64/OpenEstate-ImmoServer.app"/>
+                                        <property name="macOS.resourcesDir"
+                                                  value="${macOS.packageDir}/Contents/Resources"/>
+                                        <property name="macOS.launcherDir"
+                                                  value="${macOS.packageDir}/Contents/MacOS/OpenEstate-ImmoServer"/>
+                                        <mkdir dir="${macOS.resourcesDir}"/>
+                                        <mkdir dir="${macOS.launcherDir}"/>
 
                                         <echo message="Creating softlink in Start.app..." level="info"/>
-                                        <mkdir dir="${mac64.launcherDir}/Start.app/Contents"/>
-                                        <exec executable="ln" dir="${mac64.launcherDir}/Start.app/Contents">
+                                        <mkdir dir="${macOS.launcherDir}/Start.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/Start.app/Contents">
                                             <arg value="-s"/>
                                             <arg value="../../../../Resources"/>
                                         </exec>
 
                                         <echo message="Creating softlink in ServiceInstall.app..." level="info"/>
-                                        <mkdir dir="${mac64.launcherDir}/ServiceInstall.app/Contents"/>
-                                        <exec executable="ln" dir="${mac64.launcherDir}/ServiceInstall.app/Contents">
+                                        <mkdir dir="${macOS.launcherDir}/ServiceInstall.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/ServiceInstall.app/Contents">
                                             <arg value="-s"/>
                                             <arg value="../../../../Resources"/>
                                         </exec>
 
                                         <echo message="Creating softlink in ServiceUninstall.app..." level="info"/>
-                                        <mkdir dir="${mac64.launcherDir}/ServiceUninstall.app/Contents"/>
-                                        <exec executable="ln" dir="${mac64.launcherDir}/ServiceUninstall.app/Contents">
+                                        <mkdir dir="${macOS.launcherDir}/ServiceUninstall.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/ServiceUninstall.app/Contents">
                                             <arg value="-s"/>
                                             <arg value="../../../../Resources"/>
                                         </exec>
 
                                         <echo message="Creating softlink in ServiceStart.app..." level="info"/>
-                                        <mkdir dir="${mac64.launcherDir}/ServiceStart.app/Contents"/>
-                                        <exec executable="ln" dir="${mac64.launcherDir}/ServiceStart.app/Contents">
+                                        <mkdir dir="${macOS.launcherDir}/ServiceStart.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/ServiceStart.app/Contents">
                                             <arg value="-s"/>
                                             <arg value="../../../../Resources"/>
                                         </exec>
 
                                         <echo message="Creating softlink in ServiceStop.app..." level="info"/>
-                                        <mkdir dir="${mac64.launcherDir}/ServiceStop.app/Contents"/>
-                                        <exec executable="ln" dir="${mac64.launcherDir}/ServiceStop.app/Contents">
+                                        <mkdir dir="${macOS.launcherDir}/ServiceStop.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/ServiceStop.app/Contents">
                                             <arg value="-s"/>
                                             <arg value="../../../../Resources"/>
                                         </exec>
 
                                         <echo message="Creating softlink in ServiceStatus.app..." level="info"/>
-                                        <mkdir dir="${mac64.launcherDir}/ServiceStatus.app/Contents"/>
-                                        <exec executable="ln" dir="${mac64.launcherDir}/ServiceStatus.app/Contents">
+                                        <mkdir dir="${macOS.launcherDir}/ServiceStatus.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/ServiceStatus.app/Contents">
                                             <arg value="-s"/>
                                             <arg value="../../../../Resources"/>
                                         </exec>
 
                                         <echo message="Creating softlink in SslInit.app..." level="info"/>
-                                        <mkdir dir="${mac64.launcherDir}/SslInit.app/Contents"/>
-                                        <exec executable="ln" dir="${mac64.launcherDir}/SslInit.app/Contents">
+                                        <mkdir dir="${macOS.launcherDir}/SslInit.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/SslInit.app/Contents">
                                             <arg value="-s"/>
                                             <arg value="../../../../Resources"/>
                                         </exec>
 
                                         <echo message="Creating softlink in ManagerBackup.app..." level="info"/>
-                                        <mkdir dir="${mac64.launcherDir}/ManagerBackup.app/Contents"/>
-                                        <exec executable="ln" dir="${mac64.launcherDir}/ManagerBackup.app/Contents">
+                                        <mkdir dir="${macOS.launcherDir}/ManagerBackup.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/ManagerBackup.app/Contents">
                                             <arg value="-s"/>
                                             <arg value="../../../../Resources"/>
                                         </exec>
 
                                         <echo message="Creating softlink in ManagerConsole.app..." level="info"/>
-                                        <mkdir dir="${mac64.launcherDir}/ManagerConsole.app/Contents"/>
-                                        <exec executable="ln" dir="${mac64.launcherDir}/ManagerConsole.app/Contents">
+                                        <mkdir dir="${macOS.launcherDir}/ManagerConsole.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/ManagerConsole.app/Contents">
                                             <arg value="-s"/>
                                             <arg value="../../../../Resources"/>
                                         </exec>
 
                                         <echo message="Creating softlink in ManagerTool.app..." level="info"/>
-                                        <mkdir dir="${mac64.launcherDir}/ManagerTool.app/Contents"/>
-                                        <exec executable="ln" dir="${mac64.launcherDir}/ManagerTool.app/Contents">
+                                        <mkdir dir="${macOS.launcherDir}/ManagerTool.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/ManagerTool.app/Contents">
                                             <arg value="-s"/>
                                             <arg value="../../../../Resources"/>
                                         </exec>
@@ -491,25 +491,25 @@
                                             <arg value="build-installer-debian-armhf.sh"/>
                                         </exec>
 
-                                        <echo message="Creating Mac64 bundle..." level="info"/>
-                                        <exec executable="tar" dir="${packageDir}/mac64">
+                                        <echo message="Creating macOS x86-64 bundle..." level="info"/>
+                                        <exec executable="tar" dir="${packageDir}/macos-x86-64">
                                             <arg value="cfz"/>
-                                            <arg value="../OpenEstate-ImmoServer-${project.version}.mac64.tar.gz"/>
+                                            <arg value="../OpenEstate-ImmoServer-${project.version}.macos-x86-64.tar.gz"/>
                                             <arg value="."/>
                                         </exec>
 
-                                        <echo message="Creating Windows32 installer..." level="info"/>
+                                        <echo message="Creating Windows x86 installer..." level="info"/>
                                         <exec executable="bash" dir="${project.basedir}">
                                             <env key="BUILD_VERSION" value="${project.version}"/>
                                             <env key="BUILD_QUIETLY" value="1"/>
-                                            <arg value="build-installer-win32.sh"/>
+                                            <arg value="build-installer-windows-x86.sh"/>
                                         </exec>
 
-                                        <echo message="Creating Windows64 installer..." level="info"/>
+                                        <echo message="Creating Windows x86-64 installer..." level="info"/>
                                         <exec executable="bash" dir="${project.basedir}">
                                             <env key="BUILD_VERSION" value="${project.version}"/>
                                             <env key="BUILD_QUIETLY" value="1"/>
-                                            <arg value="build-installer-win64.sh"/>
+                                            <arg value="build-installer-windows-x86-64.sh"/>
                                         </exec>
                                     </target>
                                 </configuration>
@@ -932,53 +932,53 @@
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>assemble-mac64</id>
+                                <id>assemble-macos-x86-64</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>single</goal>
                                 </goals>
                                 <configuration>
-                                    <finalName>mac64</finalName>
+                                    <finalName>macos-x86-64</finalName>
                                     <outputDirectory>${project.packageDir}</outputDirectory>
                                     <tarLongFileMode>posix</tarLongFileMode>
                                     <appendAssemblyId>false</appendAssemblyId>
                                     <attach>false</attach>
                                     <descriptors>
-                                        <descriptor>${project.basedir}/src/assembly/mac64.xml</descriptor>
+                                        <descriptor>${project.basedir}/src/assembly/macos-x86-64.xml</descriptor>
                                     </descriptors>
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>assemble-windows32</id>
+                                <id>assemble-windows-x86</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>single</goal>
                                 </goals>
                                 <configuration>
-                                    <finalName>windows32</finalName>
+                                    <finalName>windows-x86</finalName>
                                     <outputDirectory>${project.packageDir}</outputDirectory>
                                     <tarLongFileMode>posix</tarLongFileMode>
                                     <appendAssemblyId>false</appendAssemblyId>
                                     <attach>false</attach>
                                     <descriptors>
-                                        <descriptor>${project.basedir}/src/assembly/windows32.xml</descriptor>
+                                        <descriptor>${project.basedir}/src/assembly/windows-x86.xml</descriptor>
                                     </descriptors>
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>assemble-windows64</id>
+                                <id>assemble-windows-x86-64</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>single</goal>
                                 </goals>
                                 <configuration>
-                                    <finalName>windows64</finalName>
+                                    <finalName>windows-x86-64</finalName>
                                     <outputDirectory>${project.packageDir}</outputDirectory>
                                     <tarLongFileMode>posix</tarLongFileMode>
                                     <appendAssemblyId>false</appendAssemblyId>
                                     <attach>false</attach>
                                     <descriptors>
-                                        <descriptor>${project.basedir}/src/assembly/windows64.xml</descriptor>
+                                        <descriptor>${project.basedir}/src/assembly/windows-x86-64.xml</descriptor>
                                     </descriptors>
                                 </configuration>
                             </execution>

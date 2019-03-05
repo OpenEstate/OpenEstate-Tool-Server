@@ -167,7 +167,7 @@
             </excludes>
         </fileSet>
         <fileSet>
-            <directory>${project.basedir}/src/openjdk/runtime/mac64</directory>
+            <directory>${project.basedir}/src/openjdk/runtime/macos-x86-64</directory>
             <outputDirectory>Contents/Resources/jre</outputDirectory>
             <filtered>false</filtered>
         </fileSet>

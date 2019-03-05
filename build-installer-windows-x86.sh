@@ -17,7 +17,7 @@
 
 VERSION="1.0.0"
 OPTIONS=""
-TARGET="windows32"
+TARGET="windows-x86"
 WINE="wine"
 WINEPATH="winepath"
 ISCC="$HOME/.wine/drive_c/Program Files/Inno Setup 5/ISCC.exe"

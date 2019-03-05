@@ -114,7 +114,7 @@
             <filtered>false</filtered>
         </fileSet>
         <fileSet>
-            <directory>${project.basedir}/src/openjdk/runtime/windows64</directory>
+            <directory>${project.basedir}/src/openjdk/runtime/windows-x86-64</directory>
             <outputDirectory>jre</outputDirectory>
             <filtered>false</filtered>
         </fileSet>
