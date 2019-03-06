@@ -144,12 +144,12 @@ fi
 
 # Set default path to the log folder.
 if [[ -z "$SERVER_LOG_DIR" ]] ; then
-    SERVER_LOG_DIR="$HOME/${project.baseName}/log"
+    SERVER_LOG_DIR="$HOME/OpenEstate-Files/logs"
 fi
 
 # Set default path to the var folder.
 if [[ -z "$SERVER_VAR_DIR" ]] ; then
-    SERVER_VAR_DIR="$HOME/${project.baseName}"
+    SERVER_VAR_DIR="$HOME/OpenEstate-Files"
 fi
 
 # Launch application.

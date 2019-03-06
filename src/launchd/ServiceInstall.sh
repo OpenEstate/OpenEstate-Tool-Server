@@ -80,7 +80,7 @@ BACKUP="$( echo ${BACKUP} | sed -e 's/^[ \t]*//' )"
 BACKUP="$( echo ${BACKUP} | tr '[:upper:]' '[:lower:]' )"
 
 # Set etc directory for the service.
-UNIT_ETC_DIRECTORY="/Users/$UNIT_USER/${project.baseName}/etc"
+UNIT_ETC_DIRECTORY="/Users/$UNIT_USER/OpenEstate-Files/etc"
 
 # Create temporary unit file.
 UNIT_TEMP="$(mktemp)"

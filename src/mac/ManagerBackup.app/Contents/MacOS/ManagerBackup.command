@@ -23,6 +23,6 @@ RESOURCES_DIR="$( cd "$( dirname "$DIR" )/Resources" && pwd )"
 LAUNCHER="$RESOURCES_DIR/bin/ManagerBackup.sh"
 
 # load configuration files outside of the application bundle
-export SERVER_ETC_DIR="$HOME/${project.baseName}/etc"
+export SERVER_ETC_DIR="$HOME/OpenEstate-Files/etc"
 
 exec "$LAUNCHER" "$@"

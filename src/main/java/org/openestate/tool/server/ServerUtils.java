@@ -167,7 +167,7 @@ public class ServerUtils {
             final String path = StringUtils.trimToNull(System.getProperty(LOG_DIR_PROPERTY));
             LOG_DIR = (path != null) ?
                     getCanonicalOrAbsoluteFile(path) :
-                    getCanonicalOrAbsoluteFile(new File(getVarDir(), "log"));
+                    getCanonicalOrAbsoluteFile(new File(getVarDir(), "logs"));
 
             if (!LOG_DIR.exists() && !LOG_DIR.mkdirs())
                 throw new IOException("Can't create log directory at '" + path + "'!");
