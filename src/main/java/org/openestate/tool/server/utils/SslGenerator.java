@@ -78,6 +78,9 @@ public class SslGenerator {
 
     static {
         ServerUtils.init();
+
+        // Create the logger instance after initialization. This makes sure, that logging environment is properly
+        // configured before the logger is actually created.
         LOGGER = LoggerFactory.getLogger(SslGenerator.class);
     }
 
