@@ -15,6 +15,6 @@
  */
 
 /**
- * Main classes of OpenEstate-Server.
+ * Main classes of OpenEstate-ImmoServer.
  */
 package org.openestate.tool.server;

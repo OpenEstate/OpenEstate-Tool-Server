@@ -15,6 +15,6 @@
  */
 
 /**
- * Utility classes of OpenEstate-ImmoServer.
+ * Management applications of OpenEstate-ImmoServer.
  */
-package org.openestate.tool.server.utils;
+package org.openestate.tool.server.manager;
