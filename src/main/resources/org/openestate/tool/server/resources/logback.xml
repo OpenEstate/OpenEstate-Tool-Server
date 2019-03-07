@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    ${project.baseName}
-    settings for LOGBack
+    OpenEstate-ImmoServer
+    fallback settings for LOGBack
     see https://logback.qos.ch/documentation.html
 -->
 <configuration>
@@ -16,7 +16,7 @@
     <!-- write nothing -->
     <appender name="null" class="ch.qos.logback.core.helpers.NOPAppender"/>
 
-    <!-- logging for openestate -->
+    <!-- logging for org.openestate -->
     <logger name="org.openestate" level="ALL">
         <appender-ref ref="console"/>
     </logger>

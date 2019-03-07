@@ -4,21 +4,21 @@
     settings for LOGBack
     see https://logback.qos.ch/documentation.html
 -->
-<configuration scan="true" scanPeriod="10 minutes">
+<configuration scan="true" scanPeriod="60 seconds">
 
     <!-- write to application log file -->
-    <appender name="system" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender-->
-        <append>true</append>
+    <appender name="application" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${openestate.server.logDir}/${openestate.server.app}.log</file>
+        <append>true</append>
+        <immediateFlush>true</immediateFlush>
         <encoder>
-            <pattern>%d{DATE} %5p %m%n</pattern>
+            <pattern>%d %5p %m%n</pattern>
         </encoder>
-        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <maxIndex>10</maxIndex>
-            <FileNamePattern>${openestate.server.logDir}/${openestate.server.app}.log.%i</FileNamePattern>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${openestate.server.logDir}/${openestate.server.app}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
         </rollingPolicy>
-        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy"/>
     </appender>
 
     <!-- write to console -->
@@ -31,9 +31,9 @@
     <!-- write nothing -->
     <appender name="null" class="ch.qos.logback.core.helpers.NOPAppender"/>
 
-    <!-- logging for openestate -->
+    <!-- logging for org.openestate -->
     <logger name="org.openestate" level="ALL">
-        <appender-ref ref="system"/>
+        <appender-ref ref="application"/>
         <appender-ref ref="console"/>
     </logger>
 
