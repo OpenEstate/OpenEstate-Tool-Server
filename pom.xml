@@ -39,7 +39,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.buildVersion>1.0.0</project.buildVersion>
         <project.baseName>OpenEstate-ImmoServer</project.baseName>
-        <project.javadocDir>${project.basedir}/javadoc</project.javadocDir>
+        <project.javadocDir>${project.basedir}/apidocs</project.javadocDir>
         <project.packageDir>${project.basedir}/package</project.packageDir>
         <commons-daemon.version>1.1.0</commons-daemon.version>
         <commons-daemon.download>
@@ -287,6 +287,27 @@
                                     <quiet>true</quiet>
                                     <encoding>${project.build.sourceEncoding}</encoding>
                                     <docencoding>${project.build.sourceEncoding}</docencoding>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>build-javadocs</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>javadoc</goal>
+                                </goals>
+                                <configuration>
+                                    <doctitle>${project.baseName} ${project.version} API</doctitle>
+                                    <windowtitle>${project.baseName} ${project.version} API</windowtitle>
+                                    <reportOutputDirectory>${project.basedir}</reportOutputDirectory>
+                                    <encoding>${project.build.sourceEncoding}</encoding>
+                                    <docencoding>${project.build.sourceEncoding}</docencoding>
+                                    <keywords>true</keywords>
+                                    <quiet>true</quiet>
+                                    <detectOfflineLinks>false</detectOfflineLinks>
+                                    <!--<doclint>none</doclint>-->
+                                    <links>
+                                        <link>https://docs.oracle.com/javase/8/docs/api/</link>
+                                    </links>
                                 </configuration>
                             </execution>
                         </executions>
