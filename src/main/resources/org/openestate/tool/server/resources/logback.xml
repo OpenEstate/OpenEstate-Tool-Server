@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ${project.baseName}
+    settings for LOGBack
+    see https://logback.qos.ch/documentation.html
+-->
+<configuration>
+
+    <!-- write to console -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss} %5p %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- write nothing -->
+    <appender name="null" class="ch.qos.logback.core.helpers.NOPAppender"/>
+
+    <!-- logging for openestate -->
+    <logger name="org.openestate" level="ALL">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <!-- other logging -->
+    <root level="ALL">
+        <appender-ref ref="null"/>
+    </root>
+
+</configuration>

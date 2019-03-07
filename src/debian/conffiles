@@ -1,4 +1,4 @@
 /etc/default/OpenEstate-ImmoServer
 /etc/OpenEstate-ImmoServer/server.properties
 /etc/OpenEstate-ImmoServer/manager.conf
-/etc/OpenEstate-ImmoServer/log4j.properties
+/etc/OpenEstate-ImmoServer/logback.xml

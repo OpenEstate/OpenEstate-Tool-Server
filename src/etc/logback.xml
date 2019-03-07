@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ${project.baseName}
+    settings for LOGBack
+    see https://logback.qos.ch/documentation.html
+-->
+<configuration scan="true" scanPeriod="10 minutes">
+
+    <!-- write to application log file -->
+    <appender name="system" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender-->
+        <append>true</append>
+        <file>${openestate.server.logDir}/${openestate.server.app}.log</file>
+        <encoder>
+            <pattern>%d{DATE} %5p %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <maxIndex>10</maxIndex>
+            <FileNamePattern>${openestate.server.logDir}/${openestate.server.app}.log.%i</FileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy"/>
+    </appender>
+
+    <!-- write to console -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss} %5p %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- write nothing -->
+    <appender name="null" class="ch.qos.logback.core.helpers.NOPAppender"/>
+
+    <!-- logging for openestate -->
+    <logger name="org.openestate" level="ALL">
+        <appender-ref ref="system"/>
+        <appender-ref ref="console"/>
+    </logger>
+
+    <!-- other logging -->
+    <root level="ALL">
+        <appender-ref ref="null"/>
+    </root>
+
+</configuration>

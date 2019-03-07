@@ -15,8 +15,10 @@
  */
 package org.openestate.tool.server;
 
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.joran.JoranConfigurator;
+import ch.qos.logback.core.joran.spi.JoranException;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
@@ -24,7 +26,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringSubstitutor;
-import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
@@ -80,6 +81,9 @@ public class ServerUtils {
 
     static {
         init();
+
+        // Create the logger instance after initialization. This makes sure, that logging environment is properly
+        // configured before the logger is actually created.
         LOGGER = LoggerFactory.getLogger(ServerUtils.class);
     }
 
@@ -226,6 +230,10 @@ public class ServerUtils {
             try {
                 System.out.println("Initializing " + getApplicationName() + " application...");
 
+                // Don't reconfigure logging.
+                // see http://hsqldb.org/doc/guide/management-chapt.html#mtc_jdc_logging
+                System.setProperty("hsqldb.reconfig_logging", "false");
+
                 // replace variables in system properties
                 Enumeration e = System.getProperties().keys();
                 while (e.hasMoreElements()) {
@@ -291,10 +299,10 @@ public class ServerUtils {
             return;
         }
 
-        // get external log4j configuration file
-        File log4jProperties;
+        // get external logback configuration file
+        File logbackXml;
         try {
-            log4jProperties = new File(getEtcDir(), "log4j.properties");
+            logbackXml = new File(getEtcDir(), "logback.xml");
         } catch (IOException ex) {
             System.out.println("ERROR: Can't access etc directory!");
             ex.printStackTrace(System.out);
@@ -302,26 +310,34 @@ public class ServerUtils {
             return;
         }
 
-        // fallback to default log4j configuration file
-        if (!log4jProperties.isFile()) {
-            log4jProperties = new File(new File("etc"), "log4j.properties");
+        // fallback to default logback configuration file
+        if (!logbackXml.isFile()) {
+            logbackXml = new File(new File("etc"), "logback.xml");
         }
 
-        // init logging from external log4j configuration file
-        if (log4jProperties.isFile()) {
-            try (InputStream input = new FileInputStream(log4jProperties)) {
-                PropertyConfigurator.configure(input);
+        // get logging context
+        final LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+        context.reset();
+
+        // init logging from external logback configuration file
+        if (logbackXml.isFile()) {
+            try {
+                JoranConfigurator cfg = new JoranConfigurator();
+                cfg.setContext(context);
+                cfg.doConfigure(logbackXml);
                 return;
-            } catch (IOException ex) {
+            } catch (JoranException ex) {
                 System.out.println("ERROR: Can't init logging from external configuration!");
                 ex.printStackTrace(System.out);
             }
         }
 
-        // fallback to internal log4j configuration file
-        try (InputStream input = getResource("log4j.properties")) {
-            PropertyConfigurator.configure(input);
-        } catch (IOException ex) {
+        // fallback to internal logback configuration file
+        try (InputStream input = getResource("logback.xml")) {
+            JoranConfigurator cfg = new JoranConfigurator();
+            cfg.setContext(context);
+            cfg.doConfigure(input);
+        } catch (IOException | JoranException ex) {
             System.out.println("ERROR: Can't init logging from internal configuration!");
             ex.printStackTrace(System.out);
         }
