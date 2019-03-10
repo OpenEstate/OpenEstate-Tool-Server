@@ -97,7 +97,7 @@ public class Server extends org.hsqldb.Server {
             return;
         }
         if (!SystemTray.isSupported()) {
-            LOGGER.warn("The operating system does not support system tray.");
+            LOGGER.info("The operating system does not support system tray.");
             return;
         }
 
