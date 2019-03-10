@@ -20,7 +20,7 @@
 # dpkg-deb build tool available.
 # ----------------------------------------------------------------------------
 
-VERSION="1.0.0"
+VERSION="1.1.0"
 ARCHITECTURE="i386"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 SRC_DIR="$DIR/package/debian-${ARCHITECTURE}/OpenEstate-ImmoServer"

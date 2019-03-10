@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-VERSION="1.0.0"
+VERSION="1.1.0"
 OPTIONS=""
 TARGET="windows-x86"
 WINE="wine"
