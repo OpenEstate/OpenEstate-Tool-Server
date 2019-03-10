@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-08 18:13+0200\n"
+"POT-Creation-Date: 2019-02-10 10:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,96 +17,100 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: org/openestate/tool/server/utils/SslGenerator.java:105
-msgid "Generate RSA keypair and certificate for SSL encryption."
+#: org/openestate/tool/server/utils/SslGenerator.java:114
+msgid "Generate RSA key pair and certificate for SSL encryption."
 msgstr ""
 
-#: org/openestate/tool/server/utils/SslGenerator.java:120
+#: org/openestate/tool/server/utils/SslGenerator.java:128
 msgid "Enter the ip-address / hostname of this server:"
 msgstr ""
 
-#: org/openestate/tool/server/utils/SslGenerator.java:135
+#: org/openestate/tool/server/utils/SslGenerator.java:141
 msgid "Enter the password to access the keystore:"
 msgstr ""
 
-#: org/openestate/tool/server/utils/SslGenerator.java:140
+#: org/openestate/tool/server/utils/SslGenerator.java:146
 msgid "Enter the password to access the keystore again:"
 msgstr ""
 
-#: org/openestate/tool/server/utils/SslGenerator.java:145
-msgid "Error!"
+#: org/openestate/tool/server/utils/SslGenerator.java:150
+msgid "error"
 msgstr ""
 
-#: org/openestate/tool/server/utils/SslGenerator.java:146
+#: org/openestate/tool/server/utils/SslGenerator.java:151
 msgid "The provided passwords do not match."
 msgstr ""
 
-#: org/openestate/tool/server/utils/SslGenerator.java:153
+#: org/openestate/tool/server/utils/SslGenerator.java:158
 msgid "Creating files for SSL encryption..."
 msgstr ""
 
-#: org/openestate/tool/server/utils/SslGenerator.java:195
+#: org/openestate/tool/server/utils/SslGenerator.java:200
 #, java-format
 msgid "Writing private key to {0}."
 msgstr ""
 
-#: org/openestate/tool/server/utils/SslGenerator.java:218
+#: org/openestate/tool/server/utils/SslGenerator.java:217
 #, java-format
 msgid "Writing public key to {0}."
 msgstr ""
 
-#: org/openestate/tool/server/utils/SslGenerator.java:261
+#: org/openestate/tool/server/utils/SslGenerator.java:255
 #, java-format
 msgid "Writing certificate to {0}."
 msgstr ""
 
-#: org/openestate/tool/server/utils/SslGenerator.java:287
+#: org/openestate/tool/server/utils/SslGenerator.java:277
 #, java-format
 msgid "Writing keystore to {0}."
 msgstr ""
 
-#: org/openestate/tool/server/utils/SslGenerator.java:306
+#: org/openestate/tool/server/utils/SslGenerator.java:292
 msgid "SSL encryption was successfully prepared!"
 msgstr ""
 
-#: org/openestate/tool/server/utils/SslGenerator.java:309
+#: org/openestate/tool/server/utils/SslGenerator.java:295
 msgid "Follow these steps in order to enable SSL encryption."
 msgstr ""
 
-#: org/openestate/tool/server/utils/SslGenerator.java:311
+#: org/openestate/tool/server/utils/SslGenerator.java:297
 msgid "Open the following configuration file with a text editor:"
 msgstr ""
 
-#: org/openestate/tool/server/utils/SslGenerator.java:315
+#: org/openestate/tool/server/utils/SslGenerator.java:301
 msgid "Change the following values in the configuration file:"
 msgstr ""
 
-#: org/openestate/tool/server/utils/SslGenerator.java:321
+#: org/openestate/tool/server/utils/SslGenerator.java:307
 #, java-format
 msgid "Restart {0}."
 msgstr ""
 
-#: org/openestate/tool/server/Server.java:93
+#: org/openestate/tool/server/utils/SslGenerator.java:312
+msgid "Press ENTER to exit this application."
+msgstr ""
+
+#: org/openestate/tool/server/Server.java:111
 #, java-format
 msgid "shutdown {0}"
 msgstr ""
 
-#: org/openestate/tool/server/Server.java:241
+#: org/openestate/tool/server/Server.java:246
 #, java-format
 msgid "{0} is available for incoming connections."
 msgstr ""
 
-#: org/openestate/tool/server/Server.java:246
+#: org/openestate/tool/server/Server.java:253
 #, java-format
 msgid "{0} is shutting down."
 msgstr ""
 
-#: org/openestate/tool/server/Server.java:251
+#: org/openestate/tool/server/Server.java:260
 #, java-format
 msgid "{0} is starting up."
 msgstr ""
 
-#: org/openestate/tool/server/Server.java:256
+#: org/openestate/tool/server/Server.java:267
 #, java-format
 msgid "{0} has been closed and is not available anymore."
 msgstr ""

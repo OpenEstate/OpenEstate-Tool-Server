@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>org.openestate.tool.server.service</string>
+
+        <key>Program</key>
+        <string>${Program}</string>
+
+        <key>WorkingDirectory</key>
+        <string>${WorkingDirectory}</string>
+
+        <key>EnvironmentVariables</key>
+        <dict>
+            <key>SERVER_ETC_DIR</key>
+            <string>${EtcDirectory}</string>
+        </dict>
+
+        <key>UserName</key>
+        <string>${UserName}</string>
+
+        <key>GroupName</key>
+        <string>${GroupName}</string>
+
+        <key>StandardOutPath</key>
+        <string>/dev/null</string>
+
+        <key>StandardErrorPath</key>
+        <string>/dev/null</string>
+
+        <key>ExitTimeOut</key>
+        <integer>30</integer>
+
+        <key>RunAtLoad</key>
+        <true/>
+
+        <key>KeepAlive</key>
+        <dict>
+            <key>Crashed</key>
+            <true/>
+        </dict>
+
+        <key>Disabled</key>
+        <false/>
+    </dict>
+</plist>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 OpenEstate.org.
+ * Copyright 2009-2019 OpenEstate.org.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,89 +24,78 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
 import org.hsqldb.persist.HsqlDatabaseProperties;
-import org.openestate.tool.server.ServerProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
 
 /**
- * MigrationUtils.
+ * Helper methods for database migration.
  *
- * @since 1.0
  * @author Andreas Rudolph
+ * @since 1.0
  */
-public final class MigrationUtils
-{
-  private final static Logger LOGGER = LoggerFactory.getLogger( MigrationUtils.class );
-  private static final I18n I18N = I18nFactory.getI18n( MigrationUtils.class );
+public final class MigrationUtils {
+    @SuppressWarnings("unused")
+    private static final Logger LOGGER = LoggerFactory.getLogger(MigrationUtils.class);
+    @SuppressWarnings("unused")
+    private static final I18n I18N = I18nFactory.getI18n(MigrationUtils.class);
 
-  private MigrationUtils()
-  {
-  }
-
-  public static void migrateFromOldDatabase( File dbDir, String name ) throws IOException
-  {
-    if (dbDir==null || !dbDir.isDirectory()) return;
-
-    // look for database files
-    final File dbScriptFile = new File( dbDir, name + ".script" );
-    final File dbPropsFile = new File( dbDir, name + ".properties" );
-    if (!dbPropsFile.isFile() || !dbScriptFile.isFile()) return;
-
-    // load database parameters
-    Properties props = new Properties();
-    InputStream input = null;
-    try
-    {
-      input = new FileInputStream( dbPropsFile );
-      props.load( input );
-    }
-    finally
-    {
-      IOUtils.closeQuietly( input );
+    private MigrationUtils() {
+        super();
     }
 
-    final String dbVersion = StringUtils.trimToEmpty( props.getProperty( "version" ) );
+    /**
+     * Migrate from an older database version.
+     *
+     * @param dbDir database directory
+     * @param name  database name
+     * @throws IOException if migration failed
+     */
+    public static void migrateFromOldDatabase(File dbDir, String name) throws IOException {
+        if (dbDir == null || !dbDir.isDirectory()) return;
 
-    // upgrade database structures from HSQLDB 2.2.x
-    if (dbVersion.startsWith( "2.2." ))
-    {
-      LOGGER.info( "Migrating database '" + dbDir.getAbsolutePath() + "' from " + dbVersion + " to " + HsqlDatabaseProperties.THIS_VERSION + "." );
+        // look for database files
+        final File dbScriptFile = new File(dbDir, name + ".script");
+        final File dbPropsFile = new File(dbDir, name + ".properties");
+        if (!dbPropsFile.isFile() || !dbScriptFile.isFile()) return;
 
-      Writer output = null;
-      File dbScriptFileNew = new File( dbDir, dbScriptFile.getName() + ".new" );
-      File dbScriptFileOld = new File( dbDir, dbScriptFile.getName() + ".old" );
-      Pattern pattern = Pattern.compile(
-        "SELECT ([\\w]*) INTO ([\\w]*) FROM ([\\w\\.]*) WHERE ([\\w]*)\\s?=\\s?CURRENT VALUE FOR ([\\w\\.]*);" );
-      try
-      {
-        output = new FileWriterWithEncoding( dbScriptFileNew, "UTF-8" );
-        for (String line : FileUtils.readLines( dbScriptFile, "UTF-8" ))
-        {
-          Matcher m = pattern.matcher( line );
-          while (m.find())
-          {
-            line = StringUtils.replace(
-              line, m.group( 0 ), "SET " + m.group( 2 ) + " = IDENTITY();" );
-          }
-          output.write( line );
-          output.write( SystemUtils.LINE_SEPARATOR );
+        // load database parameters
+        Properties props = new Properties();
+        try (InputStream input = new FileInputStream(dbPropsFile)) {
+            props.load(input);
         }
-        output.flush();
-        IOUtils.closeQuietly( output );
-        FileUtils.copyFile( dbScriptFile, dbScriptFileOld );
-        FileUtils.copyFile( dbScriptFileNew, dbScriptFile );
-      }
-      finally
-      {
-        IOUtils.closeQuietly( output );
-      }
+
+        final String dbVersion = StringUtils.trimToEmpty(props.getProperty("version"));
+
+        // upgrade database structures from HSQLDB 2.2.x
+        if (dbVersion.startsWith("2.2.")) {
+            LOGGER.info("Migrating database '" + dbDir.getAbsolutePath() + "' from " + dbVersion + " to " + HsqlDatabaseProperties.THIS_VERSION + ".");
+
+            File dbScriptFileNew = new File(dbDir, dbScriptFile.getName() + ".new");
+            File dbScriptFileOld = new File(dbDir, dbScriptFile.getName() + ".old");
+            //noinspection RegExpRedundantEscape
+            Pattern pattern = Pattern.compile(
+                    "SELECT ([\\w]*) INTO ([\\w]*) FROM ([\\w\\.]*) WHERE ([\\w]*)\\s?=\\s?CURRENT VALUE FOR ([\\w\\.]*);");
+
+            try (Writer output = new FileWriterWithEncoding(dbScriptFileNew, "UTF-8")) {
+                for (String line : FileUtils.readLines(dbScriptFile, "UTF-8")) {
+                    Matcher m = pattern.matcher(line);
+                    while (m.find()) {
+                        line = StringUtils.replace(
+                                line, m.group(0), "SET " + m.group(2) + " = IDENTITY();");
+                    }
+                    output.write(line);
+                    output.write(System.lineSeparator());
+                }
+                output.flush();
+            }
+
+            FileUtils.copyFile(dbScriptFile, dbScriptFileOld);
+            FileUtils.copyFile(dbScriptFileNew, dbScriptFile);
+        }
     }
-  }
 }

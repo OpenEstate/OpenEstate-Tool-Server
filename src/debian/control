@@ -1,0 +1,13 @@
+Package: openestate-immoserver
+Version: ${PackageVersion}
+Architecture: ${Architecture}
+Maintainer: OpenEstate.org <info@openestate.org>
+Installed-Size: ${InstalledSize}
+Depends: systemd, bash
+Section: misc
+Priority: optional
+Homepage: https://openestate.org/
+Description: A server for multi-user installations of OpenEstate-ImmoTool.
+ OpenEstate-ImmoServer provides a HSQLDB server, that may be used for
+ multi-user installations of OpenEstate-ImmoTool. Find out more at
+ https://openestate.org/

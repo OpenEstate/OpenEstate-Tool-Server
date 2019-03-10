@@ -1,0 +1,78 @@
+#!/bin/sh
+# ----------------------------------------------------------------------------
+# ${project.baseName} ${project.version}
+# post installation script for ${project.baseName}
+# Copyright (C) 2009-2019 OpenEstate.org
+# ----------------------------------------------------------------------------
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+set -e
+
+case "$1" in
+    configure)
+        # create user & group
+        getent group openestate > /dev/null 2>&1 || groupadd -r openestate
+        getent passwd openestate > /dev/null 2>&1 && usermod -c 'OpenEstate-ImmoServer' -g openestate -d /var/lib/OpenEstate-ImmoServer -m -s /usr/bin/nologin openestate
+        getent passwd openestate > /dev/null 2>&1 || useradd -r -c 'OpenEstate-ImmoServer' -g openestate -d /var/lib/OpenEstate-ImmoServer -m -s /usr/bin/nologin openestate
+        passwd -l openestate > /dev/null
+
+        # create var directory
+        [ -d /var/lib/OpenEstate-ImmoServer ] || mkdir /var/lib/OpenEstate-ImmoServer
+        chmod 750 /var/lib/OpenEstate-ImmoServer
+        chown openestate:openestate -R /var/lib/OpenEstate-ImmoServer
+
+        # create log directory
+        [ -d /var/log/OpenEstate-ImmoServer ] || mkdir /var/log/OpenEstate-ImmoServer
+        chmod 755 /var/log/OpenEstate-ImmoServer
+        chown openestate:openestate -R /var/log/OpenEstate-ImmoServer
+
+        # set permissions on etc directory
+        find /etc/OpenEstate-ImmoServer -type f -exec chown openestate:openestate {} \;
+        find /etc/OpenEstate-ImmoServer -type f -exec chmod 640 {} \;
+        chown openestate:openestate /etc/default/OpenEstate-ImmoServer
+        chmod 640 /etc/default/OpenEstate-ImmoServer
+
+        # Update systemd units.
+        SHELL=`which bash`
+        sed -i \
+            -e "s|\${ExecStart}|$SHELL /opt/OpenEstate-ImmoServer/bin/Start.sh|g" \
+            -e "s|\${WorkingDirectory}|/opt/OpenEstate-ImmoServer/bin|g" \
+            -e "s|\${User}|openestate|g" \
+            -e "s|\${Group}|openestate|g" \
+            "/etc/systemd/system/openestate-immoserver.service"
+        sed -i \
+            -e "s|\${ExecStart}|$SHELL /opt/OpenEstate-ImmoServer/bin/ManagerBackup.sh|g" \
+            -e "s|\${WorkingDirectory}|/opt/OpenEstate-ImmoServer/bin|g" \
+            -e "s|\${User}|openestate|g" \
+            -e "s|\${Group}|openestate|g" \
+            "/etc/systemd/system/openestate-immoserver-backup.service"
+
+        # setup services
+        systemctl daemon-reload
+        systemctl enable openestate-immoserver || true
+        systemctl enable openestate-immoserver-backup.timer || true
+        systemctl start openestate-immoserver || true
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        #exit 1
+    ;;
+esac
+
+exit 0
