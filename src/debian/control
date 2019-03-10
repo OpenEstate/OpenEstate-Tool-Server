@@ -7,5 +7,7 @@ Depends: systemd, bash
 Section: misc
 Priority: optional
 Homepage: https://openestate.org/
-Description: OpenEstate-ImmoServer provides a HSQLDB server,
- that may be used for multi user installations of OpenEstate-ImmoTool.
+Description: A server for multi-user installations of OpenEstate-ImmoTool.
+ OpenEstate-ImmoServer provides a HSQLDB server, that may be used for
+ multi-user installations of OpenEstate-ImmoTool. Find out more at
+ https://openestate.org/
