@@ -304,6 +304,7 @@
                                     <keywords>true</keywords>
                                     <quiet>true</quiet>
                                     <detectOfflineLinks>false</detectOfflineLinks>
+                                    <isOffline>false</isOffline>
                                     <!--<doclint>none</doclint>-->
                                     <links>
                                         <link>https://docs.oracle.com/javase/8/docs/api/</link>
