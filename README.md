@@ -1,5 +1,5 @@
-OpenEstate-Tool-Server 1.0.0-SNAPSHOT
-=====================================
+OpenEstate-Tool-Server 1.0.0
+============================
 
 *OpenEstate-Tool-Server* (also called *OpenEstate-ImmoServer*) provides a [*HSQLDB* server](http://hsqldb.org/), that may be used for multi user installations of *OpenEstate-ImmoTool*.
 
@@ -42,7 +42,7 @@ Take a look at [`CHANGELOG.md`](CHANGELOG.md) for the full changelog.
 License
 -------
 
-This library is licensed under the terms of [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html). Take a look at [`LICENSE.txt`](https://github.com/OpenEstate/OpenEstate-Tool-Server/blob/develop/LICENSE.txt) for the license text.
+This library is licensed under the terms of [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html). Take a look at [`LICENSE.txt`](https://github.com/OpenEstate/OpenEstate-Tool-Server/blob/master/LICENSE.txt) for the license text.
 
 
 Further information
@@ -50,5 +50,5 @@ Further information
 
 -   [*OpenEstate-Tool-Server* at GitHub](https://github.com/OpenEstate/OpenEstate-Tool-Server)
 -   [Releases of *OpenEstate-Tool-Server*](https://github.com/OpenEstate/OpenEstate-Tool-Server/releases)
--   [Changelog of *OpenEstate-Tool-Server*](https://github.com/OpenEstate/OpenEstate-Tool-Server/blob/develop/CHANGELOG.md)
+-   [Changelog of *OpenEstate-Tool-Server*](https://github.com/OpenEstate/OpenEstate-Tool-Server/blob/master/CHANGELOG.md)
 -   [Javadocs of *OpenEstate-Tool-Server*](https://media.openestate.org/apidocs/OpenEstate-Tool-Server/)
