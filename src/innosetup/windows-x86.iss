@@ -109,6 +109,32 @@ Name: "{group}\{cm:UninstallProgram,ImmoServer}"; \
 ;     Tasks: desktopicon
 
 
+[InstallDelete]
+Type: filesandordirs; Name: "{app}\jre"
+Type: filesandordirs; Name: "{app}\lib"
+Type: filesandordirs; Name: "{app}\share"
+Type: filesandordirs; Name: "{app}\bin\service"
+Type: files; Name: "{app}\bin\ManagerBackup.bat"
+Type: files; Name: "{app}\bin\ManagerBackup.exe"
+Type: files; Name: "{app}\bin\ManagerBackup.l4j.ini"
+Type: files; Name: "{app}\bin\ManagerConsole.bat"
+Type: files; Name: "{app}\bin\ManagerConsole.exe"
+Type: files; Name: "{app}\bin\ManagerConsole.l4j.ini"
+Type: files; Name: "{app}\bin\ManagerTool.bat"
+Type: files; Name: "{app}\bin\ManagerTool.exe"
+Type: files; Name: "{app}\bin\ManagerTool.l4j.ini"
+Type: files; Name: "{app}\bin\ServiceInstall.bat"
+Type: files; Name: "{app}\bin\ServiceStart.bat"
+Type: files; Name: "{app}\bin\ServiceStop.bat"
+Type: files; Name: "{app}\bin\ServiceUninstall.bat"
+Type: files; Name: "{app}\bin\SslInit.bat"
+Type: files; Name: "{app}\bin\SslInit.exe"
+Type: files; Name: "{app}\bin\SslInit.l4j.ini"
+Type: files; Name: "{app}\bin\Start.bat"
+Type: files; Name: "{app}\bin\Start.exe"
+Type: files; Name: "{app}\bin\Start.l4j.ini"
+
+
 [UninstallDelete]
 Type: filesandordirs; \
     Name: "{app}\etc\ssl"
