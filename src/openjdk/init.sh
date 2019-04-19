@@ -27,9 +27,9 @@
 LINUX_X86_JDK="https://github.com/OpenIndex/openjdk-linux-x86/releases/download/jdk-11.0.2%2B9/jdk-11.0.2+9-linux-x86.tar.gz"
 LINUX_X86_64_JDK="https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.2%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.2_9.tar.gz"
 LINUX_ARM32_JDK="https://github.com/bell-sw/Liberica/releases/download/11.0.2/bellsoft-jdk11.0.2-linux-arm32-vfp-hflt.tar.gz"
-MAC64_JDK="https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.2%2B9/OpenJDK11U-jdk_x64_mac_hotspot_11.0.2_9.tar.gz"
-WINDOWS32_JDK="https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.2%2B9/OpenJDK11U-jdk_x86-32_windows_hotspot_11.0.2_9.zip"
-WINDOWS64_JDK="https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.2%2B9/OpenJDK11U-jdk_x64_windows_hotspot_11.0.2_9.zip"
+MACOS_X86_64_JDK="https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.2%2B9/OpenJDK11U-jdk_x64_mac_hotspot_11.0.2_9.tar.gz"
+WINDOWS_X86_JDK="https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.2%2B9/OpenJDK11U-jdk_x86-32_windows_hotspot_11.0.2_9.zip"
+WINDOWS_X86_64_JDK="https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.2%2B9/OpenJDK11U-jdk_x64_windows_hotspot_11.0.2_9.zip"
 
 MODULES="java.se"
 
@@ -39,7 +39,7 @@ case "$SYSTEM" in
 
   Darwin)
     echo "Initializing macOS environment..."
-    SYSTEM_JDK="$MAC64_JDK"
+    SYSTEM_JDK="$MACOS_X86_64_JDK"
     ;;
 
   Linux)
@@ -94,4 +94,20 @@ function configure_runtime {
     # see https://bugs.openjdk.java.net/browse/JDK-8218093
     echo "Disabling TLSv1.3..."
     sed -i -e "s|^jdk.tls.disabledAlgorithms=|jdk.tls.disabledAlgorithms=TLSv1.3, |g" "${securityConf}"
+}
+
+
+#
+# Extract a downloaded archive.
+#
+
+function extract_archive {
+    archive="$1"
+    if [[ "$archive" == *.zip ]]; then
+        #echo "unzip $archive"
+        unzip -q "$archive"
+    else
+        #echo "untar $archive"
+        tar xfz "$archive"
+    fi
 }

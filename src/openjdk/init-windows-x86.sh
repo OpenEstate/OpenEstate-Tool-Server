@@ -33,7 +33,7 @@ rm -Rf "$TEMP_DIR"
 mkdir -p "$TEMP_DIR"
 
 TARGET="windows-x86"
-TARGET_JDK="$WINDOWS32_JDK"
+TARGET_JDK="$WINDOWS_X86_JDK"
 
 
 #
@@ -67,7 +67,7 @@ fi
 echo "Extracting OpenJDK modules for $TARGET..."
 mkdir -p "$TEMP_DIR/jdk"
 cd "$TEMP_DIR/jdk"
-unzip -q "$DOWNLOADS_DIR/$(basename "$TARGET_JDK")"
+extract_archive "$DOWNLOADS_DIR/$(basename "$TARGET_JDK")"
 find . -type f -exec chmod ugo-x {} \;
 mv "$(ls -1)/jmods" "$TEMP_DIR"
 
@@ -81,7 +81,7 @@ SYSTEM_JDK_DIR="$LOCAL_DIR/$(basename "$SYSTEM_JDK")"
 if [[ ! -d "$SYSTEM_JDK_DIR" ]]; then
     mkdir -p "$SYSTEM_JDK_DIR"
     cd "$SYSTEM_JDK_DIR"
-    tar xfz "$DOWNLOADS_DIR/$(basename "$SYSTEM_JDK")"
+    extract_archive "$DOWNLOADS_DIR/$(basename "$SYSTEM_JDK")"
     find "$(ls -1)" -type f -name "._*" -exec rm {} \;
 fi
 cd "$SYSTEM_JDK_DIR"

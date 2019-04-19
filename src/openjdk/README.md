@@ -1,5 +1,5 @@
 This folder contains *OpenJDK* binaries for the supported target platforms.
 
-Launch `init-*.sh` in order to download the *OpenJDK* from [AdoptOpenJDK](https://adoptopenjdk.net/) and [BellSoft](https://www.bell-sw.com/java.html) for the different target platforms. 
+Launch the `init-*.sh` scripts from this folder or the `openjdk-init.sh` script in the `release` directory in order to download *OpenJDK* for the different target platforms. After downloading a Java runtime environment is created in the `runtime` folder.
 
-The `init-*.sh` scripts create a stripped down *OpenJDK* runtime environment for the different target platforms in the `runtime` folder. These are used in the created application bundles during the build process.
+The created runtime environments are used by the installer scripts (`build-installer-*.sh`) in order to create the application bundles.

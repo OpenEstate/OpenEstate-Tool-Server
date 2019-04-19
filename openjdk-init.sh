@@ -21,17 +21,17 @@ set -e
 
 init () {
     echo ""
-    echo "============================================"
-    echo " launching $1"
-    echo "============================================"
+    printf "\e[1m\e[92m=================================================\e[0m\n"
+    printf "\e[1m\e[92m launching $1\e[0m\n"
+    printf "\e[1m\e[92m=================================================\e[0m\n"
+    echo ""
     exec "$1"
 }
 export -f init
 
 cd "$DIR"
-find "." \
+find "src/openjdk/" \
     -maxdepth 1 \
     -type f \
     -name "init-*.sh" \
-    -not -name "init-all.sh" \
     -exec bash -c 'init {}' \;

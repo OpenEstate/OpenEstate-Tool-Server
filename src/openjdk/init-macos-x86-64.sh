@@ -33,7 +33,7 @@ rm -Rf "$TEMP_DIR"
 mkdir -p "$TEMP_DIR"
 
 TARGET="macos-x86-64"
-TARGET_JDK="$MAC64_JDK"
+TARGET_JDK="$MACOS_X86_64_JDK"
 
 
 #
@@ -67,7 +67,7 @@ fi
 echo "Extracting OpenJDK modules for $TARGET..."
 mkdir -p "$TEMP_DIR/jdk"
 cd "$TEMP_DIR/jdk"
-tar xfz "$DOWNLOADS_DIR/$(basename "$TARGET_JDK")"
+extract_archive "$DOWNLOADS_DIR/$(basename "$TARGET_JDK")"
 find "$(ls -1)" -type f -name "._*" -exec rm {} \;
 if [[ -d "$(ls -1)/Contents/Home" ]]; then
     mv "$(ls -1)/Contents/Home/jmods" "$TEMP_DIR"
@@ -85,7 +85,7 @@ SYSTEM_JDK_DIR="$LOCAL_DIR/$(basename "$SYSTEM_JDK")"
 if [[ ! -d "$SYSTEM_JDK_DIR" ]]; then
     mkdir -p "$SYSTEM_JDK_DIR"
     cd "$SYSTEM_JDK_DIR"
-    tar xfz "$DOWNLOADS_DIR/$(basename "$SYSTEM_JDK")"
+    extract_archive "$DOWNLOADS_DIR/$(basename "$SYSTEM_JDK")"
     find "$(ls -1)" -type f -name "._*" -exec rm {} \;
 fi
 cd "$SYSTEM_JDK_DIR"
