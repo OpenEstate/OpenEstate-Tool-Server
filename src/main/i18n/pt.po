@@ -4,110 +4,111 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-23 19:30+0200\n"
-"PO-Revision-Date: 2019-04-23 19:41+0200\n"
-"Last-Translator: Andreas Rudolph <andy@openindex.de>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2019-04-24 17:42+0000\n"
+"Last-Translator: José Santos <guilherme.santos@web.de>\n"
+"Language-Team: Portuguese <https://i18n.openestate.org/projects/"
+"openestate-immotool/server/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.6\n"
 
 #: org/openestate/tool/server/Server.java:114
 #, java-format
 msgid "shutdown {0}"
-msgstr ""
+msgstr "desligar {0}"
 
 #: org/openestate/tool/server/Server.java:249
 #, java-format
 msgid "{0} is available for incoming connections."
-msgstr ""
+msgstr "{0} está agora disponível para conexões de entrada."
 
 #: org/openestate/tool/server/Server.java:256
 #, java-format
 msgid "{0} is shutting down."
-msgstr ""
+msgstr "{0} a desligar."
 
 #: org/openestate/tool/server/Server.java:263
 #, java-format
 msgid "{0} is starting up."
-msgstr ""
+msgstr "{0} está a ligar."
 
 #: org/openestate/tool/server/Server.java:270
 #, java-format
 msgid "{0} has been closed and is not available anymore."
-msgstr ""
+msgstr "{0} foi fechado e não está mais disponível."
 
 #: org/openestate/tool/server/utils/SslGenerator.java:117
 msgid "Generate RSA key pair and certificate for SSL encryption."
-msgstr ""
+msgstr "Gerir o par de chaves RSA e o certificado para criptografia SSL."
 
 #: org/openestate/tool/server/utils/SslGenerator.java:131
 msgid "Enter the ip-address / hostname of this server:"
-msgstr ""
+msgstr "Digite o endereço IP / hostname deste servidor:"
 
 #: org/openestate/tool/server/utils/SslGenerator.java:144
 msgid "Enter the password to access the keystore:"
-msgstr ""
+msgstr "Digite a senha para acessar o keystore:"
 
 #: org/openestate/tool/server/utils/SslGenerator.java:149
 msgid "Enter the password to access the keystore again:"
-msgstr ""
+msgstr "Digite a senha para acessar o keystore novamente:"
 
 #: org/openestate/tool/server/utils/SslGenerator.java:153
 msgid "error"
-msgstr ""
+msgstr "êrro"
 
 #: org/openestate/tool/server/utils/SslGenerator.java:154
 msgid "The provided passwords do not match."
-msgstr ""
+msgstr "As senhas fornecidas não correspondem."
 
 #: org/openestate/tool/server/utils/SslGenerator.java:161
 msgid "Creating files for SSL encryption..."
-msgstr ""
+msgstr "A criar arquivos para criptografia SSL ..."
 
 #: org/openestate/tool/server/utils/SslGenerator.java:203
 #, java-format
 msgid "Writing private key to {0}."
-msgstr ""
+msgstr "A escrever chave privada para {0}."
 
 #: org/openestate/tool/server/utils/SslGenerator.java:220
 #, java-format
 msgid "Writing public key to {0}."
-msgstr ""
+msgstr "A escrever chave pública para {0}."
 
 #: org/openestate/tool/server/utils/SslGenerator.java:258
 #, java-format
 msgid "Writing certificate to {0}."
-msgstr ""
+msgstr "A escrever certificado para {0}."
 
 #: org/openestate/tool/server/utils/SslGenerator.java:280
 #, java-format
 msgid "Writing keystore to {0}."
-msgstr ""
+msgstr "A escrever keystore para {0}."
 
 #: org/openestate/tool/server/utils/SslGenerator.java:295
 msgid "SSL encryption was successfully prepared!"
-msgstr ""
+msgstr "A criptografia SSL foi preparada com sucesso!"
 
 #: org/openestate/tool/server/utils/SslGenerator.java:298
 msgid "Follow these steps in order to enable SSL encryption."
-msgstr ""
+msgstr "Siga estas etapas para ativar a criptografia SSL."
 
 #: org/openestate/tool/server/utils/SslGenerator.java:300
 msgid "Open the following configuration file with a text editor:"
-msgstr ""
+msgstr "Abra o seguinte arquivo de configuração com um editor de texto:"
 
 #: org/openestate/tool/server/utils/SslGenerator.java:304
 msgid "Change the following values in the configuration file:"
-msgstr ""
+msgstr "Altere os seguintes valores no arquivo de configuração:"
 
 #: org/openestate/tool/server/utils/SslGenerator.java:310
 #, java-format
 msgid "Restart {0}."
-msgstr ""
+msgstr "Reiniciar {0}."
 
 #: org/openestate/tool/server/utils/SslGenerator.java:315
 msgid "Press ENTER to exit this application."
-msgstr ""
+msgstr "Pressione ENTER para sair deste aplicativo."
