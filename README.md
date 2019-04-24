@@ -25,7 +25,7 @@ Dependencies
 -   [commons-daemon 1.1.0](https://commons.apache.org/daemon/)
     (optional; used for installing a *Windows* service)
 -   [commons-io 2.6](https://commons.apache.org/io/)
--   [commons-lang 3.8.1](https://commons.apache.org/lang)
+-   [commons-lang 3.9](https://commons.apache.org/lang)
 -   [commons-text 1.6](https://commons.apache.org/text)
 -   [gettext-commons 0.9.8](https://code.google.com/archive/p/gettext-commons/)
 -   [hsqldb 2.4.1](http://hsqldb.org/)
