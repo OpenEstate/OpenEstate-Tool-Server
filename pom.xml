@@ -42,9 +42,7 @@
         <project.javadocDir>${project.basedir}/apidocs</project.javadocDir>
         <project.packageDir>${project.basedir}/package</project.packageDir>
         <commons-daemon.version>1.1.0</commons-daemon.version>
-        <commons-daemon.download>
-            http://www.apache.org/dist/commons/daemon/binaries/windows/commons-daemon-${commons-daemon.version}-bin-windows.zip
-        </commons-daemon.download>
+        <commons-daemon.download>http://www.apache.org/dist/commons/daemon/binaries/windows/commons-daemon-${commons-daemon.version}-bin-windows.zip</commons-daemon.download>
         <createChecksum>true</createChecksum>
 
         <!-- Set this value to true, in order to skip GPG signing during the release phase. -->
@@ -276,7 +274,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.0.1</version>
+                        <version>3.1.0</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -287,6 +285,7 @@
                                     <quiet>true</quiet>
                                     <encoding>${project.build.sourceEncoding}</encoding>
                                     <docencoding>${project.build.sourceEncoding}</docencoding>
+                                    <source>8</source>
                                 </configuration>
                             </execution>
                             <execution>
@@ -305,6 +304,7 @@
                                     <quiet>true</quiet>
                                     <detectOfflineLinks>false</detectOfflineLinks>
                                     <isOffline>false</isOffline>
+                                    <source>8</source>
                                     <!--<doclint>none</doclint>-->
                                     <links>
                                         <link>https://docs.oracle.com/javase/8/docs/api/</link>
@@ -574,7 +574,7 @@
                     <plugin>
                         <groupId>com.akathist.maven.plugins.launch4j</groupId>
                         <artifactId>launch4j-maven-plugin</artifactId>
-                        <version>1.7.24</version>
+                        <version>1.7.25</version>
                         <executions>
 
                             <!-- Start.exe -->
@@ -843,7 +843,7 @@
                     <!-- assembly -->
                     <plugin>
                         <artifactId>maven-assembly-plugin</artifactId>
-                        <version>3.1.0</version>
+                        <version>3.1.1</version>
                         <executions>
                             <execution>
                                 <id>assemble-debian-amd64</id>
