@@ -45,6 +45,7 @@ import org.hsqldb.lib.RCData;
 import org.hsqldb.lib.tar.TarGenerator;
 import org.hsqldb.lib.tar.TarMalformatException;
 import org.openestate.tool.server.ServerUtils;
+import org.openestate.tool.server.utils.CsvUtils;
 import org.openestate.tool.server.utils.DumpUtils;
 import org.openestate.tool.server.utils.SslUtils;
 import org.slf4j.Logger;
@@ -71,7 +72,7 @@ public class ManagerBackup {
     private static final String ID_OPTION = "id";
     private static final String DIR_OPTION = "dir";
     private static final String LIMIT_OPTION = "limit";
-    private static final String DUMP_OPTION = "dump";
+    private static final String TYPE_OPTION = "type";
     private static final String DELAY_OPTION = "delay";
     private static final String WAIT_OPTION = "wait";
 
@@ -84,16 +85,76 @@ public class ManagerBackup {
     }
 
     /**
-     * Create a database backup.
+     * Compress a folder into a TAR.GZ archive.
+     *
+     * @param srcDir      folder to compress
+     * @param archiveFile archive to create
+     * @throws IOException           if files can't be written
+     * @throws TarMalformatException if the tar.gz archive can't be written
+     */
+    private static void doCompress(File srcDir, File archiveFile) throws IOException, TarMalformatException {
+        TarGenerator generator = new TarGenerator(archiveFile, true, null);
+        Iterator<File> dumpedFiles = FileUtils.iterateFiles(srcDir, null, true);
+        while (dumpedFiles.hasNext()) {
+            File f = dumpedFiles.next();
+            if (f.isDirectory()) continue;
+            String tarPath = f.getAbsolutePath().substring(
+                    srcDir.getAbsolutePath().length() + 1);
+            generator.queueEntry(tarPath, f);
+        }
+
+        // TarGenerator writes stuff to System.err, that we like to ignore.
+        final PrintStream err = System.err;
+        try {
+            System.setErr(new PrintStream(new NullOutputStream()));
+            generator.write();
+        } finally {
+            System.setErr(err);
+        }
+    }
+
+    /**
+     * Create a database copy.
      *
      * @param c         database connection
      * @param backupDir directory, where backups are stored
      * @throws SQLException if communication with the database failed
      */
-    private static synchronized void doBackup(Connection c, File backupDir) throws SQLException {
+    private static synchronized void doCopy(Connection c, File backupDir) throws SQLException {
         String path = StringUtils.replace(backupDir.getAbsolutePath(), "'", "\'");
         Statement q = c.createStatement();
         q.execute("BACKUP DATABASE TO '" + path + "/' BLOCKING;");
+    }
+
+    /**
+     * Create a CSV export.
+     *
+     * @param c         database connection
+     * @param backupDir directory, where backups are stored
+     * @throws IOException           if files can't be written
+     * @throws SQLException          if communication with the database failed
+     * @throws TarMalformatException if the tar.gz archive can't be written
+     */
+    private static synchronized void doCsv(Connection c, File backupDir) throws IOException, SQLException, TarMalformatException {
+        final DateFormat format = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+        final File tempDir = new File(backupDir, "temp");
+        final File archiveFile = new File(backupDir, "db-" + format.format(new Date()) + ".tar.gz");
+        try {
+            if (tempDir.exists())
+                FileUtils.deleteQuietly(tempDir);
+            if (!tempDir.exists() && !tempDir.mkdirs())
+                throw new IOException("Can't create temporary backup directory!");
+            if (!tempDir.isDirectory())
+                throw new IOException("The temporary backup directory is invalid!");
+
+            // save dump into temporary directory
+            CsvUtils.dump(c, tempDir, false);
+
+            // create tar.gz archive of the temporary directory
+            doCompress(tempDir, archiveFile);
+        } finally {
+            FileUtils.deleteQuietly(tempDir);
+        }
     }
 
     /**
@@ -121,24 +182,7 @@ public class ManagerBackup {
             DumpUtils.dump(c, tempDir, "db");
 
             // create tar.gz archive of the temporary directory
-            TarGenerator generator = new TarGenerator(archiveFile, true, null);
-            Iterator<File> dumpedFiles = FileUtils.iterateFiles(tempDir, null, true);
-            while (dumpedFiles.hasNext()) {
-                File f = dumpedFiles.next();
-                if (f.isDirectory()) continue;
-                String tarPath = f.getAbsolutePath().substring(
-                        tempDir.getAbsolutePath().length() + 1);
-                generator.queueEntry(tarPath, f);
-            }
-
-            // TarGenerator writes stuff to System.err, that we like to ignore.
-            final PrintStream err = System.err;
-            try {
-                System.setErr(new PrintStream(new NullOutputStream()));
-                generator.write();
-            } finally {
-                System.setErr(err);
-            }
+            doCompress(tempDir, archiveFile);
         } finally {
             FileUtils.deleteQuietly(tempDir);
         }
@@ -191,9 +235,11 @@ public class ManagerBackup {
                                 .build()
                 )
                 .addOption(
-                        Option.builder(DUMP_OPTION)
-                                .longOpt("dump")
-                                .desc("Create a database dump instead of copying the raw database files.")
+                        Option.builder(TYPE_OPTION)
+                                .longOpt("type")
+                                .hasArg()
+                                .argName("type")
+                                .desc("Set the type of database backup (" + Type.write() + "). By default \"" + Type.COPY.name().toLowerCase() + "\" is used.")
                                 .build()
                 )
                 .addOption(
@@ -374,8 +420,10 @@ public class ManagerBackup {
             limit = 5;
         }
 
-        // detect dump
-        final boolean dump = commandLine.hasOption(DUMP_OPTION);
+        // detect type of backup
+        final Type type = Type.parse((commandLine.hasOption(TYPE_OPTION))?
+                commandLine.getOptionValue(TYPE_OPTION):
+                null);
 
         // trust all certificates
         try {
@@ -387,10 +435,12 @@ public class ManagerBackup {
         // process database backup
         int count = 0;
         for (String urlId : urlIdsToBackup) {
-            if (dump)
+            if (Type.DUMP.equals(type))
                 LOGGER.info("Creating dump of '{}' database...", urlId);
+            else if (Type.CSV.equals(type))
+                LOGGER.info("Creating CSV files of '{}' database...", urlId);
             else
-                LOGGER.info("Creating backup of '{}' database...", urlId);
+                LOGGER.info("Creating copy of '{}' database...", urlId);
 
             // get connection settings
             final RCData rcData;
@@ -426,10 +476,12 @@ public class ManagerBackup {
 
             // execute backup process
             try (Connection c = rcData.getConnection()) {
-                if (dump)
+                if (Type.DUMP.equals(type))
                     doDump(c, backupDir);
+                else if (Type.CSV.equals(type))
+                    doCsv(c, backupDir);
                 else
-                    doBackup(c, backupDir);
+                    doCopy(c, backupDir);
 
                 count++;
             } catch (Exception ex) {
@@ -502,5 +554,27 @@ public class ManagerBackup {
         }
         System.out.println("Press ENTER to close this application.");
         System.console().readLine();
+    }
+
+    private enum Type {
+        COPY, DUMP, CSV;
+
+        public static Type parse(String value) {
+            value = StringUtils.trimToNull(value);
+            if (value!=null) {
+                for (Type t : values()) {
+                    if (t.name().equalsIgnoreCase(value))
+                        return t;
+                }
+            }
+            return COPY;
+        }
+
+        public static String write() {
+            List<String> options = new ArrayList<>();
+            for (Type t : values())
+                options.add(t.name().toLowerCase());
+            return StringUtils.join(options, ", ");
+        }
     }
 }
