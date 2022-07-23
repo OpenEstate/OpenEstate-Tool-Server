@@ -20,7 +20,7 @@ OPTIONS=""
 TARGET="windows-x86"
 WINE="wine"
 WINEPATH="winepath"
-ISCC="$HOME/.wine/drive_c/Program Files/Inno Setup 5/ISCC.exe"
+ISCC="$HOME/.wine/drive_c/Program Files (x86)/Inno Setup 6/ISCC.exe"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 set -e

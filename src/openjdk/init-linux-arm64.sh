@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Build a runtime environment for macOS x86 64-bit.
+# Build a runtime environment for Linux 64-bit arm.
 # Copyright 2009-2022 OpenEstate.org
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,8 +32,8 @@ mkdir -p "$LOCAL_DIR"
 rm -Rf "$TEMP_DIR"
 mkdir -p "$TEMP_DIR"
 
-TARGET="macos-x86-64"
-TARGET_JDK="$MACOS_X86_64_JDK"
+TARGET="linux-arm64"
+TARGET_JDK="$LINUX_ARM64_JDK"
 
 
 #
@@ -68,12 +68,7 @@ echo "Extracting OpenJDK modules for $TARGET..."
 mkdir -p "$TEMP_DIR/jdk"
 cd "$TEMP_DIR/jdk"
 extract_archive "$DOWNLOADS_DIR/$(basename "$TARGET_JDK")"
-find "$(ls -1)" -type f -name "._*" -exec rm {} \;
-if [[ -d "$(ls -1)/Contents/Home" ]]; then
-    mv "$(ls -1)/Contents/Home/jmods" "$TEMP_DIR"
-else
-    mv "$(ls -1)/jmods" "$TEMP_DIR"
-fi
+mv "$(ls -1)/jmods" "$TEMP_DIR"
 
 
 #
@@ -86,7 +81,6 @@ if [[ ! -d "$SYSTEM_JDK_DIR" ]]; then
     mkdir -p "$SYSTEM_JDK_DIR"
     cd "$SYSTEM_JDK_DIR"
     extract_archive "$DOWNLOADS_DIR/$(basename "$SYSTEM_JDK")"
-    find "$(ls -1)" -type f -name "._*" -exec rm {} \;
 fi
 cd "$SYSTEM_JDK_DIR"
 if [[ -d "$SYSTEM_JDK_DIR/$(ls -1)/Contents/Home" ]]; then

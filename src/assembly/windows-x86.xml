@@ -138,7 +138,7 @@
             <useProjectArtifact>true</useProjectArtifact>
             <useProjectAttachments>true</useProjectAttachments>
             <includes>
-                <include>${project.groupId}:${project.artifactId}:*:javadoc</include>
+                <include>${project.groupId}:${project.artifactId}:*:javadoc:${project.version}</include>
             </includes>
         </dependencySet>
         <dependencySet>
@@ -146,7 +146,7 @@
             <useProjectArtifact>true</useProjectArtifact>
             <useProjectAttachments>true</useProjectAttachments>
             <includes>
-                <include>${project.groupId}:${project.artifactId}:*:sources</include>
+                <include>${project.groupId}:${project.artifactId}:*:sources:${project.version}</include>
             </includes>
         </dependencySet>
     </dependencySets>

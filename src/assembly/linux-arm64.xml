@@ -88,7 +88,7 @@
             </excludes>
         </fileSet>
         <fileSet>
-            <directory>${project.basedir}/src/openjdk/runtime/linux-arm32</directory>
+            <directory>${project.basedir}/src/openjdk/runtime/linux-arm64</directory>
             <outputDirectory>jre</outputDirectory>
             <filtered>false</filtered>
         </fileSet>

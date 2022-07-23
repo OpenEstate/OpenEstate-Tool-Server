@@ -7,7 +7,7 @@ AppSupportURL=https://openestate.org/support/tickets
 AppUpdatesURL=https://openestate.org/downloads/openestate-immoserver
 AppVersion={#VersionNumber}
 AppVerName=OpenEstate-ImmoServer {#Version}
-AppCopyright=(C) 2009-2019 OpenEstate.org
+AppCopyright=(C) 2009-2022 OpenEstate.org
 VersionInfoVersion={#VersionNumber}
 VersionInfoTextVersion={#Version}
 
@@ -15,10 +15,10 @@ OutputBaseFilename=OpenEstate-ImmoServer-{#Version}.windows-x86
 Compression=lzma2
 SolidCompression=no
 
-MinVersion=6.0
+MinVersion=6.1sp1
 SetupMutex=OpenEstateImmoServerSetup,Global\OpenEstateImmoServerSetup
 
-DefaultDirName={pf}\OpenEstate-ImmoServer
+DefaultDirName={commonpf}\OpenEstate-ImmoServer
 DefaultGroupName=OpenEstate-ImmoServer
 
 Uninstallable=yes

@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <name>OpenEstate-Tool-Server</name>
-    <description>This application provides a server for multi user installations of OpenEstate-ImmoTool.</description>
+    <description>This application provides a server for multi-user installations of OpenEstate-ImmoTool.</description>
     <url>https://openestate.org</url>
     <organization>
         <name>OpenEstate</name>
@@ -41,7 +41,7 @@
         <project.baseName>OpenEstate-ImmoServer</project.baseName>
         <project.javadocDir>${project.basedir}/apidocs</project.javadocDir>
         <project.packageDir>${project.basedir}/package</project.packageDir>
-        <commons-daemon.version>1.1.0</commons-daemon.version>
+        <commons-daemon.version>1.3.1</commons-daemon.version>
         <commons-daemon.download>http://www.apache.org/dist/commons/daemon/binaries/windows/commons-daemon-${commons-daemon.version}-bin-windows.zip</commons-daemon.download>
         <createChecksum>true</createChecksum>
 
@@ -149,7 +149,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
                 <configuration>
                     <filesets>
                         <fileset>
@@ -168,7 +168,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
@@ -178,11 +178,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.10.1</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>17</source>
+                    <release>17</release>
                     <showDeprecation>true</showDeprecation>
                     <debug>false</debug>
                 </configuration>
@@ -208,7 +208,7 @@
                     <targetBundle>org.openestate.tool.server.resources.Messages</targetBundle>
                     <poDirectory>${project.basedir}/src/main/i18n</poDirectory>
                     <outputDirectory>${project.basedir}/src/main/resources</outputDirectory>
-                    <outputFormat>class</outputFormat>
+                    <outputFormat>properties</outputFormat>
 
                     <!-- set path to the gettext utilities, if they are not found automatically -->
                     <!--
@@ -259,7 +259,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>3.0.1</version>
+                        <version>3.2.1</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -274,7 +274,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.1.0</version>
+                        <version>3.4.0</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -318,7 +318,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.8</version>
+                        <version>3.1.0</version>
                         <executions>
                             <execution>
                                 <id>prepare-runtime</id>
@@ -362,7 +362,7 @@
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>prepare-macos-package</id>
+                                <id>prepare-macos-x86-64</id>
                                 <phase>prepare-package</phase>
                                 <goals>
                                     <goal>run</goal>
@@ -372,6 +372,96 @@
                                         <echo message="Preparing application bundle for macOS..." level="info"/>
                                         <property name="macOS.packageDir"
                                                   value="${project.basedir}/package/macos-x86-64/OpenEstate-ImmoServer.app"/>
+                                        <property name="macOS.resourcesDir"
+                                                  value="${macOS.packageDir}/Contents/Resources"/>
+                                        <property name="macOS.launcherDir"
+                                                  value="${macOS.packageDir}/Contents/MacOS/OpenEstate-ImmoServer"/>
+                                        <mkdir dir="${macOS.resourcesDir}"/>
+                                        <mkdir dir="${macOS.launcherDir}"/>
+
+                                        <echo message="Creating softlink in Start.app..." level="info"/>
+                                        <mkdir dir="${macOS.launcherDir}/Start.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/Start.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+
+                                        <echo message="Creating softlink in ServiceInstall.app..." level="info"/>
+                                        <mkdir dir="${macOS.launcherDir}/ServiceInstall.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/ServiceInstall.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+
+                                        <echo message="Creating softlink in ServiceUninstall.app..." level="info"/>
+                                        <mkdir dir="${macOS.launcherDir}/ServiceUninstall.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/ServiceUninstall.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+
+                                        <echo message="Creating softlink in ServiceStart.app..." level="info"/>
+                                        <mkdir dir="${macOS.launcherDir}/ServiceStart.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/ServiceStart.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+
+                                        <echo message="Creating softlink in ServiceStop.app..." level="info"/>
+                                        <mkdir dir="${macOS.launcherDir}/ServiceStop.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/ServiceStop.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+
+                                        <echo message="Creating softlink in ServiceStatus.app..." level="info"/>
+                                        <mkdir dir="${macOS.launcherDir}/ServiceStatus.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/ServiceStatus.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+
+                                        <echo message="Creating softlink in SslInit.app..." level="info"/>
+                                        <mkdir dir="${macOS.launcherDir}/SslInit.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/SslInit.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+
+                                        <echo message="Creating softlink in ManagerBackup.app..." level="info"/>
+                                        <mkdir dir="${macOS.launcherDir}/ManagerBackup.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/ManagerBackup.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+
+                                        <echo message="Creating softlink in ManagerConsole.app..." level="info"/>
+                                        <mkdir dir="${macOS.launcherDir}/ManagerConsole.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/ManagerConsole.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+
+                                        <echo message="Creating softlink in ManagerTool.app..." level="info"/>
+                                        <mkdir dir="${macOS.launcherDir}/ManagerTool.app/Contents"/>
+                                        <exec executable="ln" dir="${macOS.launcherDir}/ManagerTool.app/Contents">
+                                            <arg value="-s"/>
+                                            <arg value="../../../../Resources"/>
+                                        </exec>
+                                    </target>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>prepare-macos-arm64</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <echo message="Preparing application bundle for macOS..." level="info"/>
+                                        <property name="macOS.packageDir"
+                                                  value="${project.basedir}/package/macos-arm64/OpenEstate-ImmoServer.app"/>
                                         <property name="macOS.resourcesDir"
                                                   value="${macOS.packageDir}/Contents/Resources"/>
                                         <property name="macOS.launcherDir"
@@ -486,6 +576,13 @@
                                             <arg value="."/>
                                         </exec>
 
+                                        <echo message="Creating Linux arm64 bundle..." level="info"/>
+                                        <exec executable="tar" dir="${packageDir}/linux-arm64">
+                                            <arg value="cfz"/>
+                                            <arg value="../OpenEstate-ImmoServer-${project.version}.linux-arm64.tar.gz"/>
+                                            <arg value="."/>
+                                        </exec>
+
                                         <echo message="Creating Debian amd64 package..." level="info"/>
                                         <exec executable="bash" dir="${project.basedir}">
                                             <env key="BUILD_VERSION" value="${project.version}"/>
@@ -507,10 +604,24 @@
                                             <arg value="build-installer-debian-armhf.sh"/>
                                         </exec>
 
+                                        <echo message="Creating Debian arm64 package..." level="info"/>
+                                        <exec executable="bash" dir="${project.basedir}">
+                                            <env key="BUILD_VERSION" value="${project.version}"/>
+                                            <env key="BUILD_TIME" value="${buildTime}"/>
+                                            <arg value="build-installer-debian-arm64.sh"/>
+                                        </exec>
+
                                         <echo message="Creating macOS x86-64 bundle..." level="info"/>
                                         <exec executable="tar" dir="${packageDir}/macos-x86-64">
                                             <arg value="cfz"/>
                                             <arg value="../OpenEstate-ImmoServer-${project.version}.macos-x86-64.tar.gz"/>
+                                            <arg value="."/>
+                                        </exec>
+
+                                        <echo message="Creating macOS arm64 bundle..." level="info"/>
+                                        <exec executable="tar" dir="${packageDir}/macos-arm64">
+                                            <arg value="cfz"/>
+                                            <arg value="../OpenEstate-ImmoServer-${project.version}.macos-arm64.tar.gz"/>
                                             <arg value="."/>
                                         </exec>
 
@@ -537,7 +648,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
-                        <version>3.1.1</version>
+                        <version>3.3.0</version>
                         <executions>
                             <execution>
                                 <id>copy-dependency-sources</id>
@@ -574,7 +685,7 @@
                     <plugin>
                         <groupId>com.akathist.maven.plugins.launch4j</groupId>
                         <artifactId>launch4j-maven-plugin</artifactId>
-                        <version>1.7.25</version>
+                        <version>2.1.2</version>
                         <executions>
 
                             <!-- Start.exe -->
@@ -824,7 +935,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>3.0.1</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -843,7 +954,7 @@
                     <!-- assembly -->
                     <plugin>
                         <artifactId>maven-assembly-plugin</artifactId>
-                        <version>3.1.1</version>
+                        <version>3.4.1</version>
                         <executions>
                             <execution>
                                 <id>assemble-debian-amd64</id>
@@ -893,6 +1004,23 @@
                                     <attach>false</attach>
                                     <descriptors>
                                         <descriptor>${project.basedir}/src/assembly/debian-armhf.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>assemble-debian-arm64</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <finalName>debian-arm64</finalName>
+                                    <outputDirectory>${project.packageDir}</outputDirectory>
+                                    <tarLongFileMode>posix</tarLongFileMode>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                    <attach>false</attach>
+                                    <descriptors>
+                                        <descriptor>${project.basedir}/src/assembly/debian-arm64.xml</descriptor>
                                     </descriptors>
                                 </configuration>
                             </execution>
@@ -948,6 +1076,23 @@
                                 </configuration>
                             </execution>
                             <execution>
+                                <id>assemble-linux-arm64</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <finalName>linux-arm64</finalName>
+                                    <outputDirectory>${project.packageDir}</outputDirectory>
+                                    <tarLongFileMode>posix</tarLongFileMode>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                    <attach>false</attach>
+                                    <descriptors>
+                                        <descriptor>${project.basedir}/src/assembly/linux-arm64.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                            <execution>
                                 <id>assemble-macos-x86-64</id>
                                 <phase>package</phase>
                                 <goals>
@@ -961,6 +1106,23 @@
                                     <attach>false</attach>
                                     <descriptors>
                                         <descriptor>${project.basedir}/src/assembly/macos-x86-64.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>assemble-macos-arm64</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <finalName>macos-arm64</finalName>
+                                    <outputDirectory>${project.packageDir}</outputDirectory>
+                                    <tarLongFileMode>posix</tarLongFileMode>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                    <attach>false</attach>
+                                    <descriptors>
+                                        <descriptor>${project.basedir}/src/assembly/macos-arm64.xml</descriptor>
                                     </descriptors>
                                 </configuration>
                             </execution>

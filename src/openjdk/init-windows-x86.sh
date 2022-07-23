@@ -114,9 +114,10 @@ echo "Building runtime environment for $TARGET..."
     --module-path "$TEMP_DIR/jmods" \
     --output "$DIR/runtime/$TARGET" \
     --compress=1 \
-    --strip-debug \
     --no-header-files \
     --no-man-pages
+
+# --strip-debug
 
 configure_runtime "$DIR/runtime/$TARGET"
 

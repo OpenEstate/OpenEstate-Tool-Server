@@ -23,12 +23,14 @@
 #
 # -----------------------------------------------------------------------
 
-LINUX_X86_JDK="https://download.bell-sw.com/java/11.0.3/bellsoft-jdk11.0.3-linux-i586.tar.gz"
-LINUX_X86_64_JDK="https://download.bell-sw.com/java/11.0.3/bellsoft-jdk11.0.3-linux-amd64.tar.gz"
-LINUX_ARM32_JDK="https://download.bell-sw.com/java/11.0.3/bellsoft-jdk11.0.3-linux-arm32-vfp-hflt.tar.gz"
-MACOS_X86_64_JDK="https://download.bell-sw.com/java/11.0.3/bellsoft-jdk11.0.3-macos-amd64.zip"
-WINDOWS_X86_JDK="https://download.bell-sw.com/java/11.0.3/bellsoft-jdk11.0.3-windows-i586.zip"
-WINDOWS_X86_64_JDK="https://download.bell-sw.com/java/11.0.3/bellsoft-jdk11.0.3-windows-amd64.zip"
+LINUX_X86_JDK="https://download.bell-sw.com/java/17.0.4+8/bellsoft-jdk17.0.4+8-linux-i586.tar.gz"
+LINUX_X86_64_JDK="https://download.bell-sw.com/java/17.0.4+8/bellsoft-jdk17.0.4+8-linux-amd64.tar.gz"
+LINUX_ARM32_JDK="https://download.bell-sw.com/java/17.0.4+8/bellsoft-jdk17.0.4+8-linux-arm32-vfp-hflt.tar.gz"
+LINUX_ARM64_JDK="https://download.bell-sw.com/java/17.0.4+8/bellsoft-jdk17.0.4+8-linux-aarch64.tar.gz"
+MACOS_X86_64_JDK="https://download.bell-sw.com/java/17.0.4+8/bellsoft-jdk17.0.4+8-macos-amd64.zip"
+MACOS_ARM64_JDK="https://download.bell-sw.com/java/17.0.4+8/bellsoft-jdk17.0.4+8-macos-aarch64.zip"
+WINDOWS_X86_JDK="https://download.bell-sw.com/java/17.0.4+8/bellsoft-jdk17.0.4+8-windows-i586.zip"
+WINDOWS_X86_64_JDK="https://download.bell-sw.com/java/17.0.4+8/bellsoft-jdk17.0.4+8-windows-amd64.zip"
 
 MODULES="java.se"
 

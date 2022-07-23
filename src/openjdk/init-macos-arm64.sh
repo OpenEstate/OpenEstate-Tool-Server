@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Build a runtime environment for macOS x86 64-bit.
+# Build a runtime environment for macOS ARM 64-bit.
 # Copyright 2009-2022 OpenEstate.org
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,8 +32,8 @@ mkdir -p "$LOCAL_DIR"
 rm -Rf "$TEMP_DIR"
 mkdir -p "$TEMP_DIR"
 
-TARGET="macos-x86-64"
-TARGET_JDK="$MACOS_X86_64_JDK"
+TARGET="macos-arm64"
+TARGET_JDK="$MACOS_ARM64_JDK"
 
 
 #
