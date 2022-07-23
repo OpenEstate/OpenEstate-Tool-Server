@@ -19,7 +19,7 @@
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
             <distribution>repo</distribution>
             <comments>A business-friendly OSS license</comments>
         </license>
@@ -286,10 +286,10 @@
                                     <quiet>true</quiet>
                                     <detectOfflineLinks>false</detectOfflineLinks>
                                     <isOffline>false</isOffline>
-                                    <source>8</source>
+                                    <source>17</source>
                                     <!--<doclint>none</doclint>-->
                                     <links>
-                                        <link>https://docs.oracle.com/javase/8/docs/api/</link>
+                                        <link>https://docs.oracle.com/en/java/javase/17/docs/api/</link>
                                     </links>
                                 </configuration>
                             </execution>
