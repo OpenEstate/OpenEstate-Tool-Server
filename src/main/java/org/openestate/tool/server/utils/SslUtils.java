@@ -39,6 +39,12 @@ public class SslUtils {
     private final static Logger LOGGER = LoggerFactory.getLogger(SslUtils.class);
     private static SSLContext context;
 
+    /**
+     * Install an SSL socket factory, that does not validate certificates.
+     *
+     * @throws NoSuchAlgorithmException if no {@code Provider} for TLS was found
+     * @throws KeyManagementException   if trust manager can't be initialized
+     */
     public static void installLooseSslSocketFactory() throws NoSuchAlgorithmException, KeyManagementException {
         context = SSLContext.getInstance("TLS");
         context.init(null, new TrustManager[]{new LooseTrustManager()}, null);
@@ -48,6 +54,9 @@ public class SslUtils {
                 LooseSslSocketFactory.class.getName());
     }
 
+    /**
+     * SSL socket factory, that does not validate certificates.
+     */
     public static class LooseSslSocketFactory extends SSLSocketFactory {
         @Override
         public String[] getDefaultCipherSuites() {
@@ -85,6 +94,9 @@ public class SslUtils {
         }
     }
 
+    /**
+     * Trust manager, that ignores certificate checks.
+     */
     private static class LooseTrustManager implements X509TrustManager {
         public X509Certificate[] getAcceptedIssuers() {
             return new X509Certificate[]{};

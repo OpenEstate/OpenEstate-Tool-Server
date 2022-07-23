@@ -51,6 +51,7 @@ public class ManagerUtils {
      *
      * @param rcFile rc file to parse
      * @return list of configured connection ID's
+     * @throws IOException if rc file is not readable
      * @see <a href="http://www.hsqldb.org/doc/2.0/util-guide/sqltool-chapt.html#sqltool_auth-sect">Sample RC File</a>
      */
     public static Collection<String> getUrlIds(File rcFile) throws IOException {

@@ -56,6 +56,7 @@ public class ServerProperties extends org.hsqldb.server.ServerProperties {
      *
      * @param protocol type of server ({@link org.hsqldb.server.ServerConstants#SC_PROTOCOL_HTTP}, {@link org.hsqldb.server.ServerConstants#SC_PROTOCOL_HSQL} or {@link org.hsqldb.server.ServerConstants#SC_PROTOCOL_BER})
      * @param props    server properties
+     * @return ServerProperties created server properties
      * @throws IOException if properties are not readable
      */
     public static ServerProperties create(int protocol, InputStream props) throws IOException {
@@ -72,7 +73,7 @@ public class ServerProperties extends org.hsqldb.server.ServerProperties {
      * Replace system properties in server configuration.
      */
     private void init() {
-        Enumeration e = this.stringProps.keys();
+        Enumeration<?> e = this.stringProps.keys();
         while (e.hasMoreElements()) {
             String key = (String) e.nextElement();
             String value = this.stringProps.getProperty(key);

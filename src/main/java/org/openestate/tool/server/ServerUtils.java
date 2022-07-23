@@ -111,6 +111,7 @@ public class ServerUtils {
      * Get etc directory used by the server.
      *
      * @return etc directory
+     * @throws IOException if etc directory is invalid
      */
     public static File getEtcDir() throws IOException {
         if (ETC_DIR != null) return ETC_DIR;
@@ -163,6 +164,7 @@ public class ServerUtils {
      * Get log directory used by the server.
      *
      * @return log directory
+     * @throws IOException if log directory is invalid
      */
     public static File getLogDir() throws IOException {
         if (LOG_DIR != null) return LOG_DIR;
@@ -187,6 +189,12 @@ public class ServerUtils {
         }
     }
 
+    /**
+     * Open a resource from server classpath.
+     *
+     * @param name resource name
+     * @return input to the resource
+     */
     public static InputStream getResource(String name) {
         return ServerUtils.class.getClassLoader().getResourceAsStream(
                 "org/openestate/tool/server/resources/" + name);
@@ -196,6 +204,7 @@ public class ServerUtils {
      * Get var directory used by the server.
      *
      * @return var directory
+     * @throws IOException if var directory is invalid
      */
     public static File getVarDir() throws IOException {
         if (VAR_DIR != null) return VAR_DIR;
