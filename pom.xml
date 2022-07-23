@@ -52,13 +52,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>annotations</artifactId>
-            <version>3.0.1u2</version>
-            <scope>compile</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>
             <version>1.61</version>
@@ -185,17 +178,6 @@
                     <release>17</release>
                     <showDeprecation>true</showDeprecation>
                     <debug>false</debug>
-                </configuration>
-            </plugin>
-
-            <!-- findbugs -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>3.0.5</version>
-                <configuration>
-                    <failOnError>false</failOnError>
-                    <excludeFilterFile>${project.basedir}/src/findbugs/exclude.xml</excludeFilterFile>
                 </configuration>
             </plugin>
 
@@ -660,7 +642,6 @@
                                     <silent>true</silent>
                                     <classifier>sources</classifier>
                                     <outputDirectory>${project.build.directory}/dependencies/sources</outputDirectory>
-                                    <excludeGroupIds>com.google.code.findbugs,net.jcip</excludeGroupIds>
                                     <includeScope>runtime</includeScope>
                                 </configuration>
                             </execution>
@@ -674,7 +655,6 @@
                                     <silent>true</silent>
                                     <classifier>javadoc</classifier>
                                     <outputDirectory>${project.build.directory}/dependencies/javadoc</outputDirectory>
-                                    <excludeGroupIds>com.google.code.findbugs,net.jcip</excludeGroupIds>
                                     <includeScope>runtime</includeScope>
                                 </configuration>
                             </execution>

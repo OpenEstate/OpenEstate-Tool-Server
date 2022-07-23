@@ -128,10 +128,6 @@
             <useTransitiveDependencies>true</useTransitiveDependencies>
             <useTransitiveFiltering>true</useTransitiveFiltering>
             <scope>runtime</scope>
-            <excludes>
-                <exclude>com.google.code.findbugs:*</exclude>
-                <exclude>net.jcip:*</exclude>
-            </excludes>
         </dependencySet>
         <dependencySet>
             <outputDirectory>share/javadoc</outputDirectory>

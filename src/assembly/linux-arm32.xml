@@ -103,8 +103,6 @@
             <useTransitiveFiltering>true</useTransitiveFiltering>
             <scope>runtime</scope>
             <excludes>
-                <exclude>com.google.code.findbugs:*</exclude>
-                <exclude>net.jcip:*</exclude>
                 <exclude>commons-daemon:*</exclude>
             </excludes>
         </dependencySet>
