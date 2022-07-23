@@ -1,7 +1,7 @@
 @REM ----------------------------------------------------------------------------
 @REM ${project.baseName} ${project.version}
 @REM start ${project.baseName} in foreground
-@REM Copyright (C) 2009-2019 OpenEstate.org
+@REM Copyright (C) 2009-2022 OpenEstate.org
 @REM ----------------------------------------------------------------------------
 @REM
 @REM Licensed under the Apache License, Version 2.0 (the "License");

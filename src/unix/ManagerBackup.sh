@@ -2,7 +2,7 @@
 # ----------------------------------------------------------------------------
 # ${project.baseName} ${project.version}
 # backup databases of the currently running HSQLDB server
-# Copyright (C) 2009-2019 OpenEstate.org
+# Copyright (C) 2009-2022 OpenEstate.org
 # ----------------------------------------------------------------------------
 #
 # Licensed under the Apache License, Version 2.0 (the "License");

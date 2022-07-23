@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Build a runtime environment for Windows 32-bit x86
-# Copyright 2009-2019 OpenEstate.org
+# Copyright 2009-2022 OpenEstate.org
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
