@@ -135,7 +135,7 @@ public class ManagerBackup {
             // TarGenerator writes stuff to System.err, that we like to ignore.
             final PrintStream err = System.err;
             try {
-                System.setErr(new PrintStream(new NullOutputStream()));
+                System.setErr(new PrintStream(NullOutputStream.NULL_OUTPUT_STREAM));
                 generator.write();
             } finally {
                 System.setErr(err);
