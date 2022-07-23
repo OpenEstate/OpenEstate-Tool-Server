@@ -249,7 +249,7 @@ public class ManagerBackup {
             if (delay > 0) {
                 LOGGER.info("Waiting for " + delay + " seconds...");
                 try {
-                    Thread.sleep(delay * 1000);
+                    Thread.sleep(delay * 1000L);
                 } catch (InterruptedException ex) {
                     LOGGER.warn("Sleep was interrupted!", ex);
                 }
