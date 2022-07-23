@@ -15,6 +15,15 @@
  */
 package org.openestate.tool.server.utils;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.output.FileWriterWithEncoding;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -32,14 +41,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.output.FileWriterWithEncoding;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Helper methods to create database dumps.
@@ -185,9 +186,9 @@ public class DumpUtils {
                 for (String pkCol : tablePK) {
                     Object pkValue = result.getObject(pkCol);
                     if (pkValue instanceof Number) {
-                        pkConditions.add(pkCol + " = " + pkValue.toString());
+                        pkConditions.add(pkCol + " = " + pkValue);
                     } else if (pkValue instanceof String) {
-                        pkConditions.add(pkCol + " = '" + pkValue.toString() + "'");
+                        pkConditions.add(pkCol + " = '" + pkValue + "'");
                     } else {
                         if (pkValue == null)
                             LOGGER.warn("Empty primary key in '" + tableScheme + "." + tableName + "." + pkCol + "'");

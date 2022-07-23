@@ -15,21 +15,6 @@
  */
 package org.openestate.tool.server.manager;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -51,6 +36,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created automated backups of the HSQLDB database.
@@ -91,7 +92,7 @@ public class ManagerBackup {
      * @throws SQLException if communication with the database failed
      */
     private static synchronized void doBackup(Connection c, File backupDir) throws SQLException {
-        String path = StringUtils.replace(backupDir.getAbsolutePath(), "'", "\'");
+        String path = StringUtils.replace(backupDir.getAbsolutePath(), "'", "\\'");
         Statement q = c.createStatement();
         q.execute("BACKUP DATABASE TO '" + path + "/' BLOCKING;");
     }

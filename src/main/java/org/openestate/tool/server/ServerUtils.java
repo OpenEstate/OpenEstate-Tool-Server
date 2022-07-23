@@ -18,10 +18,6 @@ package org.openestate.tool.server;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Enumeration;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +27,11 @@ import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Enumeration;
+
 /**
  * Helper methods for the server environment.
  *
@@ -39,41 +40,34 @@ import org.xnap.commons.i18n.I18nFactory;
  */
 @SuppressWarnings("WeakerAccess")
 public class ServerUtils {
-    @SuppressWarnings("unused")
-    private static final Logger LOGGER;
-    @SuppressWarnings("unused")
-    private static final I18n I18N = I18nFactory.getI18n(ServerUtils.class);
-
     /**
      * Name of the server.
      */
     public static final String TITLE = "OpenEstate-ImmoServer";
-
     /**
      * Name of the system property, that contains the application name.
      */
     public static final String APP_PROPERTY = "openestate.server.app";
-
     /**
      * Name of the system property, that points to the etc directory of the server.
      */
     public static final String ETC_DIR_PROPERTY = "openestate.server.etcDir";
-
     /**
      * Name of the system property, that points to the log directory of the server.
      */
     public static final String LOG_DIR_PROPERTY = "openestate.server.logDir";
-
     /**
      * Name of the system property, that points to the var directory of the server.
      */
     public static final String VAR_DIR_PROPERTY = "openestate.server.varDir";
-
     /**
      * Name of the system property, that enables / disables the system tray icon.
      */
     public static final String SYSTEM_TRAY_PROPERTY = "openestate.server.systemTray";
-
+    @SuppressWarnings("unused")
+    private static final Logger LOGGER;
+    @SuppressWarnings("unused")
+    private static final I18n I18N = I18nFactory.getI18n(ServerUtils.class);
     private static File ETC_DIR = null;
     private static File LOG_DIR = null;
     private static File VAR_DIR = null;

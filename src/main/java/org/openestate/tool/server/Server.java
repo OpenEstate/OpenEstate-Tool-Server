@@ -15,15 +15,6 @@
  */
 package org.openestate.tool.server;
 
-import java.awt.AWTException;
-import java.awt.Image;
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
-import java.awt.SystemTray;
-import java.awt.TrayIcon;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -34,6 +25,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Implementation of OpenEstate-ImmoServer.
@@ -130,11 +126,6 @@ public class Server extends org.hsqldb.Server {
         }
     }
 
-    @Override
-    public boolean isNoSystemExit() {
-        return shutdownHookTriggered || super.isNoSystemExit();
-    }
-
     /**
      * Create and start the server instance.
      *
@@ -217,6 +208,11 @@ public class Server extends org.hsqldb.Server {
 
         // start the database server
         server.start();
+    }
+
+    @Override
+    public boolean isNoSystemExit() {
+        return shutdownHookTriggered || super.isNoSystemExit();
     }
 
     @Override
