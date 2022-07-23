@@ -17,20 +17,20 @@ This project
 Dependencies
 ------------
 
--   Java 8 or newer
--   [Bouncy Castle 1.61](https://bouncycastle.org/) 
+-   Java 17 or newer
+-   [Bouncy Castle 1.71](https://bouncycastle.org/) 
     (optional; only required by [`SslGenerator.java`](src/main/java/org/openestate/tool/server/utils/SslGenerator.java))
--   [commons-cli 1.4](https://commons.apache.org/cli/)
+-   [commons-cli 1.5.0](https://commons.apache.org/cli/)
     (optional; used for [management applications](src/main/java/org/openestate/tool/server/manager))
--   [commons-daemon 1.1.0](https://commons.apache.org/daemon/)
+-   [commons-daemon 1.3.1](https://commons.apache.org/daemon/)
     (optional; used for installing a *Windows* service)
--   [commons-io 2.6](https://commons.apache.org/io/)
--   [commons-lang 3.9](https://commons.apache.org/lang)
--   [commons-text 1.6](https://commons.apache.org/text)
+-   [commons-io 2.11.0](https://commons.apache.org/io/)
+-   [commons-lang 3.12.0](https://commons.apache.org/lang)
+-   [commons-text 1.9](https://commons.apache.org/text)
 -   [gettext-commons 0.9.8](https://code.google.com/archive/p/gettext-commons/)
--   [hsqldb 2.4.1](http://hsqldb.org/)
--   [logback 1.2.3](https://logback.qos.ch/)
--   [SLF4J 1.7.25](https://www.slf4j.org/)
+-   [hsqldb 2.6.1](http://hsqldb.org/)
+-   [logback 1.2.11](https://logback.qos.ch/)
+-   [SLF4J 1.7.36](https://www.slf4j.org/)
 
 
 Changelog
